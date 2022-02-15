@@ -1,11 +1,10 @@
-public class ListRelationships {
+public class Relationship {
     private int a;
     private int b;
     private int timestamp;
     private int interactions;
 
-
-    public ListRelationships(int a, int b, int timestamp, int interactions) {
+    public Relationship(int a, int b, int timestamp, int interactions) {
         this.a = a;
         this.b = b;
         this.timestamp = timestamp;

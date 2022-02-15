@@ -1,48 +1,48 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
+import java.util.List;
 
 public class User {
-    private String nameUser;
-    private ArrayList<UserList> userLists;
-    private int numberRelationships;
-    private ArrayList<ListRelationships> listRelationships;
+    private int id;
+    private String name;
+    private String alias;
+    private List<String> interests;
 
-    public User(String nameUser, ArrayList<UserList> userLists, int numberRelationships, ArrayList<ListRelationships> listRelationships) {
-        this.nameUser = nameUser;
-        this.userLists = userLists;
-        this.numberRelationships = numberRelationships;
-        this.listRelationships = listRelationships;
+    public User(int id, String name, String alias, List<String> interests) {
+        this.id = id;
+        this.name = name;
+        this.alias = alias;
+        this.interests = interests;
     }
 
-    public String getNameUser() {
-        return nameUser;
+    public int getId() {
+        return id;
     }
 
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public ArrayList<UserList> getUserLists() {
-        return userLists;
+    public String getName() {
+        return name;
     }
 
-    public void setUserLists(ArrayList<UserList> userLists) {
-        this.userLists = userLists;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getNumberRelationships() {
-        return numberRelationships;
+    public String getAlias() {
+        return alias;
     }
 
-    public void setNumberRelationships(int numberRelationships) {
-        this.numberRelationships = numberRelationships;
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
-    public ArrayList<ListRelationships> getListRelationships() {
-        return listRelationships;
+    public List<String> getInterests() {
+        return interests;
     }
 
-    public void setListRelationships(ArrayList<ListRelationships> listRelationships) {
-        this.listRelationships = listRelationships;
+    public void setInterests(List<String> interests) {
+        this.interests = interests;
     }
 }
