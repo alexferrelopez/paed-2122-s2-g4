@@ -7,8 +7,8 @@ import java.util.List;
 
 public class GraphDAO {
 
-    private static String path = "files/";
-    private String DELIMETER_CHARACTER = ";";
+    private static final String path = "files/";
+    private final String DELIMETER_CHARACTER = ";";
 
     public Graph readFile (String filename) throws IOException {
         List<String> lines = Files.readAllLines(Path.of(path + filename));
@@ -18,9 +18,10 @@ public class GraphDAO {
         List<Relationship> relationships = new LinkedList<>();
 
         int numberOfUsers = Integer.parseInt(lines.get(0));
+        int lineNum = 1;
 
         for (int i = 0; i < numberOfUsers; i++) {
-            String line = lines.get(i);
+            String line = lines.get(i+lineNum);
             String[] split = line.split(DELIMETER_CHARACTER);
 
             if (split.length > 2) {
@@ -33,14 +34,15 @@ public class GraphDAO {
                     split[2],
                     interestList
             );
-
             users.add(user);
         }
 
-        int numberOfRelations = Integer.parseInt(lines.get(0));
+        lineNum = numberOfUsers+1;
+        int numberOfRelations = Integer.parseInt(lines.get(lineNum));
+        lineNum++;
 
         for (int i = 0; i < numberOfRelations; i++) {
-            String line = lines.get(i);
+            String line = lines.get(i+lineNum);
             String[] split = line.split(DELIMETER_CHARACTER);
 
             Relationship relationship = new Relationship (
