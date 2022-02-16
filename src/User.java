@@ -1,4 +1,3 @@
-import java.util.Collections;
 import java.util.List;
 
 public class User {
@@ -6,12 +5,17 @@ public class User {
     private String name;
     private String alias;
     private List<String> interests;
+    private List<Adjacency> followers;
+    private List<Adjacency> following;
 
-    public User(int id, String name, String alias, List<String> interests) {
+
+    public User(int id, String name, String alias, List<String> interests, List<Adjacency> followers, List<Adjacency> following) {
         this.id = id;
         this.name = name;
         this.alias = alias;
         this.interests = interests;
+        this.followers = followers;
+        this.following = following;
     }
 
     public int getId() {
@@ -44,5 +48,21 @@ public class User {
 
     public void setInterests(List<String> interests) {
         this.interests = interests;
+    }
+
+    public List<Adjacency> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Adjacency> followers) {
+        this.followers = followers;
+    }
+
+    public List<Adjacency> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<Adjacency> following) {
+        this.following = following;
     }
 }

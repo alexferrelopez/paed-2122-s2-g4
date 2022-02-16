@@ -10,7 +10,7 @@ public class GraphDAO {
     private static final String path = "files/";
     private final String DELIMETER_CHARACTER = ";";
 
-    public Graph readFile (String filename) throws IOException {
+    public List<User> readFile (String filename) throws IOException {
         List<String> lines = Files.readAllLines(Path.of(path + filename));
         List<String> interestList = new ArrayList<>();
 
@@ -32,8 +32,9 @@ public class GraphDAO {
                     Integer.parseInt(split[0]),
                     split[1],
                     split[2],
-                    interestList
-            );
+                    interestList,
+                    new LinkedList<>(),
+                    new LinkedList<>());
             users.add(user);
         }
 
@@ -55,6 +56,26 @@ public class GraphDAO {
             relationships.add(relationship);
         }
 
-        return new Graph(users, relationships);
+        for (Relationship relationship : relationships) {
+            int relationshipA = relationship.getA();
+            int relationshipB = relationship.getB();
+            for (User user : users) {
+                int userA = user.getId();
+                if (relationshipA == userA) {
+                    for (User follower : users) {
+                        if (follower.getId() == relationshipB) {
+                            Adjacency adjacency = new Adjacency(follower.getId(),relationship.getTimestamp(),relationship.getInteractions());
+                            user.getFollowers().add(adjacency);
+                            Adjacency adjacency1 = new Adjacency(user.getId(),relationship.getTimestamp(),relationship.getInteractions());
+                            follower.getFollowing().add(adjacency1);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        return users;
     }
 }
