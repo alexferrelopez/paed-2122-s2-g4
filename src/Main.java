@@ -4,6 +4,16 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         try {
+            Graph graph = new Graph(new GraphDAO().readFile("graphS.paed"));
+            UIManager      uiManager       = new UIManager();
+            BFSController  bfsController   = new BFSController(4);
+            Controller     controller      = new Controller     (uiManager, bfsController, graph);
+            controller.run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*try {
             Graph graph = new Graph(new GraphDAO().readFile("graphXXL.paed"));
 
             List<User> userLists = graph.getUserLists();
@@ -24,6 +34,6 @@ public class Main {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
