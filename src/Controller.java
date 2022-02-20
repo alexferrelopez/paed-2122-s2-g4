@@ -6,7 +6,7 @@ public class Controller {
 
     public Controller (UIManager uiManager, BFSController bfsController, Graph graph) {
         this.uiManager = uiManager;
-        this.bfsController = bfsController;
+        this.bfsController = new BFSController(graph.findListSize());
         this.graph = graph;
     }
 
@@ -23,11 +23,10 @@ public class Controller {
 
     private void menuFollowers () {
         boolean back = false;
-        User user = new User();
 
         while (!back) {
             switch (uiManager.showFollowersMenu()) {
-                case EXPLORAR       -> bfsController.BFS(graph, user);
+                case EXPLORAR       -> bfsController.BFS(graph, graph.getIndexOfMostFollowingUser());
                 case RECOMANAR      -> System.out.println("Recomana");
                 case CONTEXTUALIZAR -> System.out.println("Contextualiza");
                 case NETWORKING     -> System.out.println("Networking");

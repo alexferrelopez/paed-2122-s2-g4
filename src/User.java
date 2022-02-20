@@ -4,12 +4,12 @@ public class User {
     private int id;
     private String name;
     private String alias;
-    private List<String> interests;
+    private String interests;
     private List<Adjacency> followers;
     private List<Adjacency> following;
 
 
-    public User(int id, String name, String alias, List<String> interests, List<Adjacency> followers, List<Adjacency> following) {
+    public User(int id, String name, String alias, String interests, List<Adjacency> followers, List<Adjacency> following) {
         this.id = id;
         this.name = name;
         this.alias = alias;
@@ -42,11 +42,11 @@ public class User {
         this.alias = alias;
     }
 
-    public List<String> getInterests() {
+    public String getInterests() {
         return interests;
     }
 
-    public void setInterests(List<String> interests) {
+    public void setInterests(String interests) {
         this.interests = interests;
     }
 
@@ -64,5 +64,11 @@ public class User {
 
     public void setFollowing(List<Adjacency> following) {
         this.following = following;
+    }
+
+    @Override
+    public String toString() {
+        return  "\n\t" + id + " - " + name + " (" + alias + ")\n"+
+                "\tInteressos: " + interests;
     }
 }

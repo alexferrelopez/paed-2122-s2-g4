@@ -4,7 +4,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         try {
-            Graph graph = new Graph(new GraphDAO().readFile("graphS.paed"));
+            Graph graph = new Graph(new GraphDAO().readFile("graphXS.paed"));
             UIManager      uiManager       = new UIManager();
             BFSController  bfsController   = new BFSController(4);
             Controller     controller      = new Controller     (uiManager, bfsController, graph);
@@ -14,7 +14,7 @@ public class Main {
         }
 
         /*try {
-            Graph graph = new Graph(new GraphDAO().readFile("graphXXL.paed"));
+            Graph graph = new Graph(new GraphDAO().readFile("graphXL.paed"));
 
             List<User> userLists = graph.getUserLists();
 

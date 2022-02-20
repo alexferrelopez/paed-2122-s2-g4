@@ -12,7 +12,6 @@ public class GraphDAO {
 
     public List<User> readFile (String filename) throws IOException {
         List<String> lines = Files.readAllLines(Path.of(path + filename));
-        List<String> interestList = new ArrayList<>();
 
         List<User> users = new LinkedList<>();
         List<Relationship> relationships = new LinkedList<>();
@@ -23,16 +22,17 @@ public class GraphDAO {
         for (int i = 0; i < numberOfUsers; i++) {
             String line = lines.get(i+lineNum);
             String[] split = line.split(DELIMETER_CHARACTER);
-
-            if (split.length > 2) {
-                interestList = List.of(line.split(","));
+            String interests = null;
+            
+            if (split.length > 3) {
+                interests = split[3];
             }
-
+            
             User user = new User (
                     Integer.parseInt(split[0]),
                     split[1],
                     split[2],
-                    interestList,
+                    interests,
                     new LinkedList<>(),
                     new LinkedList<>());
             users.add(user);
