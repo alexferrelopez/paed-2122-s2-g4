@@ -14,7 +14,6 @@ public class GraphDAO {
         List<String> lines = Files.readAllLines(Path.of(path + filename));
 
         List<User> users = new LinkedList<>();
-        List<Relationship> relationships = new LinkedList<>();
 
         int numberOfUsers = Integer.parseInt(lines.get(0));
         int lineNum = 1;
@@ -46,27 +45,19 @@ public class GraphDAO {
             String line = lines.get(i+lineNum);
             String[] split = line.split(DELIMETER_CHARACTER);
 
-            Relationship relationship = new Relationship (
-                    Integer.parseInt(split[0]),
-                    Integer.parseInt(split[1]),
-                    Integer.parseInt(split[2]),
-                    Integer.parseInt(split[3])
-            );
+            int relationshipA =Integer.parseInt(split[0]);
+            int relationshipB = Integer.parseInt(split[1]);
+            int timestamp = Integer.parseInt(split[2]);
+            int interactions = Integer.parseInt(split[3]);
 
-            relationships.add(relationship);
-        }
-
-        for (Relationship relationship : relationships) {
-            int relationshipA = relationship.getA();
-            int relationshipB = relationship.getB();
             for (User user : users) {
                 int userA = user.getId();
                 if (relationshipA == userA) {
                     for (User follower : users) {
                         if (follower.getId() == relationshipB) {
-                            Adjacency adjacency = new Adjacency(follower.getId(),relationship.getTimestamp(),relationship.getInteractions());
+                            Adjacency adjacency = new Adjacency(follower.getId(), timestamp, interactions);
                             user.getFollowers().add(adjacency);
-                            Adjacency adjacency1 = new Adjacency(user.getId(),relationship.getTimestamp(),relationship.getInteractions());
+                            Adjacency adjacency1 = new Adjacency(user.getId(), timestamp, interactions);
                             follower.getFollowing().add(adjacency1);
                             break;
                         }

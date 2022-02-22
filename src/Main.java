@@ -3,17 +3,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            Graph graph = new Graph(new GraphDAO().readFile("graphXS.paed"));
-            UIManager      uiManager       = new UIManager();
-            BFSController  bfsController   = new BFSController(4);
-            Controller     controller      = new Controller     (uiManager, bfsController, graph);
-            controller.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Controller c = new Controller();
+        c.run();
 
-        /*try {
+        /*¡try {
             Graph graph = new Graph(new GraphDAO().readFile("graphXL.paed"));
 
             List<User> userLists = graph.getUserLists();
