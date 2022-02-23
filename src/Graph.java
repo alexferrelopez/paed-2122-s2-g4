@@ -12,10 +12,6 @@ public class Graph {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-    
     public int findUserIndex (int index) {
         for (int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getId() == index) {
@@ -41,7 +37,7 @@ public class Graph {
         return users;
     }
 
-    public int getIndexOfMostFollowingUser (){
+    public int getIndexOfMostFollowingUser () {
         int index = 0;
         int maxSize = 0;
 

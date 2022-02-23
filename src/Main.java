@@ -1,9 +1,15 @@
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) {
-        Controller c = new Controller();
-        c.run();
+        try {
+            new Controller().run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        /*¡try {
+
+        /*try {
             Graph graph = new Graph(new GraphDAO().readFile("graphXL.paed"));
 
             List<User> userLists = graph.getUserLists();

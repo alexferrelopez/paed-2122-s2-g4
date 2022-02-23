@@ -2,20 +2,19 @@ import java.io.IOException;
 
 public class Controller {
 
-    private UIManager uiManager;
-    private BFSController bfsController;
-    private Graph graph;
+    private final UIManager     uiManager;
+    private final BFSController bfsController;
+    private final Graph         graph;
+    private final RecommendUser recommendUser;
+
+    public Controller () throws IOException {
+        this.graph         = new Graph         (new GraphDAO().readFile("graphS.paed"));;
+        this.uiManager     = new UIManager     ();
+        this.bfsController = new BFSController (graph.findListSize());
+        this.recommendUser = new RecommendUser (graph);
+    }
 
     public void run () {
-        try {
-            graph = new Graph(new GraphDAO().readFile("graphL.paed"));
-            uiManager       = new UIManager();
-            bfsController   = new BFSController(graph.findListSize());
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        }
-
         boolean exit = false;
 
         while (!exit) {
@@ -31,8 +30,8 @@ public class Controller {
 
         while (!back) {
             switch (uiManager.showFollowersMenu()) {
-                case EXPLORAR       -> bfsController.exploreTheWeb(graph, graph.getIndexOfMostFollowingUser());
-                case RECOMANAR      -> System.out.println("Recomana");
+                case EXPLORAR       -> bfsController.BreadthFirstSearch (graph, graph.getIndexOfMostFollowingUser());
+                case RECOMANAR      -> recommendUser.recommendUser      (uiManager.getUserID (graph.findListSize()));
                 case CONTEXTUALIZAR -> System.out.println("Contextualiza");
                 case NETWORKING     -> System.out.println("Networking");
                 case ENRERE         -> back = true;

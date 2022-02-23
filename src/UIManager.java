@@ -74,4 +74,15 @@ public class UIManager {
             }
         } while (true);
     }
+
+    public int getUserID (int size) {
+        int inputSize;
+
+        //do {
+            System.out.print("\nEntra el teu identificador: ");
+            inputSize = Integer.parseInt(scanner.nextLine());
+        //} while (inputSize > (size - 1) || inputSize < 0);
+
+        return inputSize;
+    }
 }

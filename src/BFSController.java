@@ -13,18 +13,8 @@ public class BFSController {
         visited = new boolean[numberOfVertices];
     }
 
-    /*public void Graph (int numberOfVertices) {
-        adj = new LinkedList[numberOfVertices];
-        for (int i = 0; i < numberOfVertices; i++) {
-            adj[i] = new LinkedList<>();
-        }
-    }
-
-    public void addEdge(int numberOfVertices, int line) {
-        adj[numberOfVertices].add(line);
-    }*/
-
     /**
+     *
      * BFS (Breadth First Search), Function to visit all
      * the adjacent of a vertex before expand it
      *
@@ -71,6 +61,8 @@ public class BFSController {
             if (!b) {
                 return i;
             }
+
+            adj.clear();
         }
 
         return -1;

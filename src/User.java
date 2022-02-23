@@ -8,7 +8,6 @@ public class User {
     private List<Adjacency> followers;
     private List<Adjacency> following;
 
-
     public User(int id, String name, String alias, String interests, List<Adjacency> followers, List<Adjacency> following) {
         this.id = id;
         this.name = name;
