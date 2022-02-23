@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class GraphDAO {
 
             int relationshipA =Integer.parseInt(split[0]);
             int relationshipB = Integer.parseInt(split[1]);
-            int timestamp = Integer.parseInt(split[2]);
+            long timestamp = Long.parseLong(split[2]);
             int interactions = Integer.parseInt(split[3]);
 
             for (User user : users) {

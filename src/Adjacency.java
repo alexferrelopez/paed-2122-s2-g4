@@ -1,19 +1,19 @@
 public class Adjacency {
     private int adjacentUser;
-    private int timestamp;
+    private long timestamp;
     private int interactions;
 
-    public Adjacency(int adjacentUser, int timestamp, int interactions) {
+    public Adjacency(int adjacentUser, long timestamp, int interactions) {
         this.adjacentUser = adjacentUser;
         this.timestamp = timestamp;
         this.interactions = interactions;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
