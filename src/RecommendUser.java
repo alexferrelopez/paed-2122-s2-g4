@@ -11,6 +11,9 @@ public class RecommendUser {
     public void recommendUser (int userID) {
         userID = getUserID(userID);
 
+
+        // hay que hacer un control de error del userID insertado
+        System.out.println("userID: " + userID);
         System.out.println(graph.getUserList().get(userID));
 
         /* Accounts that the user is already following cannot be recommended. */
@@ -36,19 +39,25 @@ public class RecommendUser {
             }
         }
 
-        /* Priority should be given to accounts that share interests with the user. The more the better. */
+        /* Priority should be given to accounts that are tracked by someone the user is already following. */
+        System.out.println("USUARIOS SEGUIDOS POR UN USUARIO QUE SIGUES");
 
+
+
+        /* Priority should be given to accounts that share interests with the user. The more the better. */
         System.out.println("USUARIOS QUE COMPARTEN INTERESES");
 
         String[] interests = graph.getUserList().get(userID).getInterests().split(",");
 
-       /* for (String interest : interests) {      // Search all the users that follow a user
-            for (User user : graph.getUserList()) {                                 // From the graph of all the users
-                if (user.getInterests() ) {                        // We look for the same userID to search the users that follow him.
+        for (String interest : interests) {                                         // Compare all the user interests
+            for (User user : graph.getUserList()) {                                 // with the interests of the others users
+                if (user.getInterests() != null &&                                  // if the interests are not null
+                        user.getInterests().contains(interest) &&                   // if contains someone of the interests
+                        user.getId() != graph.getUserList().get(userID).getId()) {  // if is not the interest of the user we are searching
                     System.out.println(user);
                 }
             }
-        }*/
+        }
     }
 
     /**
