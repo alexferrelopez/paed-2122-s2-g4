@@ -8,7 +8,7 @@ public class Controller {
     private final RecommendUser recommendUser;
 
     public Controller () throws IOException {
-        this.graph         = new Graph         (new GraphDAO().readFile("graphS.paed"));;
+        this.graph         = new Graph         (new GraphDAO().readFile("graphXS.paed"));
         this.uiManager     = new UIManager     ();
         this.bfsController = new BFSController (graph.findListSize());
         this.recommendUser = new RecommendUser (graph);
@@ -30,7 +30,7 @@ public class Controller {
 
         while (!back) {
             switch (uiManager.showFollowersMenu()) {
-                case EXPLORAR       -> bfsController.BreadthFirstSearch (graph, graph.getIndexOfMostFollowingUser());
+                case EXPLORAR       -> bfsController.exploreTheWeb (graph, graph.getIndexOfMostFollowingUser());
                 case RECOMANAR      -> recommendUser.recommendUser      (uiManager.getUserID (graph.findListSize()));
                 case CONTEXTUALIZAR -> System.out.println("Contextualiza");
                 case NETWORKING     -> System.out.println("Networking");

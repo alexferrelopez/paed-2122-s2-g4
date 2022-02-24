@@ -55,9 +55,10 @@ public class GraphDAO {
                     for (User follower : users) {
                         if (follower.getId() == relationshipB) {
                             Adjacency adjacency = new Adjacency(follower.getId(), timestamp, interactions);
-                            user.getFollowers().add(adjacency);
                             Adjacency adjacency1 = new Adjacency(user.getId(), timestamp, interactions);
-                            follower.getFollowing().add(adjacency1);
+
+                            follower.getFollowers().add(adjacency1);
+                            user.getFollowing().add(adjacency);
                             break;
                         }
                     }
