@@ -52,4 +52,16 @@ public class Graph {
 
         return index;
     }
+
+    public Long getTimestampBewteenUsers (int idA, int idB) {
+        User user = userList.get(findUserIndex(idA));
+        List<Adjacency> following = user.getFollowing();
+
+        for (Adjacency adjacency : following) {
+            if (adjacency.getAdjacentUser() == idB) {
+                return adjacency.getTimestamp();
+            }
+        }
+        return 0L;
+    }
 }

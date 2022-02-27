@@ -24,12 +24,14 @@ public class Main {
             UIManager uiManager         = new UIManager     ();
             BFSController bfsController = new BFSController (graph.findListSize());
             RecommendUser recommendUser = new RecommendUser (graph, uiManager);
+            DijkstraController dijkstraController = new DijkstraController();
 
             Controller controller       = new Controller (
                     graph,
                     uiManager,
                     bfsController,
-                    recommendUser
+                    recommendUser,
+                    dijkstraController
             );
 
             controller.run();

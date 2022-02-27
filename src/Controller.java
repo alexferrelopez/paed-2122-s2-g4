@@ -4,12 +4,14 @@ public class Controller {
     private final BFSController bfsController;
     private final Graph         graph;
     private final RecommendUser recommendUser;
+    private final DijkstraController dijkstraController;
 
-    public Controller (Graph graph, UIManager uiManager, BFSController bfsController, RecommendUser recommendUser) {
+    public Controller (Graph graph, UIManager uiManager, BFSController bfsController, RecommendUser recommendUser, DijkstraController dijkstraController) {
         this.graph         = graph;
         this.uiManager     = uiManager;
         this.bfsController = bfsController;
         this.recommendUser = recommendUser;
+        this.dijkstraController = dijkstraController;
     }
 
     public void run () {
@@ -28,10 +30,10 @@ public class Controller {
 
         while (!back) {
             switch (uiManager.showFollowersMenu()) {
-                case EXPLORAR       -> bfsController.BreadthFirstSearch (graph, graph.getIndexOfMostFollowingUser());
+                case EXPLORAR       -> bfsController.exploreTheWeb (graph, graph.getIndexOfMostFollowingUser());
                 case RECOMANAR      -> recommendUser.recommendUser      ();
                 case CONTEXTUALIZAR -> System.out.println("Contextualiza");
-                case NETWORKING     -> System.out.println("Networking");
+                case NETWORKING     -> dijkstraController.networking(graph,graph.getUserList().get(3),graph.getUserList().get(5));
                 case ENRERE         -> back = true;
             }
         }
