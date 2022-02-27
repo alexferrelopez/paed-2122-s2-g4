@@ -1,35 +1,41 @@
 import java.io.IOException;
 
+/**
+ *
+ *   Created by: Alex Ferré, Tomás Uzcudún and Sami Amin <br><br>
+ *   Subject: PAED - Project S2 <br>
+ *   Last Modification: 27/02/2022 <br>
+ *   Version: 1.0 <br>
+ *
+ */
+
 public class Main {
-    public static void main(String[] args) {
+
+    /**
+     *
+     *  Main function where we instantiate all the classes
+     *
+     */
+
+    public static void main (String[] args) {
         try {
-            new Controller().run();
+            GraphDAO graphDAO           = new GraphDAO      ();
+            Graph graph                 = new Graph         (graphDAO.readFile("graphS.paed"));
+            UIManager uiManager         = new UIManager     ();
+            BFSController bfsController = new BFSController (graph.findListSize());
+            RecommendUser recommendUser = new RecommendUser (graph, uiManager);
+
+            Controller controller       = new Controller (
+                    graph,
+                    uiManager,
+                    bfsController,
+                    recommendUser
+            );
+
+            controller.run();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        /*try {
-            Graph graph = new Graph(new GraphDAO().readFile("graphXL.paed"));
-
-            List<User> userLists = graph.getUserLists();
-
-            int sum1 = 0;
-            int sum2 = 0;
-
-            for (User userList : userLists) {
-                sum1 += userList.getFollowing().size();
-            }
-
-            for (User userList : userLists) {
-                sum2 += userList.getFollowers().size();
-            }
-
-            System.out.println(sum1);
-            System.out.println(sum2);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 }

@@ -75,14 +75,28 @@ public class UIManager {
         } while (true);
     }
 
-    public int getUserID (int size) {
-        int inputSize;
+    public int getUserID () {
+        System.out.print("\nEntra el teu identificador: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
 
-        //do {
-            System.out.print("\nEntra el teu identificador: ");
-            inputSize = Integer.parseInt(scanner.nextLine());
-        //} while (inputSize > (size - 1) || inputSize < 0);
+    public void wrongUserID () {
+        System.out.println("\tL'identificador d'usuari introduït no existeix, proveu-ne un altre.");
+    }
 
-        return inputSize;
+    public void showUserInformation (User u) {
+        System.out.println (u);
+    }
+
+    public void showIfUserFollow () {
+        System.out.println("\tMotius: Et seguiex");
+    }
+
+    public void showIfUserHasSameInterests (int num) {
+        System.out.println("\tMotius: Compartiu " + num + " interessos");
+    }
+
+    public void showIfUserHasSameInterestsAndFollow (int num) {
+        System.out.println("\tMotius: Compartiu " + num + " interessos i et seguiex");
     }
 }
