@@ -99,4 +99,39 @@ public class UIManager {
     public void showIfUserHasSameInterestsAndFollow (int num) {
         System.out.println("\tMotius: Compartiu " + num + " interessos i et seguiex");
     }
+
+    public int[] requestUsersNetworking(Graph graph) {
+        boolean done = false;
+        int[] ids = new int[2];
+
+        do {
+            System.out.print("\nEntra el teu identificador: ");
+            try {
+                ids[0] = Integer.parseInt(scanner.nextLine());
+                boolean idExists = graph.idExists(ids[0]);
+                if (idExists) {
+                    done = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("\nError, l'opció introduïda no és una opció vàlida. Introdueixi un nombre enter.\n");
+            }
+        } while (!done);
+
+        done = false;
+
+        do {
+            System.out.print("\nEntra l'identificador de l'altre usuari: ");
+            try {
+                ids[1] = Integer.parseInt(scanner.nextLine());
+                boolean idExists = graph.idExists(ids[1]);
+                if (idExists) {
+                    done = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("\nError, l'opció introduïda no és una opció vàlida. Introdueixi un nombre enter.\n");
+            }
+        } while (!done);
+
+        return ids;
+    }
 }

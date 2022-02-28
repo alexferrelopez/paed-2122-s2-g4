@@ -33,7 +33,10 @@ public class Controller {
                 case EXPLORAR       -> bfsController.exploreTheWeb (graph, graph.getIndexOfMostFollowingUser());
                 case RECOMANAR      -> recommendUser.recommendUser      ();
                 case CONTEXTUALIZAR -> System.out.println("Contextualiza");
-                case NETWORKING     -> dijkstraController.networking(graph,graph.getUserList().get(3),graph.getUserList().get(5));
+                case NETWORKING     -> {
+                    int[] Ids = uiManager.requestUsersNetworking(graph);
+                    dijkstraController.networking(graph.getUserList().get(graph.findUserIndex(Ids[0])),graph.getUserList().get(graph.findUserIndex(Ids[1])));
+                }
                 case ENRERE         -> back = true;
             }
         }

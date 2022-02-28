@@ -53,7 +53,7 @@ public class Graph {
         return index;
     }
 
-    public Long getTimestampBewteenUsers (int idA, int idB) {
+    public Long getTimestampBetweenUsers(int idA, int idB) {
         User user = userList.get(findUserIndex(idA));
         List<Adjacency> following = user.getFollowing();
 
@@ -63,5 +63,14 @@ public class Graph {
             }
         }
         return 0L;
+    }
+
+    public boolean idExists (int id) {
+        for (User user : userList) {
+            if (user.getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }
