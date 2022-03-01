@@ -100,6 +100,26 @@ public class UIManager {
         System.out.println("\tMotius: Compartiu " + num + " interessos i et seguiex");
     }
 
+    public void motiusMsgUserFollowedByUserYouFollow (int num) {
+        System.out.println("\tMotius: Seguit per " + num);
+    }
+
+    public void showUserFollowedByUserYouFollow (User u) {
+        System.out.println(" - " + u.getName() + " ( " + u.getAlias() + " )");
+    }
+
+    public void showUserFollowAndUserFollowedByUserYouFollow () {
+        System.out.println("\tMotius: Et segueix i es seguit per: " + " - ");
+    }
+
+    public void showInterestsAndUserFollowedByUserYouFollow (int num) {
+        System.out.println("\tMotius: Compartiu: " + num + " i es seguit per: " + " - ");
+    }
+
+    public void showInterestsFollowedByUserYouFollowAndFollow (int num) {
+        System.out.println("\tMotius: Compartiu: " + num + " i es seguit per: " + " - " + " i et segueix");
+    }
+
     public int[] requestUsersNetworking(Graph graph) {
         boolean done = false;
         int[] ids = new int[2];

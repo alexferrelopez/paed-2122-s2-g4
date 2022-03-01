@@ -7,7 +7,7 @@ public class RecommendUser {
 
     private LinkedList<User> usersYouFollow                = new LinkedList<>();
 
-    private LinkedList<User> usersFollowingByUserYouFollow = new LinkedList<>();
+    private LinkedList<User> usersFollowedByUserYouFollow  = new LinkedList<>();
     private LinkedList<User> usersThatFollowYou            = new LinkedList<>();
     private LinkedList<User> usersWithSameInterests        = new LinkedList<>();
 
@@ -36,8 +36,6 @@ public class RecommendUser {
      * and finally the users with the same interests of you.
      * Of course the users recommended can't be a user you already follow.
      *
-     * @param userID number of the userID that you want to look for.
-     *
      */
 
     public void recommendUser () {
@@ -53,36 +51,58 @@ public class RecommendUser {
 
         /* Priority should be given to accounts that share interests with the user. The more the better. */
         getUsersWithSameInterests(userID);
-        getUsersFollowingByUserYouFollow();
+        getUsersFollowedByUserYouFollow();
 
         // Remove all the users that you already follow
         usersThatFollowYou.removeIf(u -> usersYouFollow.contains(u));
-        usersFollowingByUserYouFollow.removeIf(u -> usersYouFollow.contains(u));
+        usersFollowedByUserYouFollow.removeIf(u -> usersYouFollow.contains(u));
         usersWithSameInterests.removeIf(u -> usersYouFollow.contains(u));
 
         // Union of all the users with priority
-        addUsersToList(usersThatFollowYou,            union);
-        addUsersToList(usersFollowingByUserYouFollow, union);
-        addUsersToList(usersWithSameInterests,        union);
+        addUsersToList(usersThatFollowYou,           union);
+        addUsersToList(usersFollowedByUserYouFollow, union);
+        addUsersToList(usersWithSameInterests,       union);
 
         // Print all the information
         for (User u : union) {
             uiManager.showUserInformation (u);
 
-            if (usersThatFollowYou.contains(u) && !usersFollowingByUserYouFollow.contains(u) && !usersWithSameInterests.contains(u)) {
+            if (usersThatFollowYou.contains(u) &&
+                    !usersFollowedByUserYouFollow.contains(u) &&
+                    !usersWithSameInterests.contains(u)) {
                 uiManager.showIfUserFollow();
-            } else if (!usersThatFollowYou.contains(u) && !usersFollowingByUserYouFollow.contains(u) && usersWithSameInterests.contains(u)) {
+            } else if (!usersThatFollowYou.contains(u) &&
+                    !usersFollowedByUserYouFollow.contains(u) &&
+                    usersWithSameInterests.contains(u)) {
                 uiManager.showIfUserHasSameInterests (getNumberOfInterests(userID, u));
-            } else if (usersThatFollowYou.contains(u) && !usersFollowingByUserYouFollow.contains(u) && usersWithSameInterests.contains(u)) {
+            } else if (!usersThatFollowYou.contains(u) &&
+                    usersFollowedByUserYouFollow.contains(u) &&
+                    !usersWithSameInterests.contains(u)) {
+                printUserFollowedByUserYouFollow(u);
+            } else if (usersThatFollowYou.contains(u) &&
+                    !usersFollowedByUserYouFollow.contains(u) &&
+                    usersWithSameInterests.contains(u)) {
                 uiManager.showIfUserHasSameInterestsAndFollow (getNumberOfInterests(userID, u));
+            } else if (usersThatFollowYou.contains(u) &&
+                    usersFollowedByUserYouFollow.contains(u) &&
+                    !usersWithSameInterests.contains(u)) {
+                uiManager.showUserFollowAndUserFollowedByUserYouFollow();
+            } else if (!usersThatFollowYou.contains(u) &&
+                    usersFollowedByUserYouFollow.contains(u) &&
+                    usersWithSameInterests.contains(u)) {
+                uiManager.showInterestsAndUserFollowedByUserYouFollow (getNumberOfInterests(userID, u));
+            } else if (usersThatFollowYou.contains(u) &&
+                    usersFollowedByUserYouFollow.contains(u) &&
+                    usersWithSameInterests.contains(u)) {
+                uiManager.showInterestsFollowedByUserYouFollowAndFollow (getNumberOfInterests(userID, u));
             }
         }
 
         // Reset all the lists
-        usersYouFollow                = new LinkedList<>();
-        usersThatFollowYou            = new LinkedList<>();
-        usersWithSameInterests        = new LinkedList<>();
-        usersFollowingByUserYouFollow = new LinkedList<>();
+        usersYouFollow               = new LinkedList<>();
+        usersThatFollowYou           = new LinkedList<>();
+        usersWithSameInterests       = new LinkedList<>();
+        usersFollowedByUserYouFollow = new LinkedList<>();
     }
 
     /**
@@ -129,6 +149,32 @@ public class RecommendUser {
         return numberOfSameInterests;
     }
 
+    private void printUserFollowedByUserYouFollow (User u) {
+        uiManager.motiusMsgUserFollowedByUserYouFollow (getNumberOfFollowedByUserYouFollow(u));
+
+        for (Adjacency adj : graph.getUserList().get(getUserID(u.getId())).getFollowers()) {
+            for (User user : graph.getUserList()) {
+                if (user.getId() == adj.getAdjacentUser()) {
+                    uiManager.showUserFollowedByUserYouFollow(user);
+                }
+            }
+        }
+    }
+
+    private int getNumberOfFollowedByUserYouFollow (User u) {
+        int numberOfFollowed = 0;
+
+        for (Adjacency adj : graph.getUserList().get(getUserID(u.getId())).getFollowers()) {
+            for (User user : graph.getUserList()) {
+                if (user.getId() == adj.getAdjacentUser()) {
+                    numberOfFollowed++;
+                }
+            }
+        }
+
+        return numberOfFollowed;
+    }
+
     private void getUsersYouFollow (int userID) {
         for (Adjacency adj : graph.getUserList().get(userID).getFollowing()) {
             for (User user : graph.getUserList()) {
@@ -150,6 +196,7 @@ public class RecommendUser {
     }
 
     private void getUsersWithSameInterests (int userID) {
+        // hay que controlar que los intereses no sean null
         String[] interests = graph.getUserList().get(userID).getInterests().split(",");
 
         for (String interest : interests) {                                         // Compare all the user interests
@@ -165,12 +212,12 @@ public class RecommendUser {
         }
     }
 
-    private void getUsersFollowingByUserYouFollow () {
+    private void getUsersFollowedByUserYouFollow () {
         for (User user : usersYouFollow) {
-            for (Adjacency adj : graph.getUserList().get (getUserID (user.getId())).getFollowing()) {
+            for (Adjacency adj : graph.getUserList().get (getUserID (user.getId())).getFollowers()) {
                 for (User user2 : graph.getUserList()) {
-                    if (user2.getId() == adj.getAdjacentUser() && !usersFollowingByUserYouFollow.contains(user2)) {
-                        usersFollowingByUserYouFollow.add(user2);
+                    if (user2.getId() == adj.getAdjacentUser() && !usersFollowedByUserYouFollow.contains(user2)) {
+                        usersFollowedByUserYouFollow.add(user2);
                     }
                 }
             }
