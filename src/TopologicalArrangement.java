@@ -5,43 +5,53 @@ public class TopologicalArrangement {
 
     private Graph graph;
 
-    private final boolean [] visited;
-    private LinkedList<User> pil1 = new LinkedList<>();     // LinkedList with the visited Users
+    private LinkedList<User> pila = new LinkedList<>();     // LinkedList with the visited Users
     private LinkedList<User> adj = new LinkedList<>();       // LinkedList with the adjacent Users
+    private boolean [] visited;
 
-    public TopologicalArrangement (int numberOfVertices) {
-        visited = new boolean[numberOfVertices];
-    }
-
-
-    public LinkedList<User> topoSort () throws IOException {
+    public void topoSort () throws IOException {
+        User user;
         graph = new Graph(new GraphDAO().readFile("dagS.paed"));
+        visited = new boolean [graph.findListSize()];
+        int visitedIsFalse = visitedIsFalse(visited);
 
-        LinkedList<User> pila = new LinkedList<>();
-
-        for (User u: graph.getUserList()) {
-            visita (graph, u, pila);
+        while (visitedIsFalse != -1) {
+            user = graph.getUserList().get(visitedIsFalse);
+            visita (user, pila);
+            visitedIsFalse = visitedIsFalse(visited);
         }
-
-        /*for (User u: graph.getUserList()) {
-            if (!visited.get(u.getId())) {
-            }
-        }*/
-
-        return pila;
-
     }
 
-    public void visita (Graph g, User user, LinkedList<User> pila) {
-        for (int i = 0; i < g.findListSize(); i++) {
-            if (!visited[i]) {
-                visita(g, user, pila);
-                visited[i] = true;
+    public void visita (User user, LinkedList<User> pila) {
+        for (User u: graph.findAdjacent(graph.findUserIndex(user.getId()))) {
+            if (!visited[graph.findUserIndex(u.getId())]) {
+                visita(u, pila);
+            }
+        }
+        visited[graph.findUserIndex(user.getId())] = true;
+        pila.add(user);
+    }
+
+    private int visitedIsFalse (boolean [] visited) {
+        for (int i = 0; i < visited.length; i++) {
+            boolean b = visited[i];
+            if (!b) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void view () throws IOException {
+        topoSort();
+        for (int i = 0; i < pila.size(); i++) {
+            System.out.println(pila.get(i).getId() + " - " + pila.get(i).getName() + " (" + pila.get(i).getAlias() + ")");
+            if (i == (pila.size()-1)) {
+                System.out.println("");
+            } else {
+                System.out.println("↓");
             }
         }
 
-        //queue.add(users.get(n));
-
-        pila.add(user);
     }
 }

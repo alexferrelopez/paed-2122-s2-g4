@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class Controller {
 
     private final UIManager     uiManager;
@@ -5,16 +7,18 @@ public class Controller {
     private final Graph         graph;
     private final RecommendUser recommendUser;
     private final DijkstraController dijkstraController;
+    private final TopologicalArrangement topologicalArrangement;
 
-    public Controller (Graph graph, UIManager uiManager, BFSController bfsController, RecommendUser recommendUser, DijkstraController dijkstraController) {
+    public Controller (Graph graph, UIManager uiManager, BFSController bfsController, RecommendUser recommendUser, DijkstraController dijkstraController, TopologicalArrangement topologicalArrangement) {
         this.graph         = graph;
         this.uiManager     = uiManager;
         this.bfsController = bfsController;
         this.recommendUser = recommendUser;
         this.dijkstraController = dijkstraController;
+        this.topologicalArrangement = topologicalArrangement;
     }
 
-    public void run () {
+    public void run () throws IOException {
         boolean exit = false;
 
         while (!exit) {
@@ -25,14 +29,14 @@ public class Controller {
         }
     }
 
-    private void menuFollowers () {
+    private void menuFollowers () throws IOException {
         boolean back = false;
 
         while (!back) {
             switch (uiManager.showFollowersMenu()) {
                 case EXPLORAR       -> bfsController.exploreTheWeb (graph, graph.getIndexOfMostFollowingUser());
                 case RECOMANAR      -> recommendUser.recommendUser      ();
-                case CONTEXTUALIZAR -> System.out.println("Contextualiza");
+                case CONTEXTUALIZAR -> topologicalArrangement.view();
                 case NETWORKING     -> {
                     int[] Ids = uiManager.requestUsersNetworking(graph);
                     dijkstraController.networking(graph.getUserList().get(graph.findUserIndex(Ids[0])),graph.getUserList().get(graph.findUserIndex(Ids[1])));

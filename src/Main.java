@@ -25,13 +25,15 @@ public class Main {
             BFSController bfsController = new BFSController (graph.findListSize());
             RecommendUser recommendUser = new RecommendUser (graph, uiManager);
             DijkstraController dijkstraController = new DijkstraController(graph);
+            TopologicalArrangement topologicalArrangement = new TopologicalArrangement();
 
             Controller controller       = new Controller (
                     graph,
                     uiManager,
                     bfsController,
                     recommendUser,
-                    dijkstraController
+                    dijkstraController,
+                    topologicalArrangement
             );
 
             controller.run();
