@@ -132,8 +132,9 @@ public class UIManager {
                 if (idExists) {
                     done = true;
                 }
+                else System.out.println("\n L'ID no existeix.");
             } catch (NumberFormatException e) {
-                System.out.println("\nError, l'opció introduïda no és una opció vàlida. Introdueixi un nombre enter.\n");
+                System.out.println("\nError, l'opció introduïda no és una opció vàlida. Introdueixi un nombre enter.");
             }
         } while (!done);
 
@@ -147,6 +148,7 @@ public class UIManager {
                 if (idExists) {
                     done = true;
                 }
+                else System.out.println("\n L'ID no existeix.");
             } catch (NumberFormatException e) {
                 System.out.println("\nError, l'opció introduïda no és una opció vàlida. Introdueixi un nombre enter.\n");
             }

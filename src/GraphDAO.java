@@ -67,6 +67,34 @@ public class GraphDAO {
             }
         }
 
+        quicksort(users,0,users.size()-1);
+
         return users;
+    }
+
+    public static void quicksort(List<User> users, int izq, int der) {
+
+        User pivote=users.get(izq); // el primer User como pivote
+        int i=izq;                  // i corresponde al extremo izquierdo de la lista.
+        int j=der;                  // j corresponde al extremo derecho de la lista.
+        User aux;
+
+        while(i < j){               // mientras no se crucen los punteros
+            while(users.get(i).getId() <= pivote.getId() && i < j) i++; // busca ID mayor que el ID del pivote
+            while(users.get(j).getId() > pivote.getId()) j--;           // busca ID menor que el ID del pivote
+            if (i < j) {                                 // si no se han cruzado
+                aux = users.get(i);                      // los intercambia
+                users.set(i,users.get(j));
+                users.set(j,aux);
+            }
+        }
+
+        users.set(izq,users.get(j));      // se coloca el pivote en su lugar de forma que tendremos
+        users.set(j,pivote);              // los menores a su izquierda y los mayores a su derecha
+
+        if(izq < j-1)
+            quicksort(users,izq,j-1);          // ordenamos subarray izquierdo
+        if(j+1 < der)
+            quicksort(users,j+1,der);          // ordenamos subarray derecho
     }
 }

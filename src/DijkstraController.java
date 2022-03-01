@@ -11,7 +11,7 @@ public class DijkstraController {
         this.graph = graph;
     }
 
-    public List<User> Dijkstra (User initial, User ending) {
+    public List<User> dijkstra(User initial, User ending) {
         List<User> userList = graph.getUserList();
         visited = new boolean[userList.size()];
         camins = new ArrayList<>(userList.size());
@@ -101,7 +101,7 @@ public class DijkstraController {
     }
 
     public void networking(User initial, User ending) {
-        List<User> dijkstra = Dijkstra(initial, ending);
+        List<User> dijkstra = dijkstra(initial, ending);
         System.out.println();
 
         for (User user : dijkstra) {
@@ -114,6 +114,5 @@ public class DijkstraController {
         if (dijkstra.size() == 0) {
             System.out.println("Els usuaris no tenen relació entre seguits.");
         }
-
     }
 }
