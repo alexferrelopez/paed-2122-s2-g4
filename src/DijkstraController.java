@@ -3,7 +3,7 @@ import java.util.*;
 public class DijkstraController {
 
     private boolean[] visited;
-    private List<List<User>> camins;
+    private List<User> camins;
     private final Graph graph;
     Long[] distancies;
 
@@ -17,7 +17,7 @@ public class DijkstraController {
         camins = new ArrayList<>(userList.size());
 
         for (int i = 0; i < userList.size(); i++) {
-            camins.add(new ArrayList<>());
+            camins.add(null);
         }
 
         distancies = new Long[userList.size()];
@@ -47,14 +47,33 @@ public class DijkstraController {
             actual = findNonVisitedMinimumDistance(userList);
             actualId = actual.getId();
         }
-        List<User> answer = camins.get(graph.findUserIndex(ending.getId()));
-        answer.add(ending);
-        Collections.reverse(answer);
+        List<User> answer = createAnswerPath(initial, ending);
 
-        if (answer.get(0).getId() != ending.getId() || answer.get(0).getId() == answer.get(answer.size()-1).getId()) {
+        if (answer.get(0).getId() != initial.getId() || answer.get(0).getId() == answer.get(answer.size()-1).getId()) {
             return new ArrayList<>();
         }
 
+        return answer;
+    }
+
+    private List<User> createAnswerPath(User initial, User ending) {
+        User actual = ending;
+        List<User> answer = new LinkedList<>();
+        User successor = camins.get(graph.findUserIndex(ending.getId()));
+        answer.add(actual);
+
+        while (successor != null && successor.getId() != initial.getId()) {
+            actual = successor;
+            successor = camins.get(graph.findUserIndex(actual.getId()));
+            answer.add(actual);
+        }
+
+        if (successor == null) {
+            return Collections.singletonList(initial);
+        }
+        answer.add(successor);
+
+        Collections.reverse(answer);
         return answer;
     }
 
@@ -81,37 +100,25 @@ public class DijkstraController {
 
     private void actualitzaCamins (User actual, User adjacent) {
         int adjacentIndex = graph.findUserIndex(adjacent.getId());
-        int actualIndex = graph.findUserIndex(actual.getId());
-        List<User> camiFinsAra = camins.get(actualIndex);
 
-        if (camins.get(adjacentIndex) == null || camins.get(adjacentIndex).isEmpty()) {
-            for (User user : camiFinsAra) {
-                camins.get(adjacentIndex).add(user);
-            }
+        if (camins.get(adjacentIndex) != null) {
+            camins.set(adjacentIndex, null);
         }
-        else {
-
-            camins.get(adjacentIndex).clear(); //pot ser que esborri camins bons
-
-            for (User user : camiFinsAra) {
-                camins.get(adjacentIndex).add(user);
-            }
-        }
-        camins.get(adjacentIndex).add(actual);
+        camins.set(adjacentIndex,actual);
     }
 
     public void networking(User initial, User ending) {
-        List<User> dijkstra = dijkstra(initial, ending);
+        List<User> network = dijkstra(initial, ending);
         System.out.println();
 
-        for (User user : dijkstra) {
-            System.out.println("\t"+user.getId());
-            if (dijkstra.get(dijkstra.size()-1).getId() != user.getId()) {
+        for (User user : network) {
+            System.out.println("\t"+user.getId() + ": " + user.getName());
+            if (network.get(network.size()-1).getId() != user.getId()) {
                 System.out.println("\t" + "↓");
             }
         }
 
-        if (dijkstra.size() == 0) {
+        if (network.size() == 0) {
             System.out.println("Els usuaris no tenen relació entre seguits.");
         }
     }
