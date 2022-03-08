@@ -1,8 +1,15 @@
+import Graph.Graph;
+import Graph.UIManager;
+import Graph.BFSController;
+import Graph.RecommendUser;
+import Graph.DijkstraController;
+import Graph.TopologicalArrangement;
+
 import java.io.IOException;
 
 public class Controller {
 
-    private final UIManager     uiManager;
+    private final UIManager uiManager;
     private final BFSController bfsController;
     private final Graph         graph;
     private final RecommendUser recommendUser;

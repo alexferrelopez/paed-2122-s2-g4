@@ -1,3 +1,5 @@
+package Graph;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,7 +28,7 @@ public class GraphDAO {
                 interests = split[3];
             }
             
-            User user = new User (
+            User user = new User(
                     Integer.parseInt(split[0]),
                     split[1],
                     split[2],
@@ -74,7 +76,7 @@ public class GraphDAO {
 
     public static void quicksort(List<User> users, int izq, int der) {
 
-        User pivote=users.get(izq); // el primer User como pivote
+        User pivote=users.get(izq); // el primer Graph.User como pivote
         int i=izq;                  // i corresponde al extremo izquierdo de la lista.
         int j=der;                  // j corresponde al extremo derecho de la lista.
         User aux;
