@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Tree {
 
-    private List<Algorithm> algorithmList;
+    private Algorithm arrel;
 
-    public Tree(List<Algorithm> algorithmList) {
-        this.algorithmList = algorithmList;
+    public Tree(Algorithm arrel) {
+        this.arrel = arrel;
     }
 }

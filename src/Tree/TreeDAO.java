@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class TreeDAO {
@@ -12,7 +11,7 @@ public class TreeDAO {
     private static final String path = "files/";
     private final String DELIMETER_CHARACTER = ";";
 
-    public List<Algorithm> readFile (String filename) throws IOException {
+    public Algorithm readFile (String filename) throws IOException {
         List<String> lines = Files.readAllLines(Path.of(path + filename));
 
         List<Algorithm> nodes = new ArrayList<>();
@@ -51,6 +50,6 @@ public class TreeDAO {
             }
         }
 
-        return nodes;
+        return nodes.get(0);
     }
 }

@@ -19,8 +19,8 @@ public class UIManagerTree {
                     \tC. Llistar algorismes
                     \tD. Cerca per timestamp (exacta)
                     \tE. Cerca per timestamp (rang)
-                    \tF. Tornar enrere
                     
+                    \tF. Tornar enrere
                     """);
             System.out.print("Quina funcionalitat vols executar? ");
 
