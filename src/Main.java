@@ -5,6 +5,7 @@ import Graph.BFSController;
 import Graph.RecommendUser;
 import Graph.DijkstraController;
 import Graph.TopologicalArrangement;
+import Tree.*;
 
 import java.io.IOException;
 
@@ -35,13 +36,21 @@ public class Main {
             DijkstraController dijkstraController = new DijkstraController(graph);
             TopologicalArrangement topologicalArrangement = new TopologicalArrangement();
 
+            TreeDAO treeDAO = new TreeDAO();
+            Tree tree = new Tree(treeDAO.readFile("treeXXL.paed"));
+
+            UIManagerTree uiManagerTree = new UIManagerTree();
+
             Controller controller       = new Controller (
                     graph,
                     uiManager,
                     bfsController,
                     recommendUser,
                     dijkstraController,
-                    topologicalArrangement
+                    topologicalArrangement,
+
+                    tree,
+                    uiManagerTree
             );
 
             controller.run();
