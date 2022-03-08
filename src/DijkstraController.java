@@ -101,9 +101,6 @@ public class DijkstraController {
     private void actualitzaCamins (User actual, User adjacent) {
         int adjacentIndex = graph.findUserIndex(adjacent.getId());
 
-        if (camins.get(adjacentIndex) != null) {
-            camins.set(adjacentIndex, null);
-        }
         camins.set(adjacentIndex,actual);
     }
 
