@@ -1,3 +1,5 @@
+package Graph;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +20,7 @@ public class BFSController {
      * BFS (Breadth First Search), Function to visit all
      * the adjacent of a vertex before expand it
      *
-     * @param graph Graph with all the users
+     * @param graph Graph.Graph with all the users
      * @param searchedUser searchedUser that we are checking
      *
      */

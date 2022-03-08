@@ -1,3 +1,11 @@
+import Graph.GraphDAO;
+import Graph.Graph;
+import Graph.UIManager;
+import Graph.BFSController;
+import Graph.RecommendUser;
+import Graph.DijkstraController;
+import Graph.TopologicalArrangement;
+
 import java.io.IOException;
 
 /**
@@ -19,11 +27,11 @@ public class Main {
 
     public static void main (String[] args) {
         try {
-            GraphDAO graphDAO           = new GraphDAO      ();
-            Graph graph                 = new Graph         (graphDAO.readFile("graphS.paed"));
-            UIManager uiManager         = new UIManager     ();
-            BFSController bfsController = new BFSController (graph.findListSize());
-            RecommendUser recommendUser = new RecommendUser (graph, uiManager);
+            GraphDAO graphDAO           = new GraphDAO();
+            Graph graph                 = new Graph(graphDAO.readFile("graphS.paed"));
+            UIManager uiManager         = new UIManager();
+            BFSController bfsController = new BFSController(graph.findListSize());
+            RecommendUser recommendUser = new RecommendUser(graph, uiManager);
             DijkstraController dijkstraController = new DijkstraController(graph);
             TopologicalArrangement topologicalArrangement = new TopologicalArrangement();
 

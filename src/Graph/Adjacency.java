@@ -1,3 +1,5 @@
+package Graph;
+
 public class Adjacency {
     private int adjacentUser;
     private long timestamp;

@@ -1,3 +1,7 @@
+package Graph;
+
+import Graph.Graph;
+
 import java.util.LinkedList;
 
 public class RecommendUser {

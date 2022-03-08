@@ -1,3 +1,7 @@
+package Graph;
+
+import Graph.Graph;
+
 import java.io.IOException;
 import java.util.*;
 
