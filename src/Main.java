@@ -1,11 +1,14 @@
 import Graph.GraphDAO;
 import Graph.Graph;
 import Graph.UIManager;
-import Graph.BFSController;
-import Graph.RecommendUser;
-import Graph.DijkstraController;
-import Graph.TopologicalArrangement;
+import Graph.Options.BFSController;
+import Graph.Options.RecommendUser;
+import Graph.Options.DijkstraController;
+import Graph.Options.TopologicalArrangement;
 import Tree.*;
+import Tree.Options.BasicFunctions;
+import Tree.Options.Feed;
+import Tree.Options.SearchTimestamp;
 
 import java.io.IOException;
 
@@ -28,6 +31,8 @@ public class Main {
 
     public static void main (String[] args) {
         try {
+            //--------------------------- GRAPH ALGORITHMS ------------------------------------//
+
             GraphDAO graphDAO           = new GraphDAO();
             Graph graph                 = new Graph(graphDAO.readFile("graphS.paed"));
             UIManager uiManager         = new UIManager();
@@ -36,10 +41,14 @@ public class Main {
             DijkstraController dijkstraController = new DijkstraController(graph);
             TopologicalArrangement topologicalArrangement = new TopologicalArrangement();
 
-            TreeDAO treeDAO = new TreeDAO();
-            Tree tree = new Tree(treeDAO.readFile("treeXXL.paed"));
+            //--------------------------- TREE ALGORITHMS ------------------------------------//
 
-            UIManagerTree uiManagerTree = new UIManagerTree();
+            Tree tree = new Tree ();
+            Node root = new TreeDAO(tree).readFile("treeXXS.paed");
+            UIManagerTree uiManagerTree   = new UIManagerTree();
+            BasicFunctions basicFunctions = new BasicFunctions (uiManagerTree, tree);
+            Feed listAlgorithms = new Feed(uiManagerTree, tree);
+            SearchTimestamp searchTimestamp = new SearchTimestamp(uiManagerTree, tree);
 
             Controller controller       = new Controller (
                     graph,
@@ -49,8 +58,11 @@ public class Main {
                     dijkstraController,
                     topologicalArrangement,
 
-                    tree,
-                    uiManagerTree
+                    root,
+                    basicFunctions,
+                    uiManagerTree,
+                    listAlgorithms,
+                    searchTimestamp
             );
 
             controller.run();

@@ -1,6 +1,7 @@
 package Graph;
 
-import Graph.Graph;
+import Graph.MenuEnum.MenuOptionsFollowers;
+import Graph.MenuEnum.MenuOptionsLinkedTree;
 
 import java.util.Scanner;
 

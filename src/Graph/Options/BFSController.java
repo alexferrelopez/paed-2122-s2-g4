@@ -1,4 +1,7 @@
-package Graph;
+package Graph.Options;
+
+import Graph.Graph;
+import Graph.User;
 
 import java.util.Arrays;
 import java.util.LinkedList;

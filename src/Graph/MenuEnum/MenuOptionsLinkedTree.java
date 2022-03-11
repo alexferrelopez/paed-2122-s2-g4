@@ -1,4 +1,4 @@
-package Graph;
+package Graph.MenuEnum;
 
 public enum MenuOptionsLinkedTree {
     SEGUIDORS,
