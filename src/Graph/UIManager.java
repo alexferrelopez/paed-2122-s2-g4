@@ -1,6 +1,7 @@
 package Graph;
 
-import Graph.Graph;
+import Graph.MenuEnum.MenuOptionsFollowers;
+import Graph.MenuEnum.MenuOptionsLinkedTree;
 
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ public class UIManager {
                     .* LinkedTree *.
                                    
                     1. Seguidors (Grafs)
-                    2. A ESPECIFICAR
+                    2. Feed (Arbres)
                     3. A ESPECIFICAR
                     4. A ESPECIFICAR
                                 
@@ -31,6 +32,8 @@ public class UIManager {
                 switch (linkedTreeOption) {
                     case 1:
                         return MenuOptionsLinkedTree.SEGUIDORS;
+                    case 2:
+                        return MenuOptionsLinkedTree.FEED;
                     case 5:
                         return MenuOptionsLinkedTree.SORTIR;
                     default:

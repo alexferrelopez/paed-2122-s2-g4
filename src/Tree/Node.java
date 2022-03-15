@@ -1,6 +1,6 @@
 package Tree;
 
-public class Algorithm {
+public class Node {
 
     private long id;
     private String name;
@@ -8,11 +8,10 @@ public class Algorithm {
     private String cost;
     private long timestamp;
 
-    private Algorithm right;
-    private Algorithm left;
-    private Algorithm parent;
+    private Node right;
+    private Node left;
 
-    public Algorithm(long id, String name, String language, String cost, long timestamp) {
+    public Node(long id, String name, String language, String cost, long timestamp) {
         this.id = id;
         this.name = name;
         this.language = language;
@@ -20,28 +19,20 @@ public class Algorithm {
         this.timestamp = timestamp;
     }
 
-    public Algorithm getRight() {
+    public Node getRight() {
         return right;
     }
 
-    public void setRight(Algorithm right) {
+    public void setRight(Node right) {
         this.right = right;
     }
 
-    public Algorithm getLeft() {
+    public Node getLeft() {
         return left;
     }
 
-    public void setLeft(Algorithm left) {
+    public void setLeft(Node left) {
         this.left = left;
-    }
-
-    public Algorithm getParent() {
-        return parent;
-    }
-
-    public void setParent(Algorithm parent) {
-        this.parent = parent;
     }
 
     public long getId() {
