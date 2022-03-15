@@ -37,7 +37,7 @@ public class Main {
             //--------------------------- TREE ALGORITHMS ------------------------------------//
 
             Tree tree = new Tree ();
-            Node root = new TreeDAO(tree).readFile("treeXXS.paed");
+            tree.setRoot(new TreeDAO(tree).readFile("treeXXS.paed"));
             UIManagerTree uiManagerTree   = new UIManagerTree();
             BasicFunctions basicFunctions = new BasicFunctions (uiManagerTree, tree);
             Feed listAlgorithms = new Feed(uiManagerTree, tree);
@@ -51,7 +51,7 @@ public class Main {
                     dijkstraController,
                     topologicalArrangement,
 
-                    root,
+                    tree,
                     basicFunctions,
                     uiManagerTree,
                     listAlgorithms,

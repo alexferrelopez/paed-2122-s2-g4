@@ -20,17 +20,17 @@ public class Controller {
     private final DijkstraController dijkstraController;
     private final TopologicalArrangement topologicalArrangement;
 
-    private Node root;
+    private final Tree tree;
     private final BasicFunctions basicFunctions;
     private final UIManagerTree uiManagerTree;
     private final Feed feed;
     private final SearchTimestamp searchTimestamp;
 
-    public Controller (Graph graph, UIManager uiManager,
-                       BFSController bfsController, RecommendUser recommendUser,
-                       DijkstraController dijkstraController, TopologicalArrangement topologicalArrangement,
+    public Controller(Graph graph, UIManager uiManager,
+                      BFSController bfsController, RecommendUser recommendUser,
+                      DijkstraController dijkstraController, TopologicalArrangement topologicalArrangement,
 
-                       Node root, BasicFunctions basicFunctions, UIManagerTree uiManagerTree, Feed feed, SearchTimestamp searchTimestamp
+                      Tree tree, BasicFunctions basicFunctions, UIManagerTree uiManagerTree, Feed feed, SearchTimestamp searchTimestamp
     ) {
         this.graph         = graph;
         this.uiManager     = uiManager;
@@ -39,7 +39,7 @@ public class Controller {
         this.dijkstraController = dijkstraController;
         this.topologicalArrangement = topologicalArrangement;
 
-        this.root = root;
+        this.tree = tree;
         this.basicFunctions = basicFunctions;
         this.uiManagerTree = uiManagerTree;
         this.feed = feed;
@@ -80,16 +80,16 @@ public class Controller {
 
         while (!back) {
             switch (uiManagerTree.showTreeMenu()) {
-                case AFEGIR       -> basicFunctions.addAlgorithm (root);
+                case AFEGIR       -> basicFunctions.addAlgorithm (tree.getRoot());
                 case ELIMINAR     -> back = true;
-                case LISTAR       -> feed.inOrder (root);
-                case CERCA_EXACTA -> searchTimestamp.searchExactTimestamp (root, uiManagerTree.getExactTimestamp());
+                case LISTAR       -> feed.inOrder (tree.getRoot());
+                case CERCA_EXACTA -> searchTimestamp.searchExactTimestamp (tree.getRoot(), uiManagerTree.getExactTimestamp());
                 case CERCA_RANG   -> {
                     long minim = uiManagerTree.getMinimTimestamp();
                     long maxim = uiManagerTree.getMaximTimestamp();
 
                     uiManagerTree.algorithmFoundMessage (3);
-                    searchTimestamp.searchRangTimestamp (root, minim, maxim);
+                    searchTimestamp.searchRangTimestamp (tree.getRoot(), minim, maxim);
                 }
                 case BACK         -> back = true;
             }

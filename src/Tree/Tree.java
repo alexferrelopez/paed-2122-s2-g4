@@ -36,7 +36,7 @@ public class Tree {
     }
 
     public void delete (Node node) {
-        //inorder.
+
     }
 
     public String timestampToDate (Node root) {
@@ -47,5 +47,9 @@ public class Tree {
 
     public void setRoot(Node root) {
         this.root = root;
+    }
+
+    public Node getRoot() {
+        return root;
     }
 }
