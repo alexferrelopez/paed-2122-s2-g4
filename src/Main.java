@@ -1,10 +1,5 @@
-import Graph.GraphDAO;
-import Graph.Graph;
-import Graph.UIManager;
-import Graph.Options.BFSController;
-import Graph.Options.RecommendUser;
-import Graph.Options.DijkstraController;
-import Graph.Options.TopologicalArrangement;
+import Graph.*;
+import Graph.Options.*;
 import Tree.*;
 import Tree.Options.BasicFunctions;
 import Tree.Options.Feed;
@@ -14,7 +9,7 @@ import java.io.IOException;
 
 /**
  *
- *   Created by: Alex Ferré, Tomás Uzcudún and Sami Amin <br><br>
+ *   Created by: Àlex Ferré, Tomás Uzcudún and Sami Amin <br><br>
  *   Subject: PAED - Project S2 <br>
  *   Last Modification: 27/02/2022 <br>
  *   Version: 1.0 <br>
@@ -31,14 +26,12 @@ public class Main {
 
     public static void main (String[] args) {
         try {
-            //--------------------------- GRAPH ALGORITHMS ------------------------------------//
-
-            GraphDAO graphDAO           = new GraphDAO();
-            Graph graph                 = new Graph(graphDAO.readFile("graphS.paed"));
-            UIManager uiManager         = new UIManager();
-            BFSController bfsController = new BFSController(graph.findListSize());
-            RecommendUser recommendUser = new RecommendUser(graph, uiManager);
-            DijkstraController dijkstraController = new DijkstraController(graph);
+            GraphDAO graphDAO                             = new GraphDAO();
+            Graph graph                                   = new Graph(graphDAO.readFile("graphS.paed"));
+            UIManager uiManager                           = new UIManager();
+            BFSController bfsController                   = new BFSController(graph.findListSize());
+            RecommendUser recommendUser                   = new RecommendUser(graph, uiManager);
+            DijkstraController dijkstraController         = new DijkstraController(graph);
             TopologicalArrangement topologicalArrangement = new TopologicalArrangement();
 
             //--------------------------- TREE ALGORITHMS ------------------------------------//

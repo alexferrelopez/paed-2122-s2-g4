@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class Tree {
 
+    private Node root;
+
     /**
      *
      * Method that insert a node into the tree.
@@ -15,7 +17,6 @@ public class Tree {
      * @param node Node that we want to insert
      *
      */
-
     public void insert (Node parent, Node node) {
         if (node.getTimestamp() < parent.getTimestamp()) {
             if (parent.getLeft() == null) {
@@ -34,9 +35,17 @@ public class Tree {
         }
     }
 
+    public void delete (Node node) {
+        //inorder.
+    }
+
     public String timestampToDate (Node root) {
         Date d = new Date(root.getTimestamp() * 1000L);
         SimpleDateFormat jdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return jdf.format(d);
+    }
+
+    public void setRoot(Node root) {
+        this.root = root;
     }
 }

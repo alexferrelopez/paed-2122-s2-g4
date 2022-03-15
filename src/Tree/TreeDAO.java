@@ -46,6 +46,7 @@ public class TreeDAO {
 
             if (i == 0) {
                 root = node;
+                tree.setRoot(root);
             } else {
                 tree.insert(root, node);
             }
