@@ -8,6 +8,7 @@ public class Node {
     private String cost;
     private long timestamp;
 
+    private Node parent;
     private Node right;
     private Node left;
 
@@ -17,6 +18,14 @@ public class Node {
         this.language = language;
         this.cost = cost;
         this.timestamp = timestamp;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 
     public Node getRight() {
