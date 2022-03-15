@@ -20,12 +20,14 @@ public class Tree {
         if (node.getTimestamp() < parent.getTimestamp()) {
             if (parent.getLeft() == null) {
                 parent.setLeft(node);
+                node.setParent(parent);
             } else {
                 insert (parent.getLeft(), node);
             }
         } else {
             if (parent.getRight() == null) {
                 parent.setRight(node);
+                node.setParent(parent);
             } else {
                 insert (parent.getRight(), node);
             }
