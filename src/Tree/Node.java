@@ -83,4 +83,15 @@ public class Node {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", language='" + language + '\'' +
+                ", cost='" + cost + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

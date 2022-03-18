@@ -4,8 +4,8 @@ import Tree.*;
 
 public class SearchTimestamp {
 
-    private UIManagerTree uiManagerTree;
-    private Tree tree;
+    private final UIManagerTree uiManagerTree;
+    private final Tree tree;
 
     public SearchTimestamp (UIManagerTree uiManagerTree, Tree tree) {
         this.uiManagerTree = uiManagerTree;

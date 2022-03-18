@@ -27,7 +27,7 @@ public class Main {
     public static void main (String[] args) {
         try {
             GraphDAO graphDAO                             = new GraphDAO();
-            Graph graph                                   = new Graph(graphDAO.readFile("graphS.paed"));
+            Graph graph                                   = new Graph(graphDAO.readFile("graphXL.paed"));
             UIManager uiManager                           = new UIManager();
             BFSController bfsController                   = new BFSController(graph.findListSize());
             RecommendUser recommendUser                   = new RecommendUser(graph, uiManager);

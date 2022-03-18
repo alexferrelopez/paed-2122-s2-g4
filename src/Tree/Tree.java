@@ -35,8 +35,51 @@ public class Tree {
         }
     }
 
-    public void delete (Node node) {
+    public void deleteNode(Node node) {
 
+    }
+
+    public Node findNode (int id, Node node) {
+
+        if(node != null){
+            if(node.getId() == id){
+                return node;
+            } else {
+                Node result = findNode(id, node.getLeft());
+                if(result == null) {
+                    result = findNode(id, node.getRight());
+                }
+                return result;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public void rotateLeft (Node nodeToRotate) {
+        Node parent = nodeToRotate.getParent();
+
+       Node k1 = nodeToRotate.getLeft();
+        nodeToRotate.setLeft(k1.getRight());
+        k1.setRight(nodeToRotate);
+    }
+
+    public void rotateRight (Node nodeToRotate) {
+
+        Node k2 = nodeToRotate.getRight();
+        nodeToRotate.setRight(k2.getLeft());
+        k2.setLeft(nodeToRotate);
+    }
+
+    public void rotateLeftRight (Node nodeToRotate) {
+
+        rotateRight(nodeToRotate.getLeft());
+        rotateLeft(nodeToRotate);
+    }
+
+    public void rotateRightLeft (Node nodeToRotate) {
+        rotateLeft(nodeToRotate.getRight());
+        rotateRight(nodeToRotate);
     }
 
     public String timestampToDate (Node root) {
