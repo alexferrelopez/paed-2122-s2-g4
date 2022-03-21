@@ -27,7 +27,7 @@ public class Main {
     public static void main (String[] args) {
         try {
             GraphDAO graphDAO                             = new GraphDAO();
-            Graph graph                                   = new Graph(graphDAO.readFile("graphXL.paed"));
+            Graph graph                                   = new Graph(graphDAO.readFile("graphS.paed"));
             UIManager uiManager                           = new UIManager();
             BFSController bfsController                   = new BFSController(graph.findListSize());
             RecommendUser recommendUser                   = new RecommendUser(graph, uiManager);
@@ -36,12 +36,12 @@ public class Main {
 
             //--------------------------- TREE ALGORITHMS ------------------------------------//
 
-            Tree tree = new Tree ();
+            Tree tree                                     = new Tree ();
             tree.setRoot(new TreeDAO(tree).readFile("treeXXS.paed"));
-            UIManagerTree uiManagerTree   = new UIManagerTree();
-            BasicFunctions basicFunctions = new BasicFunctions (uiManagerTree, tree);
-            Feed listAlgorithms = new Feed(uiManagerTree, tree);
-            SearchTimestamp searchTimestamp = new SearchTimestamp(uiManagerTree, tree);
+            UIManagerTree uiManagerTree                   = new UIManagerTree();
+            BasicFunctions basicFunctions                 = new BasicFunctions (uiManagerTree, tree);
+            Feed listAlgorithms                           = new Feed(uiManagerTree, tree);
+            SearchTimestamp searchTimestamp               = new SearchTimestamp(uiManagerTree, tree);
 
             Controller controller       = new Controller (
                     graph,

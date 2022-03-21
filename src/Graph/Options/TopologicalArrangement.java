@@ -1,16 +1,17 @@
 package Graph.Options;
 
-import Graph.*;
+import Graph.Graph;
+import Graph.GraphDAO;
+import Graph.User;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.LinkedList;
 
 public class TopologicalArrangement {
 
     private Graph graph;
 
-    private LinkedList<User> pila = new LinkedList<>();     // LinkedList with the visited Users
-    private LinkedList<User> adj = new LinkedList<>();       // LinkedList with the adjacent Users
+    private final LinkedList<User> pila = new LinkedList<>();     // LinkedList with the visited Users
     private boolean [] visited;
 
     public void topoSort () throws IOException {
@@ -51,7 +52,7 @@ public class TopologicalArrangement {
         for (int i = 0; i < pila.size(); i++) {
             System.out.println(pila.get(i).getId() + " - " + pila.get(i).getName() + " (" + pila.get(i).getAlias() + ")");
             if (i == (pila.size()-1)) {
-                System.out.println("");
+                System.out.println();
             } else {
                 System.out.println("↓");
             }

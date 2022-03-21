@@ -1,6 +1,9 @@
 package Graph.Options;
 
-import Graph.*;
+import Graph.Adjacency;
+import Graph.Graph;
+import Graph.UIManager;
+import Graph.User;
 
 import java.util.LinkedList;
 

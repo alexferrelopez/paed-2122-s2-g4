@@ -57,9 +57,8 @@ public class Tree {
     }
 
     public void rotateLeft (Node nodeToRotate) {
-        Node parent = nodeToRotate.getParent();
 
-       Node k1 = nodeToRotate.getLeft();
+        Node k1 = nodeToRotate.getLeft();
         nodeToRotate.setLeft(k1.getRight());
         k1.setRight(nodeToRotate);
     }

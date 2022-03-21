@@ -11,8 +11,8 @@ public class BFSController {
 
     private final boolean[] visited;
 
-    private LinkedList<User> queue = new LinkedList<>(); // LinkedList with the visited Users
-    private LinkedList<User> adj = new LinkedList<>();       // LinkedList with the adjacent Users
+    private final LinkedList<User> queue = new LinkedList<>();     // LinkedList with the visited Users
+    private final LinkedList<User> adj   = new LinkedList<>();       // LinkedList with the adjacent Users
 
     public BFSController (int numberOfVertices) {
         visited = new boolean[numberOfVertices];
@@ -31,32 +31,55 @@ public class BFSController {
     public void BreadthFirstSearch (Graph graph, int searchedUser) {
         LinkedList<User> users = new LinkedList<>(graph.getUserList());
 
-        visited[searchedUser] = true;
-        queue.add(users.get(searchedUser));
+        while (searchedUser != -1) {
+            visited[searchedUser] = true;
+            queue.add(users.get(searchedUser));
 
-        while (queue.size() != 0) {
-            int userIndex = graph.findUserIndex(queue.poll().getId());
-            System.out.println(users.get(userIndex).toString());
-            //System.out.println(users.get(userIndex).getId());
-            List<User> adjacent = graph.findAdjacent(userIndex);
-            adj.addAll(adjacent);
+            int cont1 = 1;
+            int cont2 = 0;
 
+            System.out.println(users.get(searchedUser));
 
-            for (User user : adj) {
-                int n = graph.findUserIndex(user.getId());
-                if (!visited[n]) {
-                    visited[n] = true;
-                    queue.add(users.get(n));
+            while (queue.size() != 0) {
+                int userIndex = graph.findUserIndex(queue.poll().getId());
+
+                //System.out.println(users.get(userIndex));
+
+                List<User> adjacent = graph.findAdjacent(userIndex);
+                cont1--;
+
+                adj.addAll(adjacent);
+
+                /*if (!adjacent.isEmpty())
+                    System.out.println("Nueva capa");*/
+
+                for (User user : adj) {
+                    int n = graph.findUserIndex(user.getId());
+                    if (!visited[n]) {
+                        cont2++;
+                        //System.out.println(user);
+
+                        visited[n] = true;
+                        queue.add(users.get(n));
+                    }
+                }
+                adj.clear();
+
+                if (cont1 == 0 && cont2 != 0) {
+                    cont1 = cont2;
+                    cont2 = 0;
+                    System.out.println("\nAquests són els comptes que segueixen:");
+
+                    for (User user : queue) {
+                        System.out.println(user);
+                    }
                 }
             }
-            adj.clear();
-        }
+            searchedUser = visitedIsFalse();
 
-        int visitedIsFalse = visitedIsFalse();
-
-        while (visitedIsFalse != -1) {
-            BreadthFirstSearch(graph, visitedIsFalse);
-            visitedIsFalse = visitedIsFalse();
+            if (searchedUser != -1) {
+                System.out.println("\nNo hi ha comptes que segueixen, aquestes són les següents comptes no relacionades:");
+            }
         }
     }
 
@@ -74,6 +97,7 @@ public class BFSController {
     }
 
     public void exploreTheWeb (Graph graph, int searchedUser) {
+        System.out.println("\nL'usuari que segueix més comptes és:");
         BreadthFirstSearch(graph, searchedUser);
         Arrays.fill(visited, false);
     }
