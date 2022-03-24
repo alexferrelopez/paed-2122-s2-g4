@@ -2,6 +2,7 @@ package Tree;
 
 public class Node {
 
+    private int bf;
     private long id;
     private String name;
     private String language;
@@ -18,6 +19,14 @@ public class Node {
         this.language = language;
         this.cost = cost;
         this.timestamp = timestamp;
+    }
+
+    public int getBf() {
+        return this.bf;
+    }
+
+    public void setBf(int bf) {
+        this.bf = bf;
     }
 
     public Node getParent() {
