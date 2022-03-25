@@ -42,7 +42,7 @@ public class TreeDAO {
                     Long.parseLong(split[4])
             );
 
-            tree.insert(tree.getRoot(), node);
+            tree.setRoot(tree.insert(tree.getRoot(), node));
         }
 
         return tree.getRoot();
