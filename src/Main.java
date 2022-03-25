@@ -43,7 +43,9 @@ public class Main {
             Feed listAlgorithms                           = new Feed(uiManagerTree, tree);
             SearchTimestamp searchTimestamp               = new SearchTimestamp(uiManagerTree, tree);
 
-            tree.inOrderAVL(tree.getRoot());
+            //tree.inOrderAVL(tree.getRoot());
+            //tree.insert(tree.getRoot());
+            tree.preOrder(tree.getRoot());
 
             Controller controller       = new Controller (
                     graph,

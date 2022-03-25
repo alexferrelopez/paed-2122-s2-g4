@@ -2,7 +2,7 @@ package Tree;
 
 public class Node {
 
-    private int bf;
+    private int height;
     private long id;
     private String name;
     private String language;
@@ -21,12 +21,12 @@ public class Node {
         this.timestamp = timestamp;
     }
 
-    public int getBf() {
-        return this.bf;
+    public int getHeight() {
+        return this.height;
     }
 
-    public void setBf(int bf) {
-        this.bf = bf;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public Node getParent() {
