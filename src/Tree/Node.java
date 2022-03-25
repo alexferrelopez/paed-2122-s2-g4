@@ -97,10 +97,9 @@ public class Node {
     public String toString() {
         return "Node{" +
                 "id=" + id +
+                ", height=" + height +
                 ", name='" + name + '\'' +
-                ", language='" + language + '\'' +
-                ", cost='" + cost + '\'' +
-                ", timestamp=" + timestamp +
+                ", timestamp=" + (timestamp / 1000000L) +
                 '}';
     }
 }

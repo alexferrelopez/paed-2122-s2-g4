@@ -7,6 +7,14 @@ public class Tree {
 
     private Node root;
 
+    public void setRoot(Node root) {
+        this.root = root;
+    }
+
+    public Node getRoot() {
+        return root;
+    }
+
     /**
      *
      * Method that insert a node into the tree.
@@ -17,22 +25,7 @@ public class Tree {
      * @param node Node that we want to insert
      *
      */
-    public Node insert (Node parent, Node node) {
-        /*if (parent == null) {
-            return node;
-        }
-
-        if (node.getTimestamp() < parent.getTimestamp()) {
-            parent.setLeft(insertNode(parent.getLeft(), node));
-        }
-        else if (node.getTimestamp() > parent.getTimestamp()) {
-            parent.setRight(insertNode(parent.getRight(), node));
-        }
-        else {
-            return parent;
-        }*/
-
-
+    public void insert (Node parent, Node node) {
         if (node.getTimestamp() < parent.getTimestamp()) {
             if (parent.getLeft() == null) {
                 parent.setLeft(node);
@@ -49,38 +42,41 @@ public class Tree {
             }
         }
 
-        // Update the balance factor of each node
-        // And, balance the tree
-        parent.setHeight(1 + max(height(parent.getLeft()), height(parent.getRight())));
-        int balanceFactor = getBalanceFactor(parent);
-        if (balanceFactor > 1) {
-            if (node.getTimestamp() > parent.getRight().getTimestamp()) {
-                return leftRotate(parent);
-            } else if (node.getTimestamp() < parent.getRight().getTimestamp()) {
-                parent.setRight(rightRotate(parent.getRight()));
-                return leftRotate(parent);
-            }
+        /* 2. Update height of this ancestor node */
+        parent.setHeight(1 + max(height(parent.getLeft()),
+                height(parent.getRight())));
+
+        /* 3. Get the balance factor of this ancestor
+              node to check whether this node became
+              unbalanced */
+        int balance = getBalanceFactor(parent);
+
+        // If this node becomes unbalanced, then there
+        // are 4 cases Left Left Case
+        if (balance > 1 && node.getTimestamp() < parent.getLeft().getTimestamp()) {
+            rotateRight(parent);
+            return;
         }
-        if (balanceFactor < -1) {
-            if (node.getTimestamp() < parent.getLeft().getTimestamp()) {
-                return rightRotate(parent);
-            } else if (node.getTimestamp() > parent.getLeft().getTimestamp()) {
-                parent.setLeft(leftRotate(parent.getLeft()));
-                return rightRotate(parent);
-            }
 
-
+        // Right Right Case
+        if (balance < -1 && node.getTimestamp() > parent.getRight().getTimestamp()) {
+            rotateLeft(parent);
+            return;
         }
-        return parent;
 
-    }
-
-    public void deleteNode(Node node) {
-
+        // Left Right Case
+        if (balance > 1 && node.getTimestamp() > parent.getLeft().getTimestamp()) {
+            rotateRightLeft(parent);
+            return;
+        }
+        // Right Left Case
+        if (balance < -1 && node.getTimestamp() < parent.getRight().getTimestamp()) {
+            rotateLeftRight(parent);
+        }
+        System.out.println();
     }
 
     public Node findNode (int id, Node node) {
-
         if(node != null){
             if(node.getId() == id){
                 return node;
@@ -102,24 +98,21 @@ public class Tree {
         return jdf.format(d);
     }
 
-    public void setRoot(Node root) {
-        this.root = root;
-    }
 
-    public Node getRoot() {
-        return root;
-    }
-
-    /*public void rotateLeft (Node nodeToRotate) {
+    public void rotateLeft (Node nodeToRotate) {
         Node k1 = nodeToRotate.getLeft();
         nodeToRotate.setLeft(k1.getRight());
         k1.setRight(nodeToRotate);
+        k1.setHeight(max(height(k1.getLeft()), height(k1.getRight())) + 1);
+        nodeToRotate.setHeight(max(height(nodeToRotate.getLeft()), height(nodeToRotate.getRight())) + 1);
     }
 
     public void rotateRight (Node nodeToRotate) {
         Node k2 = nodeToRotate.getRight();
         nodeToRotate.setRight(k2.getLeft());
         k2.setLeft(nodeToRotate);
+        k2.setHeight(max(height(k2.getLeft()), height(k2.getRight())) + 1);
+        nodeToRotate.setHeight(max(height(nodeToRotate.getLeft()), height(nodeToRotate.getRight())) + 1);
     }
 
     public void rotateLeftRight (Node nodeToRotate) {
@@ -130,43 +123,6 @@ public class Tree {
     public void rotateRightLeft (Node nodeToRotate) {
         rotateLeft(nodeToRotate.getRight());
         rotateRight(nodeToRotate);
-    }*/
-
-    public void AVL (Node nodeToRotate) {
-
-    }
-
-    public void inOrderAVL (Node root) {
-        if (root == null) return;
-
-        inOrderAVL(root.getLeft());
-        inOrderAVL(root.getRight());
-
-        if (root.getLeft() != null && root.getRight() == null) {
-            root.setHeight(root.getHeight() - 1);
-        } else if (root.getLeft() == null && root.getRight() != null) {
-            root.setHeight(root.getHeight() + 1);
-        } else if (root.getLeft() != null && root.getRight() != null){
-            if (root.getLeft().getHeight() == 0 && root.getRight().getHeight() == 0) {
-                root.setHeight(root.getHeight());
-            } else if (root.getLeft().getHeight() != 0 && root.getRight().getHeight() == 0) {
-                if (root.getLeft().getHeight() > 0) {
-                    root.setHeight(root.getRight().getHeight() - root.getLeft().getHeight());
-                } else {
-                    root.setHeight(root.getLeft().getHeight()-1);
-                }
-            } else if (root.getLeft().getHeight() == 0 && root.getRight().getHeight() != 0) {
-                if (root.getRight().getHeight() > 0) {
-                    root.setHeight(root.getLeft().getHeight() - root.getRight().getHeight());
-                } else {
-                    root.setHeight(root.getRight().getHeight()-1);
-                }
-            } else {
-                root.setHeight(+1);
-            }
-        } else {
-            root.setHeight(root.getHeight());
-        }
     }
 
     public void preOrder(Node node) {
@@ -189,72 +145,10 @@ public class Tree {
         return Math.max(a, b);
     }
 
-    Node rightRotate(Node y) {
-        Node x = y.getLeft();
-        Node T2 = x.getRight();
-        x.setRight(y);
-        y.setLeft(T2);
-        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
-        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
-        return x;
-    }
-    Node leftRotate(Node x) {
-        Node y = x.getRight();
-        Node T2 = y.getLeft();
-        y.setLeft(x);
-        x.setRight(T2);
-        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
-        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
-        return y;
-    }
-
     // Get balance factor of a node
     int getBalanceFactor(Node N) {
         if (N == null)
             return 0;
         return height(N.getRight()) - height(N.getLeft());
     }
-    // Insert a node
-    public Node insertNode(Node parent, Node node) {
-        // Find the position and insert the node
-        if (parent == null)
-            return node;
-
-        if (node.getTimestamp() < parent.getTimestamp())
-            parent.setLeft(insertNode(parent.getLeft(), node));
-        else if (node.getTimestamp() > parent.getTimestamp())
-            parent.setRight(insertNode(parent.getRight(), node));
-        else
-            return node;
-
-        // Update the balance factor of each node
-        // And, balance the tree
-        parent.setHeight(1 + max(height(parent.getLeft()), height(parent.getRight())));
-        int balanceFactor = getBalanceFactor(parent);
-        if (balanceFactor > 1) {
-            if (node.getTimestamp() < parent.getLeft().getTimestamp()) {
-                return rightRotate(parent);
-            } else if (node.getTimestamp() > parent.getLeft().getTimestamp()) {
-                parent.setLeft(leftRotate(parent.getLeft()));
-                return rightRotate(parent);
-            }
-        }
-        if (balanceFactor < -1) {
-            if (node.getTimestamp() > parent.getRight().getTimestamp()) {
-                return leftRotate(parent);
-            } else if (node.getTimestamp() < parent.getRight().getTimestamp()) {
-                parent.setRight(rightRotate(parent.getRight()));
-                return leftRotate(parent);
-            }
-        }
-        return parent;
-    }
-
-    /*public Node getRoot() {
-        return root;
-    }
-
-    public void setRoot(Node root) {
-        this.root = root;
-    }*/
 }
