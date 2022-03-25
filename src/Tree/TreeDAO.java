@@ -30,8 +30,6 @@ public class TreeDAO {
 
         int numberOfAlgorithms = Integer.parseInt(lines.get(0));
 
-        Node root = null;
-
         for (int i = 0; i < numberOfAlgorithms; i++) {
             String line = lines.get(i + 1);
             String[] split = line.split(";");
@@ -44,14 +42,9 @@ public class TreeDAO {
                     Long.parseLong(split[4])
             );
 
-            if (i == 0) {
-                root = node;
-                tree.setRoot(root);
-            } else {
-                tree.insert(root, node);
-            }
+            tree.insert(tree.getRoot(), node);
         }
 
-        return root;
+        return tree.getRoot();
     }
 }

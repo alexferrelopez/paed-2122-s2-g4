@@ -26,20 +26,16 @@ public class Tree {
      *
      */
     public void insert (Node parent, Node node) {
+
+        if (parent == null) {
+            root = node;
+            return;
+        }
+
         if (node.getTimestamp() < parent.getTimestamp()) {
-            if (parent.getLeft() == null) {
-                parent.setLeft(node);
-                node.setParent(parent);
-            } else {
-                insert (parent.getLeft(), node);
-            }
-        } else {
-            if (parent.getRight() == null) {
-                parent.setRight(node);
-                node.setParent(parent);
-            } else {
-                insert (parent.getRight(), node);
-            }
+            insert(parent.getLeft(),node);
+        } else if (node.getTimestamp() >= parent.getTimestamp()){
+            insert(parent.getRight(), node);
         }
 
         /* 2. Update height of this ancestor node */
@@ -54,24 +50,26 @@ public class Tree {
         // If this node becomes unbalanced, then there
         // are 4 cases Left Left Case
         if (balance > 1 && node.getTimestamp() < parent.getLeft().getTimestamp()) {
-            rotateRight(parent);
+            rotateLeft(parent);
             return;
         }
 
         // Right Right Case
         if (balance < -1 && node.getTimestamp() > parent.getRight().getTimestamp()) {
-            rotateLeft(parent);
+            rotateRight(parent);
             return;
         }
 
         // Left Right Case
         if (balance > 1 && node.getTimestamp() > parent.getLeft().getTimestamp()) {
-            rotateRightLeft(parent);
+            rotateRight(parent.getRight());
+            rotateLeft(parent);
             return;
         }
         // Right Left Case
         if (balance < -1 && node.getTimestamp() < parent.getRight().getTimestamp()) {
-            rotateLeftRight(parent);
+            rotateLeft(parent.getLeft());
+            rotateRight(parent);
         }
         System.out.println();
     }
@@ -100,18 +98,24 @@ public class Tree {
 
 
     public void rotateLeft (Node nodeToRotate) {
-        Node k1 = nodeToRotate.getLeft();
-        nodeToRotate.setLeft(k1.getRight());
-        k1.setRight(nodeToRotate);
-        k1.setHeight(max(height(k1.getLeft()), height(k1.getRight())) + 1);
+        Node y = nodeToRotate.getRight();
+        Node T2 = y.getLeft();
+
+        y.setLeft(nodeToRotate);
+        nodeToRotate.setRight(T2);
+
+        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
         nodeToRotate.setHeight(max(height(nodeToRotate.getLeft()), height(nodeToRotate.getRight())) + 1);
     }
 
     public void rotateRight (Node nodeToRotate) {
-        Node k2 = nodeToRotate.getRight();
-        nodeToRotate.setRight(k2.getLeft());
-        k2.setLeft(nodeToRotate);
-        k2.setHeight(max(height(k2.getLeft()), height(k2.getRight())) + 1);
+        Node x = nodeToRotate.getLeft();
+        Node T2 = x.getRight();
+
+        x.setRight(nodeToRotate);
+        nodeToRotate.setLeft(T2);
+
+        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
         nodeToRotate.setHeight(max(height(nodeToRotate.getLeft()), height(nodeToRotate.getRight())) + 1);
     }
 
