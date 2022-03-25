@@ -110,6 +110,28 @@ public class Tree {
         return root;
     }
 
+    /*public void rotateLeft (Node nodeToRotate) {
+        Node k1 = nodeToRotate.getLeft();
+        nodeToRotate.setLeft(k1.getRight());
+        k1.setRight(nodeToRotate);
+    }
+
+    public void rotateRight (Node nodeToRotate) {
+        Node k2 = nodeToRotate.getRight();
+        nodeToRotate.setRight(k2.getLeft());
+        k2.setLeft(nodeToRotate);
+    }
+
+    public void rotateLeftRight (Node nodeToRotate) {
+        rotateRight(nodeToRotate.getLeft());
+        rotateLeft(nodeToRotate);
+    }
+
+    public void rotateRightLeft (Node nodeToRotate) {
+        rotateLeft(nodeToRotate.getRight());
+        rotateRight(nodeToRotate);
+    }*/
+
     public void AVL (Node nodeToRotate) {
 
     }
