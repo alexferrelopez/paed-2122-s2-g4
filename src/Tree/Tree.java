@@ -41,14 +41,12 @@ public class Tree {
             parent.setRight(right);
         }
 
-
-        parent.setHeight(1 + max(height(parent.getLeft()),
-                height(parent.getRight())));
+        parent.setHeight(1 + max(height(parent.getLeft()), height(parent.getRight())));
 
         int balance = getBalanceFactor(parent);
 
         // If this node becomes unbalanced, then there
-        if (balance > 1 && node.getTimestamp() < parent.getLeft().getTimestamp()) {
+         if (balance > 1 && node.getTimestamp() < parent.getLeft().getTimestamp()) {
             Node left = rotateLeft(parent);
             left.setParent(parent);
             return left;
@@ -98,7 +96,6 @@ public class Tree {
         return jdf.format(d);
     }
 
-
     public Node rotateLeft (Node A) {
         Node D = A.getRight();
         Node N = D.getLeft();
@@ -147,20 +144,93 @@ public class Tree {
         }
     }
 
-    int height(Node N) {
+    public int height(Node N) {
         if (N == null)
             return 0;
         return N.getHeight();
     }
 
-    int max(int a, int b) {
+    public int max(int a, int b) {
         return Math.max(a, b);
     }
 
     // Get balance factor of a node
-    int getBalanceFactor(Node N) {
+    public int getBalanceFactor(Node N) {
         if (N == null)
             return 0;
         return height(N.getRight()) - height(N.getLeft());
     }
+
+    public Node delete (Node root, long timestamp) {
+        if (root == null) {
+            return root;
+        }
+
+        if (timestamp < root.getTimestamp()) {
+            Node left = delete(root.getLeft(), timestamp);
+            root.setLeft(left);
+        } else if (timestamp > root.getTimestamp()) {
+            Node right = delete(root.getRight(), timestamp);
+            root.setRight(right);
+        } else {
+            if ((root.getLeft() == null) || (root.getRight() == null)) {
+                Node temp = null;
+                if (temp == root.getLeft()) {
+                    temp = root.getRight();
+                } else {
+                    temp = root.getLeft();
+                }
+
+                root = temp;
+            } else {
+                Node temp = minValueNode(root.getRight());
+                root.setTimestamp(temp.getTimestamp());
+                root.setRight(delete(root.getRight(), temp.getTimestamp()));
+            }
+        }
+
+        if (root == null) {
+            return root;
+        }
+
+        root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
+        int balance = getBalanceFactor(root);
+
+        if (balance > 1 && getBalanceFactor(root.getLeft()) < 0) {
+            Node left = rotateLeft(root);
+            left.setParent(root);
+            return left;
+        }
+
+        if (balance < -1 && getBalanceFactor(root.getRight()) > 0) {
+            Node right = rotateRight(root);
+            right.setParent(root);
+            return right;
+        }
+
+        if (balance > 1 && getBalanceFactor(root.getLeft()) > 0) {
+            root.setRight(rotateRight(root.getRight()));
+            Node left = rotateLeft(root);
+            left.setParent(root);
+            return left;
+        }
+
+        if (balance < -1 && getBalanceFactor(root.getRight()) < 0) {
+            root.setLeft(rotateLeft(root.getLeft()));
+            Node right = rotateRight(root);
+            right.setParent(root);
+            return right;
+        }
+        return root;
+    }
+
+    public Node minValueNode (Node node) {
+        Node current = node;
+
+        while (current.getLeft() != null) {
+            current = current.getLeft();
+        }
+        return current;
+    }
+
 }

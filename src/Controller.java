@@ -81,7 +81,7 @@ public class Controller {
         while (!back) {
             switch (uiManagerTree.showTreeMenu()) {
                 case AFEGIR       -> basicFunctions.addAlgorithm (tree.getRoot());
-                case ELIMINAR     -> System.out.println(tree.findNode(5, tree.getRoot()).toString());
+                case ELIMINAR     -> basicFunctions.deleteAlgrithm();
                 case LISTAR       -> feed.inOrder (tree.getRoot());
                 case CERCA_EXACTA -> searchTimestamp.searchExactTimestamp (tree.getRoot(), uiManagerTree.getExactTimestamp());
                 case CERCA_RANG   -> {

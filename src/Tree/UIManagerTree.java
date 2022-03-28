@@ -78,6 +78,12 @@ public class UIManagerTree {
         return new Node (id, name, algorithm, cost, timestamp);
     }
 
+    public Long deleteNode () {
+        System.out.print ("Identificador de l'algorisme: ");
+        return Long.parseLong(scanner.nextLine());
+    }
+
+
     //-------------------------------------- LIST ALGORITHM -----------------------------------------------//
 
     public void printAlgorithm (String name, String lang, String cost, String time) {
