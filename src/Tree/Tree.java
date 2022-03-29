@@ -25,68 +25,14 @@ public class Tree {
      * @param node Node that we want to insert
      *
      */
-   /* public Node insert (Node parent, Node node) {
-
-        if (parent == null) {
-            return node;
-        }
-
-        if (node.getTimestamp() < parent.getTimestamp()) {
-            Node left = insert(parent.getLeft(), node);
-            left.setParent(parent);
-            parent.setLeft(left);
-        } else if (node.getTimestamp() > parent.getTimestamp()){
-            Node right = insert(parent.getRight(), node);
-            right.setParent(parent);
-            parent.setRight(right);
-        }
-
-        parent.setHeight(1 + max(height(parent.getLeft()), height(parent.getRight())));
-
-        int balance = getBalanceFactor(parent);
-
-        // If this node becomes unbalanced, then there
-        //if (parent.getLeft() != null) {
-        if (balance > 1 && node.getTimestamp() < parent.getLeft().getTimestamp()) {
-            Node left = rotateLeft(parent);
-            left.setParent(parent);
-            return left;
-        }
-
-        if (balance > 1 && node.getTimestamp() > parent.getLeft().getTimestamp()) {
-            parent.setRight(rotateRight(parent.getRight()));
-            Node left = rotateLeft(parent);
-            left.setParent(parent);
-            return left;
-        }
-        //}
-
-        //if (parent.getRight() != null) {
-        System.out.println(parent.getName());
-        if (balance < -1 && node.getTimestamp() > parent.getRight().getTimestamp()) {
-            Node right = rotateRight(parent);
-            right.setParent(parent);
-            return right;
-        }
-
-        if (balance < -1 && node.getTimestamp() < parent.getRight().getTimestamp()) {
-            parent.setLeft(rotateLeft(parent.getLeft()));
-            Node right = rotateRight(parent);
-            right.setParent(parent);
-            return right;
-        }
-        //}
-
-        return parent;
-    }*/
-
     public Node insert (Node parent, Node node) {
 
         // Find the position and insert the node
 
         if (parent == null) {
             return node;
-        } if (node.getTimestamp() < parent.getTimestamp()) {
+        }
+        if (node.getTimestamp() < parent.getTimestamp()) {
             Node left = insert(parent.getLeft(), node);
             left.setParent(parent);
             parent.setLeft(left);
@@ -151,22 +97,6 @@ public class Tree {
         return x;
     }
 
-    public void preOrder(Node node) {
-        if (node != null) {
-            System.out.println(node);
-            preOrder(node.getLeft());
-            preOrder(node.getRight());
-        }
-    }
-
-    public void inOrdre(Node node) {
-        if (node != null) {
-            inOrdre(node.getLeft());
-            System.out.println(node);
-            inOrdre(node.getRight());
-        }
-    }
-
     public int height(Node N) {
         if (N == null)
             return 0;
@@ -188,22 +118,6 @@ public class Tree {
         Date d = new Date(root.getTimestamp() * 1000L);
         SimpleDateFormat jdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return jdf.format(d);
-    }
-
-    public Node findNode (int id, Node node) {
-        if (node != null) {
-            if (node.getId() == id) {
-                return node;
-            } else {
-                Node result = findNode(id, node.getLeft());
-                if (result == null) {
-                    result = findNode(id, node.getRight());
-                }
-                return result;
-            }
-        } else {
-            return null;
-        }
     }
 
     public Node delete (Node root, long timestamp) {
