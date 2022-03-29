@@ -48,7 +48,7 @@ public class Tree {
         // Update the balance factor of each node
         // And, balance the tree
 
-        parent.setHeight(1 + Math.max (height (parent.getLeft()), height (parent.getRight())));
+        parent.setHeight(1 + Math.max(height (parent.getLeft()), height (parent.getRight())));
         int balanceFactor = getBalanceFactor (parent);
 
         if (balanceFactor > 1) {
@@ -129,7 +129,7 @@ public class Tree {
         return height(N.getLeft()) - height(N.getRight());
     }
 
-    public String timestampToDate (Node root) {
+    public static String timestampToDate (Node root) {
         Date d = new Date(root.getTimestamp() * 1000L);
         SimpleDateFormat jdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return jdf.format(d);

@@ -4,12 +4,10 @@ import Tree.*;
 
 public class Feed {
 
-    private UIManagerTree uiManagerTree;
-    private Tree tree;
+    private final UIManagerTree uiManagerTree;
 
-    public Feed (UIManagerTree uiManagerTree, Tree tree) {
+    public Feed(UIManagerTree uiManagerTree) {
         this.uiManagerTree = uiManagerTree;
-        this.tree = tree;
     }
 
     public void inOrder (Node root) {
@@ -17,7 +15,7 @@ public class Feed {
             return;
 
         inOrder(root.getRight());
-        uiManagerTree.printAlgorithm (root.getName(), root.getLanguage(), root.getCost(), tree.timestampToDate(root));
+        uiManagerTree.printAlgorithm (root.getName(), root.getLanguage(), root.getCost(), Tree.timestampToDate(root));
         inOrder(root.getLeft());
     }
 }

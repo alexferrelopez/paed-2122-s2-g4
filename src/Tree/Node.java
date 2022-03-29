@@ -99,7 +99,7 @@ public class Node {
                 "id=" + id +
                 ", height=" + height +
                 ", name='" + name + '\'' +
-                ", timestamp=" + (timestamp / 1000000L) +
+                ", timestamp=" + (timestamp /*/ 1000000L*/) +
                 '}';
     }
 }

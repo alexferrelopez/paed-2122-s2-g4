@@ -5,11 +5,10 @@ import Tree.*;
 public class SearchTimestamp {
 
     private final UIManagerTree uiManagerTree;
-    private final Tree tree;
+    private int countNodes;
 
-    public SearchTimestamp (UIManagerTree uiManagerTree, Tree tree) {
+    public SearchTimestamp(UIManagerTree uiManagerTree) {
         this.uiManagerTree = uiManagerTree;
-        this.tree = tree;
     }
 
     public void searchExactTimestamp (Node root, long time) {
@@ -29,18 +28,34 @@ public class SearchTimestamp {
 
     }
 
-    public void searchRangTimestamp (Node root, long timeStart, long timeEnd) {
-        if (root == null)
+    public void searchRangTimestamp (Node node, long min, long max) {
+        if (node == null)
             return;
 
-        searchRangTimestamp (root.getLeft(), timeStart, timeEnd);
-
-        if (root.getTimestamp() > timeStart && root.getTimestamp() < timeEnd) {
-            uiManagerTree.printRangTimestampAlgorithm(root.getName(), root.getLanguage(), root.getCost(), tree.timestampToDate(root));
+        if (max > node.getTimestamp()) {
+            searchRangTimestamp(node.getRight(), min, max);
         }
 
-        searchRangTimestamp (root.getRight(), timeStart, timeEnd);
+        if (node.getTimestamp() <= max && node.getTimestamp() >= min) {
+            uiManagerTree.printRangTimestampAlgorithm(node.getName(), node.getLanguage(), node.getCost(), Tree.timestampToDate(node));
+        }
+
+        searchRangTimestamp(node.getLeft(), min, max);
     }
 
+    public int countNodesInRange (Node node, long min, long max) {
+        if (node == null)
+            return countNodes;
 
+        if (max > node.getTimestamp()) {
+            countNodesInRange(node.getRight(), min, max);
+        }
+
+        if (node.getTimestamp() <= max && node.getTimestamp() >= min) {
+            countNodes++;
+        }
+
+        countNodesInRange(node.getLeft(), min, max);
+        return countNodes;
+    }
 }

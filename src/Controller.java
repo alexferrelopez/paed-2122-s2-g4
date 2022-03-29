@@ -87,7 +87,7 @@ public class Controller {
                     long minim = uiManagerTree.getMinimTimestamp();
                     long maxim = uiManagerTree.getMaximTimestamp();
 
-                    uiManagerTree.algorithmFoundMessage (3);
+                    uiManagerTree.algorithmFoundMessage (searchTimestamp.countNodesInRange(tree.getRoot(), minim, maxim));
                     searchTimestamp.searchRangTimestamp (tree.getRoot(), minim, maxim);
                 }
                 case BACK         -> back = true;
