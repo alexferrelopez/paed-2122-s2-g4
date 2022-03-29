@@ -16,8 +16,8 @@ public class Feed {
         if (root == null)
             return;
 
-        inOrder(root.getLeft());
-        uiManagerTree.printAlgorithm (root.getName(), root.getLanguage(), root.getCost(), tree.timestampToDate(root));
         inOrder(root.getRight());
+        uiManagerTree.printAlgorithm (root.getName(), root.getLanguage(), root.getCost(), tree.timestampToDate(root));
+        inOrder(root.getLeft());
     }
 }

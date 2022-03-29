@@ -25,6 +25,7 @@ public class Tree {
      * @param node Node that we want to insert
      *
      */
+
     public Node insert (Node parent, Node node) {
 
         // Find the position and insert the node
@@ -47,7 +48,7 @@ public class Tree {
         // Update the balance factor of each node
         // And, balance the tree
 
-        parent.setHeight(1 + max (height (parent.getLeft()), height (parent.getRight())));
+        parent.setHeight(1 + Math.max (height (parent.getLeft()), height (parent.getRight())));
         int balanceFactor = getBalanceFactor (parent);
 
         if (balanceFactor > 1) {
@@ -71,6 +72,15 @@ public class Tree {
         return parent;
     }
 
+    /**
+     *
+     * Method to rotate the node to the left
+     *
+     * @param x Node that we want to rotate
+     * @return the new node rotated
+     *
+     */
+
     public Node rotateLeft (Node x) {
         Node y = x.getRight();
         Node T2 = y.getLeft();
@@ -78,11 +88,20 @@ public class Tree {
         y.setLeft(x);
         x.setRight(T2);
 
-        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
-        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
+        y.setHeight(Math.max(height(y.getLeft()), height(y.getRight())) + 1);
 
         return y;
     }
+
+    /**
+     *
+     * Method to rotate the node to the right
+     *
+     * @param y node that we want to rotate
+     * @return
+     *
+     */
 
     public Node rotateRight (Node y) {
         Node x = y.getLeft();
@@ -91,8 +110,8 @@ public class Tree {
         x.setRight(y);
         y.setLeft(T2);
 
-        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
-        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+        y.setHeight(Math.max(height(y.getLeft()), height(y.getRight())) + 1);
+        x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
 
         return x;
     }
@@ -101,10 +120,6 @@ public class Tree {
         if (N == null)
             return 0;
         return N.getHeight();
-    }
-
-    public int max(int a, int b) {
-        return Math.max(a, b);
     }
 
     // Get balance factor of a node
@@ -152,7 +167,7 @@ public class Tree {
             return root;
         }
 
-        root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
+        root.setHeight(1 + Math.max(height(root.getLeft()), height(root.getRight())));
         int balance = getBalanceFactor(root);
 
         if (balance > 1 && getBalanceFactor(root.getLeft()) < 0) {

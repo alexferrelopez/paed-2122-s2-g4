@@ -16,13 +16,17 @@ public class SearchTimestamp {
         if (root == null)
             return;
 
-        searchExactTimestamp (root.getLeft(), time);
 
-        if (root.getTimestamp() == time) {
+        if (time < root.getTimestamp()) {
+            searchExactTimestamp (root.getLeft(), time);
+        }
+        else if (time > root.getTimestamp()) {
+            searchExactTimestamp(root.getRight(), time);
+        }
+        else {
             uiManagerTree.printExactTimestampAlgorithm(root.getName(), root.getLanguage(), root.getCost());
         }
 
-        searchExactTimestamp (root.getRight(), time);
     }
 
     public void searchRangTimestamp (Node root, long timeStart, long timeEnd) {

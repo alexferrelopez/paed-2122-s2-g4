@@ -17,7 +17,7 @@ public class BasicFunctions {
 
     public void addAlgorithm (Node root) {
         Node node = uiManagerTree.createNode();
-        tree.insert(root, node);
+        tree.setRoot(tree.insert(root, node));
     }
 
     public void searchIdTimestamp (Node root, long id) {
