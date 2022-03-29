@@ -11,11 +11,10 @@ public class Feed {
      * Constructor of the class feed to show all the nodes of the tree
      *
      * @param uiManagerTree class with all the messages and inputs to show.
-     * @param tree class with all the functions of the tree.
      *
      */
 
-    public Feed (UIManagerTree uiManagerTree, Tree tree) {
+    public Feed (UIManagerTree uiManagerTree) {
         this.uiManagerTree = uiManagerTree;
     }
 
@@ -24,7 +23,7 @@ public class Feed {
             return;
 
         inOrder(root.getRight());
-        uiManagerTree.printAlgorithm (root.getName(), root.getLanguage(), root.getCost(), tree.timestampToDate(root));
+        uiManagerTree.printAlgorithm (root.getName(), root.getLanguage(), root.getCost(), Tree.timestampToDate(root));
         inOrder(root.getLeft());
     }
 }
