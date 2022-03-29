@@ -28,7 +28,14 @@ public class Tree {
 
     public Node insert (Node parent, Node node) {
 
-        // Find the position and insert the node
+        // Insert the node comparing the timestamp of each node.
+
+        // If the desired node to insert has a timestamp minor than the parent
+        //        => insert the node on the left
+        // Else If the desired node to insert has a timestamp greater than the parent
+        //        => insert the node on the right
+
+        // Else return the parent.
 
         if (parent == null) {
             return node;
@@ -45,8 +52,10 @@ public class Tree {
             return parent;
         }
 
-        // Update the balance factor of each node
-        // And, balance the tree
+        // Update the balance factor of each node.
+
+        // Balance the tree with the new node inserted
+        // Doing the necessary rotations of the tree.
 
         parent.setHeight(1 + Math.max (height (parent.getLeft()), height (parent.getRight())));
         int balanceFactor = getBalanceFactor (parent);
@@ -116,24 +125,62 @@ public class Tree {
         return x;
     }
 
+    /**
+     *
+     * Method to get the height of the node
+     *
+     * @param N node that you want to know the height.
+     * @return the height of the node.
+     *
+     */
+
     public int height(Node N) {
         if (N == null)
             return 0;
         return N.getHeight();
     }
 
-    // Get balance factor of a node
+    /**
+     *
+     * Method to calculate the balance factor of a node.
+     *
+     * @param N Node that you want to calculate the balance factor.
+     * @return the calculated height as integer.
+     *
+     */
+
     public int getBalanceFactor(Node N) {
         if (N == null)
             return 0;
         return height(N.getLeft()) - height(N.getRight());
     }
 
+    /**
+     *
+     * Method to convert the timestamp to a date
+     *
+     * @param root with all the nodes (tree).
+     * @return the date as string.
+     *
+     */
+
     public String timestampToDate (Node root) {
         Date d = new Date(root.getTimestamp() * 1000L);
         SimpleDateFormat jdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return jdf.format(d);
     }
+
+    /**
+     *
+     * Method to delete a node from the tree
+     * Receiving the root (tree) with all the nodes and,
+     * The timestamp of the node that you want to delete.
+     *
+     * @param root tree with all the nodes.
+     * @param timestamp timestamp of the node you want to delete.
+     * @return the root
+     *
+     */
 
     public Node delete (Node root, long timestamp) {
         if (root == null) {
@@ -195,8 +242,18 @@ public class Tree {
             right.setParent(root);
             return right;
         }
+
         return root;
     }
+
+    /**
+     *
+     * Method to search the minimum value of the node.
+     *
+     * @param node to start searching the minimum.
+     * @return the minimum node.
+     *
+     */
 
     public Node minValueNode (Node node) {
         Node current = node;
@@ -204,6 +261,7 @@ public class Tree {
         while (current.getLeft() != null) {
             current = current.getLeft();
         }
+
         return current;
     }
 

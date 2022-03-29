@@ -25,6 +25,25 @@ public class Controller {
     private final Feed feed;
     private final SearchTimestamp searchTimestamp;
 
+    /**
+     *
+     * Constructor of the controller where we initialize all the necessary classes
+     * to control all the program execution.
+     *
+     * @param graph                   to read the graph file.
+     * @param uiManager               to manage the messages of the graph.
+     * @param bfsController           to do the search.
+     * @param recommendUser           to manage the recommendation of the user.
+     * @param dijkstraController      to manage the dijkstra.
+     * @param topologicalArrangement  to manage the topological arrangement.
+     *
+     * @param tree                    to read the tree file.
+     * @param basicFunctions          to do the basic functions, add or eliminate node
+     * @param uiManagerTree           to manage the messages of the tree.
+     * @param feed                    to list all the nodes of the tree.
+     * @param searchTimestamp         to do the searches of the timestamps.
+     */
+
     public Controller(Graph graph, UIManager uiManager,
                       BFSController bfsController, RecommendUser recommendUser,
                       DijkstraController dijkstraController, TopologicalArrangement topologicalArrangement,
@@ -45,6 +64,14 @@ public class Controller {
         this.searchTimestamp = searchTimestamp;
     }
 
+    /**
+     *
+     * Method with the initial menu
+     *
+     * @throws IOException if there is some error reading the files.
+     *
+     */
+
     public void run () throws IOException {
         boolean exit = false;
 
@@ -57,14 +84,22 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     * Method to manage the menu of the followers. (Graphs)
+     *
+     * @throws IOException if there is some error reading the files.
+     *
+     */
+
     private void menuFollowers () throws IOException {
         boolean back = false;
 
         while (!back) {
             switch (uiManager.showFollowersMenu()) {
                 case EXPLORAR       -> bfsController.exploreTheWeb (graph, graph.getIndexOfMostFollowingUser());
-                case RECOMANAR      -> recommendUser.recommendUser      ();
-                case CONTEXTUALIZAR -> topologicalArrangement.view();
+                case RECOMANAR      -> recommendUser.recommendUser ();
+                case CONTEXTUALIZAR -> topologicalArrangement.view ();
                 case NETWORKING     -> {
                     int[] Ids = uiManager.requestUsersNetworking(graph);
                     dijkstraController.networking(graph.getUserList().get(graph.findUserIndex(Ids[0])),graph.getUserList().get(graph.findUserIndex(Ids[1])));
@@ -74,13 +109,19 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     * Method to manage the tree menu (Tree)
+     *
+     */
+
     private void menuTree () {
         boolean back = false;
 
         while (!back) {
             switch (uiManagerTree.showTreeMenu()) {
                 case AFEGIR       -> basicFunctions.addAlgorithm (tree.getRoot());
-                case ELIMINAR     -> basicFunctions.deleteAlgrithm();
+                case ELIMINAR     -> basicFunctions.deleteAlgorithm();
                 case LISTAR       -> feed.inOrder (tree.getRoot());
                 case CERCA_EXACTA -> searchTimestamp.searchExactTimestamp (tree.getRoot(), uiManagerTree.getExactTimestamp());
                 case CERCA_RANG   -> {
