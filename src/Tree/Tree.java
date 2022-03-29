@@ -52,12 +52,10 @@ public class Tree {
             return parent;
         }
 
-        // Update the balance factor of each node.
+        // Update the balance factor of each node
+        // And, balance the tree
 
-        // Balance the tree with the new node inserted
-        // Doing the necessary rotations of the tree.
-
-        parent.setHeight(1 + Math.max (height (parent.getLeft()), height (parent.getRight())));
+        parent.setHeight(1 + Math.max(height (parent.getLeft()), height (parent.getRight())));
         int balanceFactor = getBalanceFactor (parent);
 
         if (balanceFactor > 1) {
@@ -125,30 +123,13 @@ public class Tree {
         return x;
     }
 
-    /**
-     *
-     * Method to get the height of the node
-     *
-     * @param N node that you want to know the height.
-     * @return the height of the node.
-     *
-     */
-
     public int height(Node N) {
         if (N == null)
             return 0;
         return N.getHeight();
     }
 
-    /**
-     *
-     * Method to calculate the balance factor of a node.
-     *
-     * @param N Node that you want to calculate the balance factor.
-     * @return the calculated height as integer.
-     *
-     */
-
+    // Get balance factor of a node
     public int getBalanceFactor(Node N) {
         if (N == null)
             return 0;
@@ -164,23 +145,11 @@ public class Tree {
      *
      */
 
-    public String timestampToDate (Node root) {
+    public static String timestampToDate (Node root) {
         Date d = new Date(root.getTimestamp() * 1000L);
         SimpleDateFormat jdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return jdf.format(d);
     }
-
-    /**
-     *
-     * Method to delete a node from the tree
-     * Receiving the root (tree) with all the nodes and,
-     * The timestamp of the node that you want to delete.
-     *
-     * @param root tree with all the nodes.
-     * @param timestamp timestamp of the node you want to delete.
-     * @return the root
-     *
-     */
 
     public Node delete (Node root, long timestamp) {
         if (root == null) {
@@ -261,7 +230,6 @@ public class Tree {
         while (current.getLeft() != null) {
             current = current.getLeft();
         }
-
         return current;
     }
 

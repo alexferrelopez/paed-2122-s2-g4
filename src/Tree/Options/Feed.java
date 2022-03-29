@@ -4,8 +4,7 @@ import Tree.*;
 
 public class Feed {
 
-    private UIManagerTree uiManagerTree;
-    private Tree tree;
+    private final UIManagerTree uiManagerTree;
 
     /**
      *
@@ -18,16 +17,7 @@ public class Feed {
 
     public Feed (UIManagerTree uiManagerTree, Tree tree) {
         this.uiManagerTree = uiManagerTree;
-        this.tree = tree;
     }
-
-    /**
-     *
-     * Method to show all the nodes of the tree in order.
-     *
-     * @param root with all the nodes of the tree.
-     *
-     */
 
     public void inOrder (Node root) {
         if (root == null)
