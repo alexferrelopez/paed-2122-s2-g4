@@ -37,11 +37,14 @@ public class Main {
             //--------------------------- TREE ALGORITHMS ------------------------------------//
 
             Tree tree                                     = new Tree ();
-            tree.setRoot(new TreeDAO(tree).readFile("treeXXS.paed"));
+            tree.setRoot(new TreeDAO(tree).readFile("ZZLeftRight.paed"));
             UIManagerTree uiManagerTree                   = new UIManagerTree();
             BasicFunctions basicFunctions                 = new BasicFunctions (uiManagerTree, tree);
-            Feed listAlgorithms                           = new Feed(uiManagerTree, tree);
-            SearchTimestamp searchTimestamp               = new SearchTimestamp(uiManagerTree, tree);
+            Feed listAlgorithms                           = new Feed(uiManagerTree);
+            SearchTimestamp searchTimestamp               = new SearchTimestamp(uiManagerTree);
+
+
+            //tree.inOrdre(tree.getRoot());
 
             Controller controller       = new Controller (
                     graph,

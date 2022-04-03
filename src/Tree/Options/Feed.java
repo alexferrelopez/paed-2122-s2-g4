@@ -4,12 +4,18 @@ import Tree.*;
 
 public class Feed {
 
-    private UIManagerTree uiManagerTree;
-    private Tree tree;
+    private final UIManagerTree uiManagerTree;
 
-    public Feed (UIManagerTree uiManagerTree, Tree tree) {
+    /**
+     *
+     * Constructor of the class feed to show all the nodes of the tree
+     *
+     * @param uiManagerTree class with all the messages and inputs to show.
+     *
+     */
+
+    public Feed (UIManagerTree uiManagerTree) {
         this.uiManagerTree = uiManagerTree;
-        this.tree = tree;
     }
 
     public void inOrder (Node root) {
@@ -17,7 +23,7 @@ public class Feed {
             return;
 
         inOrder(root.getRight());
-        uiManagerTree.printAlgorithm (root.getName(), root.getLanguage(), root.getCost(), tree.timestampToDate(root));
+        uiManagerTree.printAlgorithm (root.getName(), root.getLanguage(), root.getCost(), Tree.timestampToDate(root));
         inOrder(root.getLeft());
     }
 }

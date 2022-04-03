@@ -28,7 +28,14 @@ public class Tree {
 
     public Node insert (Node parent, Node node) {
 
-        // Find the position and insert the node
+        // Insert the node comparing the timestamp of each node.
+
+        // If the desired node to insert has a timestamp minor than the parent
+        //        => insert the node on the left
+        // Else If the desired node to insert has a timestamp greater than the parent
+        //        => insert the node on the right
+
+        // Else return the parent.
 
         if (parent == null) {
             return node;
@@ -48,7 +55,7 @@ public class Tree {
         // Update the balance factor of each node
         // And, balance the tree
 
-        parent.setHeight(1 + Math.max (height (parent.getLeft()), height (parent.getRight())));
+        parent.setHeight(1 + Math.max(height (parent.getLeft()), height (parent.getRight())));
         int balanceFactor = getBalanceFactor (parent);
 
         if (balanceFactor > 1) {
@@ -127,7 +134,16 @@ public class Tree {
         return height(N.getLeft()) - height(N.getRight());
     }
 
-    public String timestampToDate (Node root) {
+    /**
+     *
+     * Method to convert the timestamp to a date
+     *
+     * @param root with all the nodes (tree).
+     * @return the date as string.
+     *
+     */
+
+    public static String timestampToDate (Node root) {
         Date d = new Date(root.getTimestamp() * 1000L);
         SimpleDateFormat jdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return jdf.format(d);
@@ -188,8 +204,18 @@ public class Tree {
                 return rotateLeft(root);
             }
         }
+
         return root;
     }
+
+    /**
+     *
+     * Method to search the minimum value of the node.
+     *
+     * @param node to start searching the minimum.
+     * @return the minimum node.
+     *
+     */
 
     public Node minValueNode (Node node) {
         while (node.getLeft() != null)
