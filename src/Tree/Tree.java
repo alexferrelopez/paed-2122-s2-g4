@@ -153,14 +153,12 @@ public class Tree {
         if (root == null) {
             return root;
         }
-        /*delete(root.getLeft(), id);
-        delete(root.getRight(), id);*/
+
         if (timestamp < root.getTimestamp()) {
             root.setLeft(delete(root.getLeft(), timestamp));
         } else if (timestamp > root.getTimestamp()) {
             root.setRight(delete(root.getRight(), timestamp));
         } else {
-            System.out.println("root.getTimestamp() - " + root.getTimestamp());
             if (root.getLeft() == null || root.getRight() == null) {
                 Node temp = null;
                 if (temp == root.getLeft()) temp = root.getRight();
