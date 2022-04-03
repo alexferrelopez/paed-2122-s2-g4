@@ -80,7 +80,6 @@ public class Tree {
      * @return the new node rotated
      *
      */
-
     public Node rotateLeft (Node x) {
         Node y = x.getRight();
         Node T2 = y.getLeft();
@@ -102,7 +101,6 @@ public class Tree {
      * @return
      *
      */
-
     public Node rotateRight (Node y) {
         Node x = y.getLeft();
         Node T2 = x.getRight();
@@ -139,72 +137,73 @@ public class Tree {
         if (root == null) {
             return root;
         }
-
+        /*delete(root.getLeft(), id);
+        delete(root.getRight(), id);*/
         if (timestamp < root.getTimestamp()) {
-            Node left = delete(root.getLeft(), timestamp);
-            root.setLeft(left);
+            root.setLeft(delete(root.getLeft(), timestamp));
         } else if (timestamp > root.getTimestamp()) {
-            Node right = delete(root.getRight(), timestamp);
-            root.setRight(right);
+            root.setRight(delete(root.getRight(), timestamp));
         } else {
-            if ((root.getLeft() == null) || (root.getRight() == null)) {
+            System.out.println("root.getTimestamp() - " + root.getTimestamp());
+            if (root.getLeft() == null || root.getRight() == null) {
                 Node temp = null;
-                if (temp == root.getLeft()) {
-                    temp = root.getRight();
-                } else {
-                    temp = root.getLeft();
-                }
+                if (temp == root.getLeft()) temp = root.getRight();
+                else temp = root.getLeft();
 
-                root = temp;
+                if (temp == null) {
+                    root = null;
+                } else {
+                    root = temp;
+                }
             } else {
                 Node temp = minValueNode(root.getRight());
+                root.setId(temp.getId());
+                root.setName(temp.getName());
+                root.setLanguage(temp.getLanguage());
+                root.setCost(temp.getCost());
                 root.setTimestamp(temp.getTimestamp());
                 root.setRight(delete(root.getRight(), temp.getTimestamp()));
             }
+
         }
 
-        if (root == null) {
-            return root;
-        }
-
+        if (root == null) return null;
         root.setHeight(1 + Math.max(height(root.getLeft()), height(root.getRight())));
-        int balance = getBalanceFactor(root);
+        int balanceFactor = getBalanceFactor (root);
 
-        if (balance > 1 && getBalanceFactor(root.getLeft()) < 0) {
-            Node left = rotateLeft(root);
-            left.setParent(root);
-            return left;
+        if (balanceFactor > 1) {
+            if (getBalanceFactor(root.getLeft()) < 0) {
+                return rotateRight(root);
+            } else if (getBalanceFactor(root.getLeft()) >= 0) {
+                root.setLeft(rotateLeft(root.getLeft()));
+                return rotateRight(root);
+            }
         }
 
-        if (balance < -1 && getBalanceFactor(root.getRight()) > 0) {
-            Node right = rotateRight(root);
-            right.setParent(root);
-            return right;
-        }
-
-        if (balance > 1 && getBalanceFactor(root.getLeft()) > 0) {
-            root.setRight(rotateRight(root.getRight()));
-            Node left = rotateLeft(root);
-            left.setParent(root);
-            return left;
-        }
-
-        if (balance < -1 && getBalanceFactor(root.getRight()) < 0) {
-            root.setLeft(rotateLeft(root.getLeft()));
-            Node right = rotateRight(root);
-            right.setParent(root);
-            return right;
+        if (balanceFactor < -1) {
+            if (getBalanceFactor(root.getRight()) > 0) {
+                return rotateLeft(root);
+            } else if (getBalanceFactor(root.getRight()) <= 0) {
+                root.setRight(rotateRight(root.getRight()));
+                return rotateLeft(root);
+            }
         }
         return root;
     }
 
     public Node minValueNode (Node node) {
-        Node current = node;
-
-        while (current.getLeft() != null) {
-            current = current.getLeft();
+        while (node.getLeft() != null)
+        {
+            node = node.getLeft();
         }
-        return current;
+        return node;
     }
 
+    public void inOrdre(Node node) {
+        if (node != null) {
+            inOrdre(node.getLeft());
+            System.out.println(node);
+            inOrdre(node.getRight());
+        }
+    }
 }

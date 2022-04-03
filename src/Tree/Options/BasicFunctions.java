@@ -25,17 +25,15 @@ public class BasicFunctions {
             return;
 
         searchIdTimestamp (root.getLeft(), id);
-        searchIdTimestamp (root.getRight(), id);
-
+        searchIdTimestamp(root.getRight(), id);
         if (id == root.getId()) {
-            timestamp = root.getTimestamp();
+            System.out.println();
+            tree.delete(tree.getRoot(), root.getTimestamp());
         }
+
     }
     public void deleteAlgrithm() {
         long id = uiManagerTree.deleteNode();
         searchIdTimestamp(tree.getRoot(), id);
-        if (timestamp != 0) {
-            tree.delete(tree.getRoot(), timestamp);
-        }
     }
 }
