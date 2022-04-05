@@ -1,7 +1,6 @@
-package Graph.MenuEnum;
-
 public enum MenuOptionsLinkedTree {
     SEGUIDORS,
     FEED,
+    CANVAS,
     SORTIR
 }

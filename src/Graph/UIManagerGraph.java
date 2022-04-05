@@ -1,51 +1,18 @@
 package Graph;
 
-import Graph.MenuEnum.MenuOptionsFollowers;
-import Graph.MenuEnum.MenuOptionsLinkedTree;
-
 import java.util.Scanner;
 
-public class UIManager {
+import static Graph.MenuOptionsFollowers.*;
+
+public class UIManagerGraph {
 
     private final Scanner scanner;
 
-    public UIManager () {
+    public UIManagerGraph() {
         scanner = new Scanner(System.in);
     }
 
-    public MenuOptionsLinkedTree showLinkedTreeMenu () {
-        do {
-            System.out.println("""
-                    .* LinkedTree *.
-                                   
-                    1. Seguidors (Grafs)
-                    2. Feed (Arbres)
-                    3. A ESPECIFICAR
-                    4. A ESPECIFICAR
-                                
-                    5. Sortir
-                    """);
-            System.out.print("Escull una opció: ");
-
-            try {
-                int linkedTreeOption = Integer.parseInt(scanner.nextLine());
-                switch (linkedTreeOption) {
-                    case 1:
-                        return MenuOptionsLinkedTree.SEGUIDORS;
-                    case 2:
-                        return MenuOptionsLinkedTree.FEED;
-                    case 5:
-                        return MenuOptionsLinkedTree.SORTIR;
-                    default:
-                        System.out.println("\nError, l'opció introduïda no és una opció vàlida.\n");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("\nError, l'opció introduïda no és una opció vàlida.\n");
-            }
-        } while (true);
-    }
-
-    public MenuOptionsFollowers showFollowersMenu () {
+    public MenuOptionsFollowers showFollowersMenu() {
         do {
             System.out.println("""
                                    
@@ -64,15 +31,15 @@ public class UIManager {
 
                 switch (option) {
                     case 'A':
-                        return MenuOptionsFollowers.EXPLORAR;
+                        return EXPLORAR;
                     case 'B':
-                        return MenuOptionsFollowers.RECOMANAR;
+                        return RECOMANAR;
                     case 'C':
-                        return MenuOptionsFollowers.CONTEXTUALIZAR;
+                        return CONTEXTUALIZAR;
                     case 'D':
-                        return MenuOptionsFollowers.NETWORKING;
+                        return NETWORKING;
                     case 'E':
-                        return MenuOptionsFollowers.ENRERE;
+                        return ENRERE;
                     default:
                         System.out.println("\nError, l'opció introduïda no és una opció vàlida.");
                 }
@@ -82,48 +49,48 @@ public class UIManager {
         } while (true);
     }
 
-    public int getUserID () {
+    public int getUserID() {
         System.out.print("\nEntra el teu identificador: ");
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public void wrongUserID () {
+    public void wrongUserID() {
         System.out.println("\tL'identificador d'usuari introduït no existeix, proveu-ne un altre.");
     }
 
-    public void showUserInformation (User u) {
-        System.out.println (u);
+    public void showUserInformation(User u) {
+        System.out.println(u);
     }
 
-    public void showIfUserFollow () {
+    public void showIfUserFollow() {
         System.out.println("\tMotius: Et seguiex");
     }
 
-    public void showIfUserHasSameInterests (int num) {
+    public void showIfUserHasSameInterests(int num) {
         System.out.println("\tMotius: Compartiu " + num + " interessos");
     }
 
-    public void showIfUserHasSameInterestsAndFollow (int num) {
+    public void showIfUserHasSameInterestsAndFollow(int num) {
         System.out.println("\tMotius: Compartiu " + num + " interessos i et seguiex");
     }
 
-    public void motiusMsgUserFollowedByUserYouFollow (int num) {
+    public void motiusMsgUserFollowedByUserYouFollow(int num) {
         System.out.println("\tMotius: Seguit per " + num);
     }
 
-    public void showUserFollowedByUserYouFollow (User u) {
+    public void showUserFollowedByUserYouFollow(User u) {
         System.out.println(" - " + u.getName() + " ( " + u.getAlias() + " )");
     }
 
-    public void showUserFollowAndUserFollowedByUserYouFollow () {
+    public void showUserFollowAndUserFollowedByUserYouFollow() {
         System.out.println("\tMotius: Et segueix i es seguit per: " + " - ");
     }
 
-    public void showInterestsAndUserFollowedByUserYouFollow (int num) {
+    public void showInterestsAndUserFollowedByUserYouFollow(int num) {
         System.out.println("\tMotius: Compartiu: " + num + " i es seguit per: " + " - ");
     }
 
-    public void showInterestsFollowedByUserYouFollowAndFollow (int num) {
+    public void showInterestsFollowedByUserYouFollowAndFollow(int num) {
         System.out.println("\tMotius: Compartiu: " + num + " i es seguit per: " + " - " + " i et segueix");
     }
 
@@ -138,8 +105,7 @@ public class UIManager {
                 boolean idExists = graph.idExists(ids[0]);
                 if (idExists) {
                     done = true;
-                }
-                else System.out.println("\n L'ID no existeix.");
+                } else System.out.println("\n L'ID no existeix.");
             } catch (NumberFormatException e) {
                 System.out.println("\nError, l'opció introduïda no és una opció vàlida. Introdueixi un nombre enter.");
             }
@@ -154,8 +120,7 @@ public class UIManager {
                 boolean idExists = graph.idExists(ids[1]);
                 if (idExists) {
                     done = true;
-                }
-                else System.out.println("\n L'ID no existeix.");
+                } else System.out.println("\n L'ID no existeix.");
             } catch (NumberFormatException e) {
                 System.out.println("\nError, l'opció introduïda no és una opció vàlida. Introdueixi un nombre enter.\n");
             }

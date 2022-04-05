@@ -10,22 +10,19 @@ public class TreeDAO {
     private final String path = "files/";
     private final Tree tree;
 
-    public TreeDAO (Tree tree) {
+    public TreeDAO(Tree tree) {
         this.tree = tree;
     }
 
     /**
-     *
      * Method to read all the nodes what are in the file.
      *
      * @param filename string with the filename.
-     *
      * @return the root node with all his children
      * @throws IOException If something go wrong with the reading of the file
-     *
      */
 
-    public Node readFile (String filename) throws IOException {
+    public Node readFile(String filename) throws IOException {
         List<String> lines = Files.readAllLines(Path.of(path + filename));
 
         int numberOfAlgorithms = Integer.parseInt(lines.get(0));

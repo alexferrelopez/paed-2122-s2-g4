@@ -1,4 +1,4 @@
-package Graph.MenuEnum;
+package Graph;
 
 public enum MenuOptionsFollowers {
     EXPLORAR,

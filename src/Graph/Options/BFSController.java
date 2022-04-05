@@ -12,23 +12,21 @@ public class BFSController {
     private final boolean[] visited;
 
     private final LinkedList<User> queue = new LinkedList<>();     // LinkedList with the visited Users
-    private final LinkedList<User> adj   = new LinkedList<>();       // LinkedList with the adjacent Users
+    private final LinkedList<User> adj   = new LinkedList<>();     // LinkedList with the adjacent Users
 
-    public BFSController (int numberOfVertices) {
+    public BFSController(int numberOfVertices) {
         visited = new boolean[numberOfVertices];
     }
 
     /**
-     *
      * BFS (Breadth First Search), Function to visit all
      * the adjacent of a vertex before expand it
      *
-     * @param graph Graph.Graph with all the users
+     * @param graph        Graph.Graph with all the users
      * @param searchedUser searchedUser that we are checking
-     *
      */
 
-    public void BreadthFirstSearch (Graph graph, int searchedUser) {
+    public void BreadthFirstSearch(Graph graph, int searchedUser) {
         LinkedList<User> users = new LinkedList<>(graph.getUserList());
 
         while (searchedUser != -1) {
@@ -83,7 +81,7 @@ public class BFSController {
         }
     }
 
-    private int visitedIsFalse () {
+    private int visitedIsFalse() {
         for (int i = 0; i < visited.length; i++) {
             boolean b = visited[i];
             if (!b) {
@@ -96,7 +94,7 @@ public class BFSController {
         return -1;
     }
 
-    public void exploreTheWeb (Graph graph, int searchedUser) {
+    public void exploreTheWeb(Graph graph, int searchedUser) {
         System.out.println("\nL'usuari que segueix més comptes és:");
         BreadthFirstSearch(graph, searchedUser);
         Arrays.fill(visited, false);

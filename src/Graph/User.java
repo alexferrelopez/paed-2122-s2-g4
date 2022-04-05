@@ -69,7 +69,7 @@ public class User {
 
     @Override
     public String toString() {
-        return  "\n\t" + id + " - " + name + " (" + alias + ")\n"+
+        return "\n\t" + id + " - " + name + " (" + alias + ")\n" +
                 "\tInteressos: " + interests;
     }
 }

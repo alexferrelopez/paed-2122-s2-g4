@@ -14,8 +14,8 @@ public class Graph {
         return userList;
     }
 
-    public int findUserIndex (int id) {
-        return binarySearch(id,0,userList.size());
+    public int findUserIndex(int id) {
+        return binarySearch(id, 0, userList.size());
     }
 
     /*
@@ -53,7 +53,7 @@ public class Graph {
         return userList.size();
     }
 
-    public List<User> findAdjacent (int index) {
+    public List<User> findAdjacent(int index) {
         LinkedList<Adjacency> adjacents = new LinkedList<>(userList.get(index).getFollowing());
         LinkedList<User> users = new LinkedList<>();
 
@@ -64,7 +64,7 @@ public class Graph {
         return users;
     }
 
-    public int getIndexOfMostFollowingUser () {
+    public int getIndexOfMostFollowingUser() {
         int index = 0;
         int maxSize = 0;
 
@@ -92,7 +92,7 @@ public class Graph {
         return 0L;
     }
 
-    public boolean idExists (int id) {
+    public boolean idExists(int id) {
         int i = binarySearch(id, 0, userList.size() - 1);
 
         return i != -1;

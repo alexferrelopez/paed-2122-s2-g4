@@ -2,7 +2,7 @@ package Graph.Options;
 
 import Graph.Adjacency;
 import Graph.Graph;
-import Graph.UIManager;
+import Graph.UIManagerGraph;
 import Graph.User;
 
 import java.util.LinkedList;
@@ -10,42 +10,38 @@ import java.util.LinkedList;
 public class RecommendUser {
 
     private final Graph graph;
-    private final UIManager uiManager;
+    private final UIManagerGraph uiManagerGraph;
 
-    private LinkedList<User> usersYouFollow                = new LinkedList<>();
+    private LinkedList<User> usersYouFollow = new LinkedList<>();
 
-    private LinkedList<User> usersFollowedByUserYouFollow  = new LinkedList<>();
-    private LinkedList<User> usersThatFollowYou            = new LinkedList<>();
-    private LinkedList<User> usersWithSameInterests        = new LinkedList<>();
+    private LinkedList<User> usersFollowedByUserYouFollow = new LinkedList<>();
+    private LinkedList<User> usersThatFollowYou = new LinkedList<>();
+    private LinkedList<User> usersWithSameInterests = new LinkedList<>();
 
     private final LinkedList<User> union = new LinkedList<>();
     private int userID;
 
     /**
-     *
      * Constructs the recommendUser with the graph of all the users
-     * and the uiManager to show and get information.
+     * and the uiManagerGraph to show and get information.
      *
-     * @param graph has all the users that are in the file.
-     * @param uiManager has all the messages to show and to get information.
-     *
+     * @param graph          has all the users that are in the file.
+     * @param uiManagerGraph has all the messages to show and to get information.
      */
 
-    public RecommendUser (Graph graph, UIManager uiManager) {
-        this.graph     = graph;
-        this.uiManager = uiManager;
+    public RecommendUser(Graph graph, UIManagerGraph uiManagerGraph) {
+        this.graph = graph;
+        this.uiManagerGraph = uiManagerGraph;
     }
 
     /**
-     *
      * Method to show all the recommended users which are users that
      * follow you, users that are following by a user you follow
      * and finally the users with the same interests of you.
      * Of course the users recommended can't be a user you already follow.
-     *
      */
 
-    public void recommendUser () {
+    public void recommendUser() {
 
         /* Check the userID inserted */
         checkUserIDInserted();
@@ -66,22 +62,22 @@ public class RecommendUser {
         usersWithSameInterests.removeIf(u -> usersYouFollow.contains(u));
 
         // Union of all the users with priority
-        addUsersToList(usersThatFollowYou,           union);
+        addUsersToList(usersThatFollowYou, union);
         addUsersToList(usersFollowedByUserYouFollow, union);
-        addUsersToList(usersWithSameInterests,       union);
+        addUsersToList(usersWithSameInterests, union);
 
         // Print all the information
         for (User u : union) {
-            uiManager.showUserInformation (u);
+            uiManagerGraph.showUserInformation(u);
 
             if (usersThatFollowYou.contains(u) &&
                     !usersFollowedByUserYouFollow.contains(u) &&
                     !usersWithSameInterests.contains(u)) {
-                uiManager.showIfUserFollow();
+                uiManagerGraph.showIfUserFollow();
             } else if (!usersThatFollowYou.contains(u) &&
                     !usersFollowedByUserYouFollow.contains(u) &&
                     usersWithSameInterests.contains(u)) {
-                uiManager.showIfUserHasSameInterests (getNumberOfInterests(userID, u));
+                uiManagerGraph.showIfUserHasSameInterests(getNumberOfInterests(userID, u));
             } else if (!usersThatFollowYou.contains(u) &&
                     usersFollowedByUserYouFollow.contains(u) &&
                     !usersWithSameInterests.contains(u)) {
@@ -89,49 +85,47 @@ public class RecommendUser {
             } else if (usersThatFollowYou.contains(u) &&
                     !usersFollowedByUserYouFollow.contains(u) &&
                     usersWithSameInterests.contains(u)) {
-                uiManager.showIfUserHasSameInterestsAndFollow (getNumberOfInterests(userID, u));
+                uiManagerGraph.showIfUserHasSameInterestsAndFollow(getNumberOfInterests(userID, u));
             } else if (usersThatFollowYou.contains(u) &&
                     usersFollowedByUserYouFollow.contains(u) &&
                     !usersWithSameInterests.contains(u)) {
-                uiManager.showUserFollowAndUserFollowedByUserYouFollow();
+                uiManagerGraph.showUserFollowAndUserFollowedByUserYouFollow();
             } else if (!usersThatFollowYou.contains(u) &&
                     usersFollowedByUserYouFollow.contains(u) &&
                     usersWithSameInterests.contains(u)) {
-                uiManager.showInterestsAndUserFollowedByUserYouFollow (getNumberOfInterests(userID, u));
+                uiManagerGraph.showInterestsAndUserFollowedByUserYouFollow(getNumberOfInterests(userID, u));
             } else if (usersThatFollowYou.contains(u) &&
                     usersFollowedByUserYouFollow.contains(u) &&
                     usersWithSameInterests.contains(u)) {
-                uiManager.showInterestsFollowedByUserYouFollowAndFollow (getNumberOfInterests(userID, u));
+                uiManagerGraph.showInterestsFollowedByUserYouFollowAndFollow(getNumberOfInterests(userID, u));
             }
         }
 
         // Reset all the lists
-        usersYouFollow               = new LinkedList<>();
-        usersThatFollowYou           = new LinkedList<>();
-        usersWithSameInterests       = new LinkedList<>();
+        usersYouFollow = new LinkedList<>();
+        usersThatFollowYou = new LinkedList<>();
+        usersWithSameInterests = new LinkedList<>();
         usersFollowedByUserYouFollow = new LinkedList<>();
     }
 
     /**
-     *
      * Method to check if the user ID inserted exist and is in the file
      * Else show an error message and ask again the user ID.
-     *
      */
 
-    private void checkUserIDInserted () {
+    private void checkUserIDInserted() {
         do {
-            userID = uiManager.getUserID ();
-            userID = getUserID  (userID);
+            userID = uiManagerGraph.getUserID();
+            userID = getUserID(userID);
 
             if (userID == -1) {
-                uiManager.wrongUserID();
+                uiManagerGraph.wrongUserID();
             }
 
         } while (userID == -1);
     }
 
-    private void addUsersToList (LinkedList<User> users, LinkedList<User> list) {
+    private void addUsersToList(LinkedList<User> users, LinkedList<User> list) {
         for (User u : users) {
             if (!list.contains(u)) {
                 list.add(u);
@@ -139,7 +133,7 @@ public class RecommendUser {
         }
     }
 
-    private int getNumberOfInterests (int userID, User u) {
+    private int getNumberOfInterests(int userID, User u) {
         int numberOfSameInterests = 0;
 
         String[] interestsUserInserted = graph.getUserList().get(userID).getInterests().split(",");
@@ -156,19 +150,19 @@ public class RecommendUser {
         return numberOfSameInterests;
     }
 
-    private void printUserFollowedByUserYouFollow (User u) {
-        uiManager.motiusMsgUserFollowedByUserYouFollow (getNumberOfFollowedByUserYouFollow(u));
+    private void printUserFollowedByUserYouFollow(User u) {
+        uiManagerGraph.motiusMsgUserFollowedByUserYouFollow(getNumberOfFollowedByUserYouFollow(u));
 
         for (Adjacency adj : graph.getUserList().get(getUserID(u.getId())).getFollowers()) {
             for (User user : graph.getUserList()) {
                 if (user.getId() == adj.getAdjacentUser()) {
-                    uiManager.showUserFollowedByUserYouFollow(user);
+                    uiManagerGraph.showUserFollowedByUserYouFollow(user);
                 }
             }
         }
     }
 
-    private int getNumberOfFollowedByUserYouFollow (User u) {
+    private int getNumberOfFollowedByUserYouFollow(User u) {
         int numberOfFollowed = 0;
 
         for (Adjacency adj : graph.getUserList().get(getUserID(u.getId())).getFollowers()) {
@@ -182,7 +176,7 @@ public class RecommendUser {
         return numberOfFollowed;
     }
 
-    private void getUsersYouFollow (int userID) {
+    private void getUsersYouFollow(int userID) {
         for (Adjacency adj : graph.getUserList().get(userID).getFollowing()) {
             for (User user : graph.getUserList()) {
                 if (user.getId() == adj.getAdjacentUser()) {
@@ -192,7 +186,7 @@ public class RecommendUser {
         }
     }
 
-    private void getUserFollowers (int userID) {
+    private void getUserFollowers(int userID) {
         for (Adjacency adj : graph.getUserList().get(userID).getFollowers()) {      // Search all the users that follow a user
             for (User user : graph.getUserList()) {                                 // From the graph of all the users
                 if (user.getId() == adj.getAdjacentUser()) {                        // We look for the same userID to search the users that follow him.
@@ -202,7 +196,7 @@ public class RecommendUser {
         }
     }
 
-    private void getUsersWithSameInterests (int userID) {
+    private void getUsersWithSameInterests(int userID) {
         // hay que controlar que los intereses no sean null
         String[] interests = graph.getUserList().get(userID).getInterests().split(",");
 
@@ -219,9 +213,9 @@ public class RecommendUser {
         }
     }
 
-    private void getUsersFollowedByUserYouFollow () {
+    private void getUsersFollowedByUserYouFollow() {
         for (User user : usersYouFollow) {
-            for (Adjacency adj : graph.getUserList().get (getUserID (user.getId())).getFollowers()) {
+            for (Adjacency adj : graph.getUserList().get(getUserID(user.getId())).getFollowers()) {
                 for (User user2 : graph.getUserList()) {
                     if (user2.getId() == adj.getAdjacentUser() && !usersFollowedByUserYouFollow.contains(user2)) {
                         usersFollowedByUserYouFollow.add(user2);
@@ -233,15 +227,13 @@ public class RecommendUser {
 
 
     /**
-     *
      * Method that gets the userID and search for the user position in the graph
      *
      * @param userID integer number which is the ID of the user
      * @return the user position in the graph
-     *
      */
 
-    private int getUserID (int userID) {
+    private int getUserID(int userID) {
         for (int i = 0; i < graph.getUserList().size(); i++) {
             if (graph.getUserList().get(i).getId() == userID) {
                 return i;

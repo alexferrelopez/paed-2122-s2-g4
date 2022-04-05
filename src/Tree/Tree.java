@@ -16,17 +16,15 @@ public class Tree {
     }
 
     /**
-     *
      * Method that insert a node into the tree.
      * In order to sort the nodes in the correct position we check the
      * timestamp of each node that we want to add.
      *
      * @param parent Parent node where we want to add the node
-     * @param node Node that we want to insert
-     *
+     * @param node   Node that we want to insert
      */
 
-    public Node insert (Node parent, Node node) {
+    public Node insert(Node parent, Node node) {
 
         // Insert the node comparing the timestamp of each node.
 
@@ -42,11 +40,9 @@ public class Tree {
         }
         if (node.getTimestamp() < parent.getTimestamp()) {
             Node left = insert(parent.getLeft(), node);
-            left.setParent(parent);
             parent.setLeft(left);
         } else if (node.getTimestamp() > parent.getTimestamp()) {
             Node right = insert(parent.getRight(), node);
-            right.setParent(parent);
             parent.setRight(right);
         } else {
             return parent;
@@ -55,8 +51,8 @@ public class Tree {
         // Update the balance factor of each node
         // And, balance the tree
 
-        parent.setHeight(1 + Math.max(height (parent.getLeft()), height (parent.getRight())));
-        int balanceFactor = getBalanceFactor (parent);
+        parent.setHeight(1 + Math.max(height(parent.getLeft()), height(parent.getRight())));
+        int balanceFactor = getBalanceFactor(parent);
 
         if (balanceFactor > 1) {
             if (node.getTimestamp() < parent.getLeft().getTimestamp()) {
@@ -80,14 +76,12 @@ public class Tree {
     }
 
     /**
-     *
      * Method to rotate the node to the left
      *
      * @param x Node that we want to rotate
      * @return the new node rotated
-     *
      */
-    public Node rotateLeft (Node x) {
+    public Node rotateLeft(Node x) {
         Node y = x.getRight();
         Node T2 = y.getLeft();
 
@@ -101,14 +95,12 @@ public class Tree {
     }
 
     /**
-     *
      * Method to rotate the node to the right
      *
      * @param y node that we want to rotate
      * @return
-     *
      */
-    public Node rotateRight (Node y) {
+    public Node rotateRight(Node y) {
         Node x = y.getLeft();
         Node T2 = x.getRight();
 
@@ -135,23 +127,21 @@ public class Tree {
     }
 
     /**
-     *
      * Method to convert the timestamp to a date
      *
      * @param root with all the nodes (tree).
      * @return the date as string.
-     *
      */
 
-    public static String timestampToDate (Node root) {
+    public static String timestampToDate(Node root) {
         Date d = new Date(root.getTimestamp() * 1000L);
         SimpleDateFormat jdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return jdf.format(d);
     }
 
-    public Node delete (Node root, long timestamp) {
+    public Node delete(Node root, long timestamp) {
         if (root == null) {
-            return root;
+            return null;
         }
 
         if (timestamp < root.getTimestamp()) {
@@ -160,15 +150,11 @@ public class Tree {
             root.setRight(delete(root.getRight(), timestamp));
         } else {
             if (root.getLeft() == null || root.getRight() == null) {
-                Node temp = null;
-                if (temp == root.getLeft()) temp = root.getRight();
+                Node temp;
+                if (null == root.getLeft()) temp = root.getRight();
                 else temp = root.getLeft();
 
-                if (temp == null) {
-                    root = null;
-                } else {
-                    root = temp;
-                }
+                root = temp;
             } else {
                 Node temp = minValueNode(root.getRight());
                 root.setId(temp.getId());
@@ -183,7 +169,7 @@ public class Tree {
 
         if (root == null) return null;
         root.setHeight(1 + Math.max(height(root.getLeft()), height(root.getRight())));
-        int balanceFactor = getBalanceFactor (root);
+        int balanceFactor = getBalanceFactor(root);
 
         if (balanceFactor > 1) {
             if (getBalanceFactor(root.getLeft()) < 0) {
@@ -207,17 +193,14 @@ public class Tree {
     }
 
     /**
-     *
      * Method to search the minimum value of the node.
      *
      * @param node to start searching the minimum.
      * @return the minimum node.
-     *
      */
 
-    public Node minValueNode (Node node) {
-        while (node.getLeft() != null)
-        {
+    public Node minValueNode(Node node) {
+        while (node.getLeft() != null) {
             node = node.getLeft();
         }
         return node;

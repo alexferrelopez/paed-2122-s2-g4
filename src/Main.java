@@ -1,5 +1,7 @@
 import Graph.*;
 import Graph.Options.*;
+import R_Tree.RTree;
+import R_Tree.UIManagerCanvas;
 import Tree.*;
 import Tree.Options.BasicFunctions;
 import Tree.Options.Feed;
@@ -26,29 +28,37 @@ public class Main {
 
     public static void main (String[] args) {
         try {
+            UIManager uiManager                           = new UIManager();
+
+            //--------------------------- GRAPH ALGORITHMS ------------------------------------//
+
             GraphDAO graphDAO                             = new GraphDAO();
             Graph graph                                   = new Graph(graphDAO.readFile("graphS.paed"));
-            UIManager uiManager                           = new UIManager();
+            UIManagerGraph uiManagerGraph                 = new UIManagerGraph();
             BFSController bfsController                   = new BFSController(graph.findListSize());
-            RecommendUser recommendUser                   = new RecommendUser(graph, uiManager);
+            RecommendUser recommendUser                   = new RecommendUser(graph, uiManagerGraph);
             DijkstraController dijkstraController         = new DijkstraController(graph);
             TopologicalArrangement topologicalArrangement = new TopologicalArrangement();
 
             //--------------------------- TREE ALGORITHMS ------------------------------------//
 
             Tree tree                                     = new Tree ();
-            tree.setRoot(new TreeDAO(tree).readFile("treeXXS.paed"));
+            tree.setRoot(new TreeDAO(tree).readFile("ZZLeftRight.paed"));
             UIManagerTree uiManagerTree                   = new UIManagerTree();
             BasicFunctions basicFunctions                 = new BasicFunctions (uiManagerTree, tree);
             Feed listAlgorithms                           = new Feed(uiManagerTree);
             SearchTimestamp searchTimestamp               = new SearchTimestamp(uiManagerTree);
 
+            //--------------------------- R_TREE ALGORITHMS ----------------------------------//
 
-            //tree.inOrdre(tree.getRoot());
+            RTree rTree                                   = new RTree();
+            UIManagerCanvas uiManagerCanvas               = new UIManagerCanvas();
+
 
             Controller controller       = new Controller (
-                    graph,
                     uiManager,
+                    graph,
+                    uiManagerGraph,
                     bfsController,
                     recommendUser,
                     dijkstraController,
@@ -58,7 +68,9 @@ public class Main {
                     basicFunctions,
                     uiManagerTree,
                     listAlgorithms,
-                    searchTimestamp
+                    searchTimestamp,
+                    rTree,
+                    uiManagerCanvas
             );
             controller.run();
 

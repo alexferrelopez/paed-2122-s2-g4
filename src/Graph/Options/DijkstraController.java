@@ -12,7 +12,7 @@ public class DijkstraController {
     private final Graph graph;
     Long[] distancies;
 
-    public DijkstraController (Graph graph) {
+    public DijkstraController(Graph graph) {
         this.graph = graph;
     }
 
@@ -27,7 +27,7 @@ public class DijkstraController {
 
         distancies = new Long[userList.size()];
 
-        Arrays.fill(distancies,Long.MAX_VALUE);
+        Arrays.fill(distancies, Long.MAX_VALUE);
 
         User actual = initial;
         int actualId = initial.getId();
@@ -54,7 +54,7 @@ public class DijkstraController {
         }
         List<User> answer = createAnswerPath(initial, ending);
 
-        if (answer.get(0).getId() != initial.getId() || answer.get(0).getId() == answer.get(answer.size()-1).getId()) {
+        if (answer.get(0).getId() != initial.getId() || answer.get(0).getId() == answer.get(answer.size() - 1).getId()) {
             return new ArrayList<>();
         }
 
@@ -94,7 +94,7 @@ public class DijkstraController {
         return userList.get(indexMin);
     }
 
-    private boolean allVisited () {
+    private boolean allVisited() {
         for (boolean nodeVisited : visited) {
             if (!nodeVisited) {
                 return false;
@@ -103,10 +103,10 @@ public class DijkstraController {
         return true;
     }
 
-    private void actualitzaCamins (User actual, User adjacent) {
+    private void actualitzaCamins(User actual, User adjacent) {
         int adjacentIndex = graph.findUserIndex(adjacent.getId());
 
-        camins.set(adjacentIndex,actual);
+        camins.set(adjacentIndex, actual);
     }
 
     public void networking(User initial, User ending) {
@@ -114,8 +114,8 @@ public class DijkstraController {
         System.out.println();
 
         for (User user : network) {
-            System.out.println("\t"+user.getId() + ": " + user.getName());
-            if (network.get(network.size()-1).getId() != user.getId()) {
+            System.out.println("\t" + user.getId() + ": " + user.getName());
+            if (network.get(network.size() - 1).getId() != user.getId()) {
                 System.out.println("\t" + "↓");
             }
         }

@@ -1,9 +1,7 @@
 package Tree;
 
 /**
- *
  * Method with the enum options of the tree menu
- *
  */
 
 public enum MenuOptionsTree {
