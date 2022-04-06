@@ -188,8 +188,7 @@ public class Tree {
                 return rotateRight(root);
             }
         }
-
-        if (balanceFactor < -1) {
+        else if (balanceFactor < -1) {
             if (getBalanceFactor(root.getRight()) > 0) {
                 return rotateLeft(root);
             } else if (getBalanceFactor(root.getRight()) <= 0) {
