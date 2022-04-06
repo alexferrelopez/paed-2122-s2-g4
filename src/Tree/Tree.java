@@ -170,7 +170,6 @@ public class Tree {
                 root.setTimestamp(temp.getTimestamp());
                 root.setRight(delete(root.getRight(), temp.getTimestamp()));
             }
-
         }
 
         if (root == null) return null;
@@ -181,17 +180,17 @@ public class Tree {
         int balanceFactor = getBalanceFactor(root);
 
         if (balanceFactor > 1) {
-            if (getBalanceFactor(root.getLeft()) < 0) {
+            if (getBalanceFactor(root.getLeft()) >= 0) {
                 return rotateRight(root);
-            } else if (getBalanceFactor(root.getLeft()) >= 0) {
+            } else if (getBalanceFactor(root.getLeft()) < 0) {
                 root.setLeft(rotateLeft(root.getLeft()));
                 return rotateRight(root);
             }
         }
-        else if (balanceFactor < -1) {
-            if (getBalanceFactor(root.getRight()) > 0) {
+        if (balanceFactor < -1) {
+            if (getBalanceFactor(root.getRight()) <= 0) {
                 return rotateLeft(root);
-            } else if (getBalanceFactor(root.getRight()) <= 0) {
+            } else if (getBalanceFactor(root.getRight()) > 0) {
                 root.setRight(rotateRight(root.getRight()));
                 return rotateLeft(root);
             }
@@ -208,10 +207,10 @@ public class Tree {
      */
 
     public Node minValueNode(Node node) {
-        while (node.getLeft() != null) {
-            node = node.getLeft();
+        if (node.getLeft() == null) {
+            return node;
         }
-        return node;
+        return minValueNode(node.getLeft());
     }
 
     public void inOrdre(Node node) {
