@@ -2,7 +2,7 @@ package Tree;
 
 public class Node {
 
-    private int height;
+    private int height = 1;
 
     private long id;
     private String name;
@@ -191,7 +191,7 @@ public class Node {
                 "id=" + id +
                 ", height=" + height +
                 ", name='" + name + '\'' +
-                ", timestamp=" + (timestamp /*/ 1000000L*/) +
+                ", timestamp=" + (timestamp / 1000000L) +
                 '}';
     }
 }

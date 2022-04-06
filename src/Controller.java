@@ -131,6 +131,7 @@ public class Controller {
 
         while (!back) {
             Tree.print2DUtil(tree.getRoot(),0);
+            //Tree.inOrdre(tree.getRoot());
             switch (uiManagerTree.showTreeMenu()) {
                 case AFEGIR         -> basicFunctions.addAlgorithm(tree.getRoot());
                 case ELIMINAR       -> basicFunctions.deleteAlgorithm();

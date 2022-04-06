@@ -213,7 +213,7 @@ public class Tree {
         return minValueNode(node.getLeft());
     }
 
-    public void inOrdre(Node node) {
+    public static void inOrdre(Node node) {
         if (node != null) {
             inOrdre(node.getLeft());
             System.out.println(node);
