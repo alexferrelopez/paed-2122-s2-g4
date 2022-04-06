@@ -6,6 +6,7 @@ import java.util.Date;
 public class Tree {
 
     private Node root;
+    static final int COUNT = 10;
 
     public void setRoot(Node root) {
         this.root = root;
@@ -212,5 +213,35 @@ public class Tree {
             System.out.println(node);
             inOrdre(node.getRight());
         }
+    }
+
+
+    ///////////////////////////  PRINT /////////////////////////////
+    /**
+     * Prints the tree horizontally
+     * @param root root of the tree
+     * @param space spacing to print
+     */
+    public static void print2DUtil(Node root, int space)
+    {
+        // Base case
+        if (root == null)
+            return;
+
+        // Increase distance between levels
+        space += COUNT;
+
+        // Process right child first
+        print2DUtil(root.getRight(), space);
+
+        // Print current node after space
+        // count
+        System.out.print("\n");
+        for (int i = COUNT; i < space; i++)
+            System.out.print(" ");
+        System.out.print(root.getId()+ " h:" + root.getHeight() + "\n");
+
+        // Process left child
+        print2DUtil(root.getLeft(), space);
     }
 }

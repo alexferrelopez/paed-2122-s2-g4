@@ -3,7 +3,7 @@ package R_Tree;
 import java.awt.*;
 
 /**
- *
+ * Representa una fulla de la nostra estructura de l'arbre R.
  */
 public class Cercle {
     private final double x;

@@ -3,6 +3,8 @@ package Tree;
 
 import java.util.Scanner;
 
+import static Tree.MenuOptionsTree.*;
+
 public class UIManagerTree {
     private final Scanner scanner;
 
@@ -44,17 +46,17 @@ public class UIManagerTree {
 
                 switch (option) {
                     case 'A':
-                        return MenuOptionsTree.AFEGIR;
+                        return AFEGIR;
                     case 'B':
-                        return MenuOptionsTree.ELIMINAR;
+                        return ELIMINAR;
                     case 'C':
-                        return MenuOptionsTree.LISTAR;
+                        return LISTAR;
                     case 'D':
-                        return MenuOptionsTree.CERCA_EXACTA;
+                        return CERCA_EXACTA;
                     case 'E':
-                        return MenuOptionsTree.CERCA_RANG;
+                        return CERCA_RANG;
                     case 'F':
-                        return MenuOptionsTree.BACK;
+                        return BACK;
                     default:
                         System.out.println("\nError, l'opció introduïda no és una opció vàlida.");
                 }
