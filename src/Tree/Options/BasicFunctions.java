@@ -49,7 +49,7 @@ public class BasicFunctions {
         if (id == root.getId()) {
             System.out.println();
             tree.delete(tree.getRoot(), root.getTimestamp());
-            Tree.print2DUtil(tree.getRoot(), 0);
+            //Tree.print2DUtil(tree.getRoot(), 0);
         }
     }
 

@@ -53,6 +53,7 @@ public class Tree {
         // And, balance the tree
 
         parent.setHeight(1 + Math.max(height(parent.getLeft()), height(parent.getRight())));
+
         int balanceFactor = getBalanceFactor(parent);
 
         if (balanceFactor > 1) {
@@ -83,32 +84,32 @@ public class Tree {
      * @return the new node rotated
      */
     public Node rotateLeft(Node x) {
-        Node y = x.getRight();
-        Node T2 = y.getLeft();
+        Node right = x.getRight();
+        Node T2 = right.getLeft();
 
-        y.setLeft(x);
+        right.setLeft(x);
         x.setRight(T2);
 
         x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
-        y.setHeight(Math.max(height(y.getLeft()), height(y.getRight())) + 1);
+        right.setHeight(Math.max(height(right.getLeft()), height(right.getRight())) + 1);
 
-        return y;
+        return right;
     }
 
     /**
      * Method to rotate the node to the right
      *
-     * @param y node that we want to rotate
+     * @param node node that we want to rotate
      * @return
      */
-    public Node rotateRight(Node y) {
-        Node x = y.getLeft();
+    public Node rotateRight(Node node) {
+        Node x = node.getLeft();
         Node T2 = x.getRight();
 
-        x.setRight(y);
-        y.setLeft(T2);
+        x.setRight(node);
+        node.setLeft(T2);
 
-        y.setHeight(Math.max(height(y.getLeft()), height(y.getRight())) + 1);
+        node.setHeight(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
         x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
 
         return x;
@@ -152,10 +153,14 @@ public class Tree {
         } else {
             if (root.getLeft() == null || root.getRight() == null) {
                 Node temp;
-                if (null == root.getLeft()) temp = root.getRight();
-                else temp = root.getLeft();
 
+                if (null == root.getLeft())
+                    temp = root.getRight();
+                else {
+                    temp = root.getLeft();
+                }
                 root = temp;
+
             } else {
                 Node temp = minValueNode(root.getRight());
                 root.setId(temp.getId());
@@ -169,7 +174,11 @@ public class Tree {
         }
 
         if (root == null) return null;
+
+
         root.setHeight(1 + Math.max(height(root.getLeft()), height(root.getRight())));
+
+
         int balanceFactor = getBalanceFactor(root);
 
         if (balanceFactor > 1) {

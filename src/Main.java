@@ -43,7 +43,7 @@ public class Main {
             //--------------------------- TREE ALGORITHMS ------------------------------------//
 
             Tree tree                                     = new Tree ();
-            tree.setRoot(new TreeDAO(tree).readFile("treeXS.paed"));
+            tree.setRoot(new TreeDAO(tree).readFile("treeXXS.paed"));
             UIManagerTree uiManagerTree                   = new UIManagerTree();
             BasicFunctions basicFunctions                 = new BasicFunctions (uiManagerTree, tree);
             Feed listAlgorithms                           = new Feed(uiManagerTree);
