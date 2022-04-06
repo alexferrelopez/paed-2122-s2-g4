@@ -7,14 +7,14 @@ public class UIManager {
         scanner = new Scanner(System.in);
     }
 
-    public MenuOptionsLinkedTree showLinkedTreeMenu () {
+    public MenuOptionsLinkedTree showLinkedTreeMenu() {
         do {
             System.out.println("""
                     .* LinkedTree *.
                                    
                     1. Seguidors (Grafs)
                     2. Feed (Arbres)
-                    3. A ESPECIFICAR
+                    3. Canvas (Arbres R)
                     4. A ESPECIFICAR
                                 
                     5. Sortir

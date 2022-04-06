@@ -3,6 +3,8 @@ package Tree;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static Tree.Node.height;
+
 public class Tree {
 
     private Node root;
@@ -24,7 +26,6 @@ public class Tree {
      * @param parent Parent node where we want to add the node
      * @param node   Node that we want to insert
      */
-
     public Node insert(Node parent, Node node) {
 
         // Insert the node comparing the timestamp of each node.
@@ -52,7 +53,7 @@ public class Tree {
         // Update the balance factor of each node
         // And, balance the tree
 
-        parent.setHeight(1 + Math.max(height(parent.getLeft()), height(parent.getRight())));
+        parent.updateHeight();
 
         int balanceFactor = getBalanceFactor(parent);
 
@@ -90,8 +91,9 @@ public class Tree {
         right.setLeft(x);
         x.setRight(T2);
 
-        x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
-        right.setHeight(Math.max(height(right.getLeft()), height(right.getRight())) + 1);
+
+        x.updateHeight();
+        right.updateHeight();
 
         return right;
     }
@@ -100,7 +102,7 @@ public class Tree {
      * Method to rotate the node to the right
      *
      * @param node node that we want to rotate
-     * @return
+     * @return root of the new rotated subtree
      */
     public Node rotateRight(Node node) {
         Node x = node.getLeft();
@@ -109,16 +111,10 @@ public class Tree {
         x.setRight(node);
         node.setLeft(T2);
 
-        node.setHeight(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
-        x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
+        node.updateHeight();
+        x.updateHeight();
 
         return x;
-    }
-
-    public int height(Node N) {
-        if (N == null)
-            return 0;
-        return N.getHeight();
     }
 
     // Get balance factor of a node
@@ -175,7 +171,7 @@ public class Tree {
         if (root == null) return null;
 
         if (root.getLeft() != null && root.getRight() != null)
-        root.setHeight(1 + Math.max(height(root.getLeft()), height(root.getRight())));
+            root.updateHeight();
 
         int balanceFactor = getBalanceFactor(root);
 
@@ -223,13 +219,14 @@ public class Tree {
 
 
     ///////////////////////////  PRINT /////////////////////////////
+
     /**
      * Prints the tree horizontally
-     * @param root root of the tree
+     *
+     * @param root  root of the tree
      * @param space spacing to print
      */
-    public static void print2DUtil(Node root, int space)
-    {
+    public static void print2DUtil(Node root, int space) {
         // Base case
         if (root == null)
             return;
@@ -245,7 +242,7 @@ public class Tree {
         System.out.print("\n");
         for (int i = COUNT; i < space; i++)
             System.out.print(" ");
-        System.out.print(root.getId()+ " h:" + root.getHeight() + "\n");
+        System.out.print(root.getId() + " h:" + root.getHeight() + "\n");
 
         // Process left child
         print2DUtil(root.getLeft(), space);

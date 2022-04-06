@@ -51,6 +51,15 @@ public class Node {
         this.height = height;
     }
 
+    public void updateHeight() {
+        this.height = Math.max(height(getLeft()), height(getRight())) + 1;
+    }
+
+    public static int height(Node N) {
+        if (N == null)
+            return 0;
+        return N.getHeight();
+    }
 
     /**
      * Method to get the right node.
