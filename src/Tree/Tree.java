@@ -175,9 +175,8 @@ public class Tree {
 
         if (root == null) return null;
 
-
+        if (root.getLeft() != null && root.getRight() != null)
         root.setHeight(1 + Math.max(height(root.getLeft()), height(root.getRight())));
-
 
         int balanceFactor = getBalanceFactor(root);
 
