@@ -10,6 +10,18 @@ public class GraphDAO {
 
     private static final String path = "files/";
 
+    /**
+     *
+     * Method to read the graph file and create all the users for the graph.
+     *
+     * @param filename name of the file.
+     *
+     * @return the graph with all the users.
+     *
+     * @throws IOException if there is an error during the reading.
+     *
+     */
+
     public List<User> readFile(String filename) throws IOException {
         List<String> lines = Files.readAllLines(Path.of(path + filename));
 
@@ -73,6 +85,16 @@ public class GraphDAO {
 
         return users;
     }
+
+    /**
+     *
+     * Method to do sort all the users with the quicksort algorithm
+     *
+     * @param users list with all the users.
+     * @param izq number of the left node.
+     * @param der number of the right node.
+     *
+     */
 
     public static void quicksort(List<User> users, int izq, int der) {
 

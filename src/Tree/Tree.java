@@ -8,7 +8,7 @@ import static Tree.Node.height;
 public class Tree {
 
     private Node root;
-    static final int COUNT = 10;
+        static final int COUNT = 10;
 
     public void setRoot(Node root) {
         this.root = root;
@@ -19,13 +19,16 @@ public class Tree {
     }
 
     /**
+     *
      * Method that insert a node into the tree.
      * In order to sort the nodes in the correct position we check the
      * timestamp of each node that we want to add.
      *
      * @param parent Parent node where we want to add the node
      * @param node   Node that we want to insert
+     *
      */
+
     public Node insert(Node parent, Node node) {
 
         // Insert the node comparing the timestamp of each node.
@@ -79,11 +82,14 @@ public class Tree {
     }
 
     /**
+     *
      * Method to rotate the node to the left
      *
      * @param x Node that we want to rotate
      * @return the new node rotated
+     *
      */
+
     public Node rotateLeft(Node x) {
         Node right = x.getRight();
         Node T2 = right.getLeft();
@@ -99,11 +105,14 @@ public class Tree {
     }
 
     /**
+     *
      * Method to rotate the node to the right
      *
      * @param node node that we want to rotate
      * @return root of the new rotated subtree
+     *
      */
+
     public Node rotateRight(Node node) {
         Node x = node.getLeft();
         Node T2 = x.getRight();
@@ -117,7 +126,29 @@ public class Tree {
         return x;
     }
 
-    // Get balance factor of a node
+    /**
+     *
+     * Method to set the current height to 0 if the node is null
+     * else return the current height.
+     *
+     */
+
+    public int height (Node N) {
+        if (N == null)
+            return 0;
+        return N.getHeight();
+    }
+
+    /**
+     *
+     * Method to get the balance factor of a node.
+     *
+     * @param N node that you want to calculate the balance factor.
+     *
+     * @return the new calculated height.
+     *
+     */
+
     public int getBalanceFactor(Node N) {
         if (N == null)
             return 0;
@@ -125,10 +156,12 @@ public class Tree {
     }
 
     /**
+     *
      * Method to convert the timestamp to a date
      *
      * @param root with all the nodes (tree).
      * @return the date as string.
+     *
      */
 
     public static String timestampToDate(Node root) {
@@ -136,6 +169,17 @@ public class Tree {
         SimpleDateFormat jdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return jdf.format(d);
     }
+
+    /**
+     *
+     * Method to delete a node from the tree.
+     *
+     * @param root all the nodes that are in the tree.
+     * @param timestamp long number which is the time we use to compare the nodes.
+     *
+     * @return the modified tree.
+     *
+     */
 
     public Node delete(Node root, long timestamp) {
         if (root == null) {
@@ -166,6 +210,7 @@ public class Tree {
                 root.setTimestamp(temp.getTimestamp());
                 root.setRight(delete(root.getRight(), temp.getTimestamp()));
             }
+
         }
 
         if (root == null) return null;

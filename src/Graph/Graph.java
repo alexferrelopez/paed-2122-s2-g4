@@ -6,27 +6,55 @@ import java.util.List;
 public class Graph {
     private final List<User> userList;
 
+    /**
+     *
+     * Constructor of the Graph function with the list of users.
+     *
+     * @param userList list with all the users.
+     *
+     */
+
     public Graph(List<User> userList) {
         this.userList = userList;
     }
+
+    /**
+     *
+     * Function to get the list of all the users.
+     *
+     * @return the list with all the users.
+     *
+     */
 
     public List<User> getUserList() {
         return userList;
     }
 
+    /**
+     *
+     * Method to find the index of a user using binary algorithm.
+     *
+     * @param id of the user that you want to search.
+     *
+     * @return the id of the user
+     *
+     */
+
     public int findUserIndex(int id) {
         return binarySearch(id, 0, userList.size());
     }
 
-    /*
-    public int findUserIndex (int index) {
-        for (int i = 0; i < userList.size(); i++) {
-            if (userList.get(i).getId() == index) {
-                return i;
-            }
-        }
-        return 0;
-    }*/
+    /**
+     *
+     * Method to implement the binary search algorithm.
+     *
+     * @param ID integer number for the id of the user.
+     * @param left integer number for the left node.
+     * @param right integer number for the right node.
+     *
+     * @return the user searched.
+     *
+     */
 
     public int binarySearch(int ID, int left, int right) {
         while (left <= right) {
@@ -49,9 +77,26 @@ public class Graph {
         return -1;
     }
 
+    /**
+     *
+     * Method to get the size of the list.
+     *
+     * @return the size of the list.
+     *
+     */
+
     public int findListSize() {
         return userList.size();
     }
+
+    /**
+     *
+     * Method to find the adjacent of a user giving the user.
+     *
+     * @param index of the user to find in the list users.
+     * @return the list of users.
+     *
+     */
 
     public List<User> findAdjacent(int index) {
         LinkedList<Adjacency> adjacents = new LinkedList<>(userList.get(index).getFollowing());
@@ -63,6 +108,14 @@ public class Graph {
         }
         return users;
     }
+
+    /**
+     *
+     * Get the index of the most following users.
+     *
+     * @return the index of the most following user.
+     *
+     */
 
     public int getIndexOfMostFollowingUser() {
         int index = 0;
@@ -80,6 +133,17 @@ public class Graph {
         return index;
     }
 
+    /**
+     *
+     * Method to get the timestamp
+     *
+     * @param idA id of the first node to calculate dimension.
+     * @param idB id of the second node to calculate dimension.
+     *
+     * @return the timestamp of the adjacency node
+     *
+     */
+
     public Long getTimestampBetweenUsers(int idA, int idB) {
         User user = userList.get(findUserIndex(idA));
         List<Adjacency> following = user.getFollowing();
@@ -89,8 +153,19 @@ public class Graph {
                 return adjacency.getTimestamp();
             }
         }
+
         return 0L;
     }
+
+    /**
+     *
+     * Method to check if the id exists or not.
+     *
+     * @param id that be checked.
+     *
+     * @return true if the id exists.
+     *
+     */
 
     public boolean idExists(int id) {
         int i = binarySearch(id, 0, userList.size() - 1);

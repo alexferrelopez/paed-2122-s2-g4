@@ -2,7 +2,7 @@ package Tree;
 
 public class Node {
 
-    private int height = 1;
+    private int height = 0;
 
     private long id;
     private String name;

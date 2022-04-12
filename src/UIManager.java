@@ -7,6 +7,14 @@ public class UIManager {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     *
+     * Method to show the main menu of the linked tree software.
+     *
+     * @return the menu with the principal options.
+     *
+     */
+
     public MenuOptionsLinkedTree showLinkedTreeMenu() {
         do {
             System.out.println("""

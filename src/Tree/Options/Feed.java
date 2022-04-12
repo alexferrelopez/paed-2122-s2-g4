@@ -18,6 +18,14 @@ public class Feed {
         this.uiManagerTree = uiManagerTree;
     }
 
+    /**
+     *
+     * Method to order the nodes of the root.
+     *
+     * @param root all the nodes that are in the tree.
+     *
+     */
+
     public void inOrder(Node root) {
         if (root == null)
             return;
