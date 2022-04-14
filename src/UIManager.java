@@ -36,6 +36,8 @@ public class UIManager {
                         return MenuOptionsLinkedTree.SEGUIDORS;
                     case 2:
                         return MenuOptionsLinkedTree.FEED;
+                    case 3:
+                        return MenuOptionsLinkedTree.CANVAS;
                     case 5:
                         return MenuOptionsLinkedTree.SORTIR;
                     default:

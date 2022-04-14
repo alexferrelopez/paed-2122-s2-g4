@@ -159,18 +159,12 @@ public class Controller {
 
         while (!back) {
             switch (uiManagerCanvas.showCanvasMenu()) {
-                case AFEGIR -> basicFunctions.addAlgorithm(tree.getRoot());
-                case ELIMINAR -> basicFunctions.deleteAlgorithm();
-                case VISUALITZAR -> feed.inOrder(tree.getRoot());
-                case CERCA_AREA -> searchTimestamp.searchExactTimestamp(tree.getRoot(), uiManagerTree.getExactTimestamp());
-                case CERCA_ESPECIAL -> {
-                    long minim = uiManagerTree.getMinimTimestamp();
-                    long maxim = uiManagerTree.getMaximTimestamp();
-
-                    uiManagerTree.algorithmFoundMessage(searchTimestamp.countNodesInRange(tree.getRoot(), minim, maxim));
-                    searchTimestamp.searchRangTimestamp(tree.getRoot(), minim, maxim);
-                }
-                case BACK -> back = true;
+                case AFEGIR         -> uiManagerCanvas.addCircle(); // TODO: Insert function to add a circle.
+                case ELIMINAR       -> back = true;
+                case VISUALITZAR    -> back = true;
+                case CERCA_AREA     -> back = true;
+                case CERCA_ESPECIAL -> back = true;
+                case BACK           -> back = true;
             }
         }
     }

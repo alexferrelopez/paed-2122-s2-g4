@@ -50,4 +50,33 @@ public class UIManagerCanvas {
             }
         } while (true);
     }
+
+    public Cercle addCircle () {
+        System.out.print("\nEntra la coordenada X del centre del cercle a afegir: ");
+        float x = Float.parseFloat(scanner.nextLine());
+
+        System.out.print("Entra la coordenada Y del centre del cercle a afegir: ");
+        float y = Float.parseFloat(scanner.nextLine());
+
+        System.out.print("Entra el radi del cercle a afegir: ");
+        float r = Float.parseFloat(scanner.nextLine());
+
+        System.out.print("Entra el color del cercle a afegir: ");
+        String color = scanner.nextLine();
+
+        System.out.println("\nEl cercle s'ha afegit correctament al canvas.");
+
+        return new Cercle(x, y, r, color);
+    }
+
+    public void deleteCircle () {
+        System.out.print("\nEntra la coordenada X del centre del cercle a eliminar: ");
+        float x = Float.parseFloat(scanner.nextLine());
+
+        System.out.print("Entra la coordenada Y del centre del cercle a eliminar: ");
+        float y = Float.parseFloat(scanner.nextLine());
+
+        System.out.println("\nEl cercle s'ha eliminar correctament del canvas.");
+    }
+
 }
