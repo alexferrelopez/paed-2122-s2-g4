@@ -6,6 +6,7 @@ import Graph.Options.RecommendUser;
 import Graph.Options.TopologicalArrangement;
 import Graph.UIManagerGraph;
 import R_Tree.RTree;
+import R_Tree.RTreeDAO;
 import R_Tree.UIManagerCanvas;
 import Tree.Options.BasicFunctions;
 import Tree.Options.Feed;
@@ -55,6 +56,7 @@ public class Main {
             //--------------------------- R_TREE ALGORITHMS ----------------------------------//
 
             RTree rTree                                   = new RTree();
+            rTree.setRoot(new RTreeDAO(rTree).readFile("rtreeXXS.paed"));
             UIManagerCanvas uiManagerCanvas               = new UIManagerCanvas();
 
 

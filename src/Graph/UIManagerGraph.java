@@ -5,7 +5,6 @@ import java.util.Scanner;
 import static Graph.MenuOptionsFollowers.*;
 
 public class UIManagerGraph {
-
     private final Scanner scanner;
 
     /**

@@ -18,14 +18,6 @@ public class Cercle {
         this.color = Color.decode(color);
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
     public double getRadi() {
         return radi;
     }
@@ -38,5 +30,13 @@ public class Cercle {
         return Math.abs((color.getRed()) - (this.color.getRed())) < 15 &&
                 Math.abs((color.getGreen()) - (this.color.getGreen())) < 15 &&
                 Math.abs((color.getBlue()) - (this.color.getBlue())) < 15;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 }

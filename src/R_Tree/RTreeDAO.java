@@ -8,6 +8,11 @@ import java.util.List;
 public class RTreeDAO {
 
     private final String path = "files/";
+    private final RTree rTree;
+
+    public RTreeDAO(RTree rTree) {
+        this.rTree = rTree;
+    }
 
     public Rectangle readFile(String filename) throws IOException {
         List<String> lines = Files.readAllLines(Path.of(path + filename));
@@ -22,14 +27,13 @@ public class RTreeDAO {
                     Double.parseDouble(split[0]),
                     Double.parseDouble(split[1]),
                     Double.parseDouble(split[2]),
-                    split[4]
+                    split[3]
             );
-            //TODO setRoot and insert
-            //RTree.setRoot(tree.insert(tree.getRoot(), node));
+
+            rTree.insert(rTree.getRoot(),cercle);
         }
 
-        //return tree.getRoot();
-        return null;
+        return rTree.getRoot();
     }
 
 }

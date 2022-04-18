@@ -8,7 +8,6 @@ public class BasicFunctions {
 
     private final UIManagerTree uiManagerTree;
     private final Tree tree;
-    private long timestamp;
 
     /**
      * Constructor of the basic function method
