@@ -86,7 +86,7 @@ public class Rectangle {
                     minX = node.x1;
                 }
                 if (node.x2 > maxX) {
-                    maxX = node.x1;
+                    maxX = node.x2;
                 }
                 if (node.y1 < minY) {
                     minY = node.y1;
