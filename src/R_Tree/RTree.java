@@ -1,10 +1,11 @@
 package R_Tree;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RTree {
 
-    private Rectangle root = new Rectangle(0, 0, 0, 0, new ArrayList<>() {{add(new Rectangle(0,0,1,1,new ArrayList<>(), new ArrayList<>())); add(new Rectangle(7,7,10,10, new ArrayList<>(), new ArrayList<>()));}}, new ArrayList<>());
+    private Rectangle root = new Rectangle(0, 0, 0, 0, new ArrayList<>());
 
     public void setRoot(Rectangle root) {
         this.root = root;
@@ -14,32 +15,65 @@ public class RTree {
         return root;
     }
 
-    public Rectangle insert (Rectangle parent, Cercle newNode){
-        double minAreaValue = Double.MAX_VALUE;
-        int minIndex = -1;
+    public Rectangle insert (Rectangle parent, Figura newNode){
+        double minPerimeter = Double.MAX_VALUE;
+        int minIndex = Integer.MIN_VALUE;
 
-        if (parent.getFulles().isEmpty() && !parent.getNodes().isEmpty()) {
-            Rectangle rectangle;
-            for (int i = 0; i < parent.getNodes().size(); i++) {
-                rectangle = parent.getNodes().get(i);
-                double newArea = rectangle.newArea(newNode.getX(), newNode.getY());
-                if (newArea <= minAreaValue) {
-                    minAreaValue = newArea;
-                    minIndex = i;
-                }
+        if (!parent.getNodes().isEmpty() && parent.getNodes().get(0) instanceof Rectangle) {
+            if (((Rectangle) parent.getNodes().get(0)).getNodes().get(0) instanceof Cercle && newNode instanceof Rectangle) {
+                parent.addNode(newNode);
             }
-            insert(parent.getNodes().get(minIndex),newNode);
+            else {
 
+                for (int i = 0; i < parent.getNodes().size(); i++) {
+                    Rectangle rectangle = (Rectangle) parent.getNodes().get(i);
+                    double newPerimeter = rectangle.newPerimeter(newNode);
+
+                    if (newPerimeter <= minPerimeter) {
+                        minPerimeter = newPerimeter;
+                        minIndex = i;
+                    }
+                }
+                insert((Rectangle) parent.getNodes().get(minIndex), newNode);
+            }
         }
         else {
-
+            parent.addNode(newNode);
         }
 
-        if (parent.getNodes().isEmpty()) {
-            parent.getFulles().add(newNode);
-        }
         parent.updateArea();
-        //TODO OVERFLOW DE LA LLISTA DE CERCLES, CREACIO DE MÉS NODES
+
+        if (parent.getNodes().size() > 3) {
+            if (parent.getParent() == null) {
+                int[] indexes = parent.calcFurthestFigures();
+
+                Figura lowestCenter = parent.getNodes().get(indexes[0]);
+                Figura highestCenter = parent.getNodes().get(indexes[1]);
+
+                Rectangle lowestCenterBranch = new Rectangle(lowestCenter.getCenter(), new ArrayList<>() {{ add(lowestCenter);}});
+                Rectangle highestCenterBranch = new Rectangle(highestCenter.getCenter(), new ArrayList<>() {{ add(highestCenter);}});
+
+                List<Figura> nodes = new ArrayList<>(parent.getNodes());
+
+                parent.getNodes().clear();
+
+                parent.addNode(lowestCenterBranch);
+                parent.addNode(highestCenterBranch);
+
+                for (int index : indexes) {
+                    nodes.remove(index);
+                }
+
+                for (Figura node : nodes) {
+                    insert(parent,node);
+                }
+            }
+            else {
+
+            }
+        }
+
+
 
         return parent;
     }

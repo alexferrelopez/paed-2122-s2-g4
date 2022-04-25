@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Representa una fulla de la nostra estructura de l'arbre R.
  */
-public class Cercle {
+public class Cercle extends Figura{
     private final double x;
     private final double y;
     private final double radi;
@@ -38,5 +38,30 @@ public class Cercle {
 
     public double getY() {
         return y;
+    }
+
+    @Override
+    public double calcMaxX(Double x) {
+        return Math.max(this.x, x);
+    }
+
+    @Override
+    public double calcMaxY(Double y) {
+        return Math.max(this.y, y);
+    }
+
+    @Override
+    public double calcMinX(Double x) {
+        return Math.min(this.x, x);
+    }
+
+    @Override
+    public double calcMinY(Double y) {
+        return Math.min(this.y, y);
+    }
+
+    @Override
+    public double[] getCenter() {
+        return new double[] {x,y};
     }
 }

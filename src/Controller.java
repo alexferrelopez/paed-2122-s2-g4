@@ -29,7 +29,6 @@ public class Controller {
     private final UIManagerTree uiManagerTree;
     private final Feed feed;
     private final SearchTimestamp searchTimestamp;
-
     private final RTree rTree;
     private final UIManagerCanvas uiManagerCanvas;
 
@@ -130,7 +129,7 @@ public class Controller {
         boolean back = false;
 
         while (!back) {
-            Tree.print2DUtil(tree.getRoot(), 0);
+            //Tree.print2DUtil(tree.getRoot(), 0);
             switch (uiManagerTree.showTreeMenu()) {
                 case AFEGIR         -> basicFunctions.addAlgorithm(tree.getRoot());
                 case ELIMINAR       -> basicFunctions.deleteAlgorithm();

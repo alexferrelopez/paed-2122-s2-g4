@@ -3,12 +3,10 @@ package Tree;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static Tree.Node.height;
-
 public class Tree {
 
     private Node root;
-        static final int COUNT = 10;
+    static final int COUNT = 10;
 
     public void setRoot(Node root) {
         this.root = root;

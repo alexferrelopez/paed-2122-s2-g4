@@ -1,18 +1,17 @@
 package R_Tree;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Rectangle {
+public class Rectangle extends Figura{
     private double x1;
     private double y1;
     private double x2;
     private double y2;
-    private List<Rectangle> nodes;
-    private List<Cercle> fulles;
-    public Rectangle(double x1, double y1, double x2, double y2, List<Rectangle> nodes, List<Cercle> fulles) {
+    private List<Figura> nodes;
 
+    public Rectangle(double x1, double y1, double x2, double y2, List<Figura> nodes) {
         this.nodes = nodes;
-        this.fulles = fulles;
         double tmp;
 
         if (x1 > x2) {
@@ -32,8 +31,17 @@ public class Rectangle {
         this.y2 = y2;
     }
 
-    public double calcArea() {
-        return (x2 - x1) * (y2 - y1);
+    public Rectangle(double[] center, ArrayList<Figura> nodes) {
+        this.nodes = nodes;
+
+        this.x1 = center[0];
+        this.y1 = center[1];
+        this.x2 = center[0];
+        this.y2 = center[1];
+    }
+
+    public double calcPerimeter() {
+        return (x2 - x1) * 2 + (y2 - y1) * 2 ;
     }
 
     public boolean isCercleInside(Cercle cercle) {
@@ -41,80 +49,96 @@ public class Rectangle {
         return ((cercle.getX() - x1) >= 0 && (cercle.getX() - x1) <= delta_x) && ((cercle.getY() - y1) >= 0 && (cercle.getY() - y1) <= delta_y);
     }
 
-    public double newArea(Double x1, Double y1) {
-        Rectangle temp = new Rectangle(x1, y1, x2, y2, null, null);
-        if (x1 < this.x1) {
-            temp.x1 = x1;
-        } else if (x1 > this.x2) {
-            temp.x2 = x1;
-        }
+    public double newPerimeter(Figura figura) {
+        Rectangle temp = new Rectangle(x1, y1, x2, y2, null);
 
-        if (y1 < this.y1) {
-            temp.y1 = y1;
-        } else if (y1 > this.y2) {
-            temp.y2 = y1;
-        }
-        return Math.abs(calcArea() - temp.calcArea());
-    }
+        temp.x1 = figura.calcMinX(x1);
+        temp.y1 = figura.calcMinY(y1);
+        temp.x2 = figura.calcMaxX(x2);
+        temp.y2 = figura.calcMaxY(y2);
 
-    public List<Cercle> getFulles() {
-        return fulles;
-    }
-
-    public void setFulles(List<Cercle> fulles) {
-        this.fulles = fulles;
-    }
-
-    public List<Rectangle> getNodes() {
-        return nodes;
-    }
-
-    public void setNodes(List<Rectangle> nodes) {
-        this.nodes = nodes;
+        return Math.abs(calcPerimeter() - temp.calcPerimeter());
     }
 
     public void updateArea() {
-
         double minX = Double.MAX_VALUE;
-        double maxX = Double.MIN_VALUE;
         double minY = Double.MAX_VALUE;
+        double maxX = Double.MIN_VALUE;
         double maxY = Double.MIN_VALUE;
 
-        if (fulles.isEmpty() && !nodes.isEmpty()) {
-            for (Rectangle node : nodes) {
-                if (node.x1 < minX) {
-                    minX = node.x1;
-                }
-                if (node.x2 > maxX) {
-                    maxX = node.x2;
-                }
-                if (node.y1 < minY) {
-                    minY = node.y1;
-                }
-                if (node.y2 > maxY) {
-                    maxY = node.y2;
-                }
-            }
+        for (Figura node : nodes) {
+                minX = node.calcMinX(minX);
+                minY = node.calcMinY(minY);
+                maxX = node.calcMaxX(maxX);
+                maxY = node.calcMaxY(maxY);
         }
-        else {
-            for (Cercle fulla : fulles) {
-                if (fulla.getX() < minX) {
-                    minX = fulla.getX();
-                }
-                if (fulla.getX() > maxX) {
-                    maxX = fulla.getX();
-                }
-                if (fulla.getY() < minY) {
-                    minY = fulla.getY();
-                }
-                if (fulla.getY() > maxY) {
-                    maxY = fulla.getY();
-                }
-            }
-        }
+
         x1 = minX;
         x2 = maxX;
         y1 = minY;
         y2 = maxY;
+    }
+
+    public List<Figura> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<Figura> nodes) {
+        this.nodes = nodes;
+    }
+
+    public void addNode(Figura newNode) {
+        newNode.setParent(this);
+        nodes.add(newNode);
+    }
+
+    public int[] calcFurthestFigures() {
+        int[] indexes = new int[2];
+
+        double min = Double.MAX_VALUE;
+        double max = Double.MIN_VALUE;
+
+        for (Figura node : nodes) {
+            double[] center = node.getCenter();
+            if ((center[0] + center[1]) < min) {
+                indexes[0] = nodes.indexOf(node);
+                min = center[0] + center[1];
+            }
+            if (center[0] + center[1] > max) {
+                indexes[1] = nodes.indexOf(node);
+                max = center[0] + center[1];
+            }
+        }
+        return indexes;
+    }
+
+    @Override
+    public double calcMaxX(Double x) {
+        return Math.max(x2, x);
+    }
+
+    @Override
+    public double calcMaxY(Double y) {
+        return Math.max(y2, y);
+    }
+
+    @Override
+    public double calcMinX(Double x) {
+        return Math.min(x1,x);
+    }
+
+    @Override
+    public double calcMinY(Double y) {
+        return Math.min(y1, y);
+    }
+
+    @Override
+    public double[] getCenter() {
+        double[] coords = new double[2];
+
+        coords[0] = x2 - x1;
+        coords[1] = y2 - y1;
+
+        return coords;
     }
 }
