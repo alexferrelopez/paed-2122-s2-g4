@@ -6,6 +6,7 @@ import java.util.List;
 public class RTree {
 
     private Rectangle root = new Rectangle(0, 0, 0, 0, new ArrayList<>());
+    private final int listSize = 5;
 
     public void setRoot(Rectangle root) {
         this.root = root;
@@ -43,7 +44,7 @@ public class RTree {
             parent.addNode(newNode);
         }
 
-        if (parent.getNodes().size() > 3) {
+        if (parent.getNodes().size() > listSize) {
             int[] indexes = parent.calcFurthestFigures();
 
             Figura furthestFigure1 = parent.getNodes().get(indexes[0]);
