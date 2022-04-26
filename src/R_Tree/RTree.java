@@ -54,23 +54,13 @@ public class RTree {
 
                 parent.getNodes().clear();
 
-                if (furthestFigure1 instanceof Rectangle && ((Rectangle) furthestFigure1).getNodes().size() == 1) {
-                    parent.addNode(furthestFigure1);
-                }
-                else {
-                    Rectangle newBranch1 = new Rectangle(furthestFigure1.getCenter());
-                    newBranch1.addNode(furthestFigure1);
-                    parent.addNode(newBranch1);
-                }
+                Rectangle newBranch1 = new Rectangle(furthestFigure1.getCenter());
+                newBranch1.addNode(furthestFigure1);
+                parent.addNode(newBranch1);
 
-                if (furthestFigure2 instanceof Rectangle && ((Rectangle) furthestFigure2).getNodes().size() == 1) {
-                    parent.addNode(furthestFigure2);
-                }
-                else {
-                    Rectangle newBranch2 = new Rectangle(furthestFigure2.getCenter());
-                    newBranch2.addNode(furthestFigure2);
-                    parent.addNode(newBranch2);
-                }
+                Rectangle newBranch2 = new Rectangle(furthestFigure2.getCenter());
+                newBranch2.addNode(furthestFigure2);
+                parent.addNode(newBranch2);
 
                 nodes.remove(furthestFigure1);
                 nodes.remove(furthestFigure2);
@@ -82,14 +72,9 @@ public class RTree {
             else {
                 Rectangle grandParent = parent.getParent();
 
-                if (furthestFigure1 instanceof Rectangle && ((Rectangle) furthestFigure1).getNodes().size() == 1) {
-                    grandParent.addNode(furthestFigure1);
-                }
-                else {
-                    Rectangle newRectangle = new Rectangle(furthestFigure1.getCenter());
-                    newRectangle.addNode(furthestFigure1);
-                    grandParent.addNode(newRectangle);
-                }
+                Rectangle newRectangle = new Rectangle(furthestFigure1.getCenter());
+                newRectangle.addNode(furthestFigure1);
+                grandParent.addNode(newRectangle);
 
                 List<Figura> nodes = new ArrayList<>(parent.getNodes());
 
@@ -99,6 +84,8 @@ public class RTree {
                 parent.getNodes().clear();
 
                 parent.addNode(furthestFigure2);
+
+                parent.updateArea();
 
                 for (Figura node : nodes) {
                     insert(grandParent, node);
