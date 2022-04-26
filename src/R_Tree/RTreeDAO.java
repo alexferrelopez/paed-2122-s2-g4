@@ -30,9 +30,8 @@ public class RTreeDAO {
                     split[3]
             );
 
-            rTree.insert(rTree.getRoot(),cercle);
+            rTree.setRoot(rTree.insert(rTree.getRoot(),cercle));
         }
-
         return rTree.getRoot();
     }
 

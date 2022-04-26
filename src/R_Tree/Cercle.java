@@ -64,4 +64,9 @@ public class Cercle extends Figura{
     public double[] getCenter() {
         return new double[] {x,y};
     }
+
+    @Override
+    public String toString() {
+        return "C: " + x +", "+  y + "\n";
+    }
 }

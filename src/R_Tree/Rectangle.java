@@ -31,8 +31,8 @@ public class Rectangle extends Figura{
         this.y2 = y2;
     }
 
-    public Rectangle(double[] center, ArrayList<Figura> nodes) {
-        this.nodes = nodes;
+    public Rectangle(double[] center) {
+        this.nodes = new ArrayList<>();
 
         this.x1 = center[0];
         this.y1 = center[1];
@@ -90,26 +90,36 @@ public class Rectangle extends Figura{
     public void addNode(Figura newNode) {
         newNode.setParent(this);
         nodes.add(newNode);
+
+        updateArea();
     }
 
     public int[] calcFurthestFigures() {
         int[] indexes = new int[2];
 
-        double min = Double.MAX_VALUE;
-        double max = Double.MIN_VALUE;
+        double min = Double.MIN_VALUE;
 
         for (Figura node : nodes) {
             double[] center = node.getCenter();
-            if ((center[0] + center[1]) < min) {
-                indexes[0] = nodes.indexOf(node);
-                min = center[0] + center[1];
-            }
-            if (center[0] + center[1] > max) {
-                indexes[1] = nodes.indexOf(node);
-                max = center[0] + center[1];
+
+            for (Figura figura : nodes) {
+                double[] point = figura.getCenter();
+                double distance = distance(point[0], point[1], center[0], center[1]);
+                if (distance > min) {
+                    min = distance;
+                    indexes[0] = getNodes().indexOf(node);
+                    indexes[1] = getNodes().indexOf(figura);
+                }
             }
         }
         return indexes;
+    }
+
+    private double distance(double x1, double y1, double x2, double y2) {
+        double x = x1 - x2;
+        double y = y1 - y2;
+
+        return x * x + y * y;
     }
 
     @Override
@@ -136,9 +146,16 @@ public class Rectangle extends Figura{
     public double[] getCenter() {
         double[] coords = new double[2];
 
-        coords[0] = x2 - x1;
-        coords[1] = y2 - y1;
+        coords[0] = (x1 + x2) / 2;
+        coords[1] = (y1 + y2) / 2;
 
         return coords;
+    }
+
+    @Override
+    public String toString() {
+        return "R: " + nodes.size() +
+                " nodes= \n" + nodes +
+                "\n";
     }
 }

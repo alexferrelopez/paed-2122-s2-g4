@@ -16,15 +16,16 @@ public class RTree {
     }
 
     public Rectangle insert (Rectangle parent, Figura newNode){
-        double minPerimeter = Double.MAX_VALUE;
-        int minIndex = Integer.MIN_VALUE;
+
+        parent.updateArea();
 
         if (!parent.getNodes().isEmpty() && parent.getNodes().get(0) instanceof Rectangle) {
             if (((Rectangle) parent.getNodes().get(0)).getNodes().get(0) instanceof Cercle && newNode instanceof Rectangle) {
                 parent.addNode(newNode);
             }
             else {
-
+                double minPerimeter = Double.MAX_VALUE;
+                int minIndex = 0;
                 for (int i = 0; i < parent.getNodes().size(); i++) {
                     Rectangle rectangle = (Rectangle) parent.getNodes().get(i);
                     double newPerimeter = rectangle.newPerimeter(newNode);
@@ -34,47 +35,78 @@ public class RTree {
                         minIndex = i;
                     }
                 }
-                insert((Rectangle) parent.getNodes().get(minIndex), newNode);
+                Figura figura = parent.getNodes().get(minIndex);
+                insert((Rectangle) figura, newNode);
             }
         }
         else {
             parent.addNode(newNode);
         }
 
-        parent.updateArea();
-
         if (parent.getNodes().size() > 3) {
+            int[] indexes = parent.calcFurthestFigures();
+
+            Figura furthestFigure1 = parent.getNodes().get(indexes[0]);
+            Figura furthestFigure2 = parent.getNodes().get(indexes[1]);
+
             if (parent.getParent() == null) {
-                int[] indexes = parent.calcFurthestFigures();
-
-                Figura lowestCenter = parent.getNodes().get(indexes[0]);
-                Figura highestCenter = parent.getNodes().get(indexes[1]);
-
-                Rectangle lowestCenterBranch = new Rectangle(lowestCenter.getCenter(), new ArrayList<>() {{ add(lowestCenter);}});
-                Rectangle highestCenterBranch = new Rectangle(highestCenter.getCenter(), new ArrayList<>() {{ add(highestCenter);}});
-
                 List<Figura> nodes = new ArrayList<>(parent.getNodes());
 
                 parent.getNodes().clear();
 
-                parent.addNode(lowestCenterBranch);
-                parent.addNode(highestCenterBranch);
-
-                for (int index : indexes) {
-                    nodes.remove(index);
+                if (furthestFigure1 instanceof Rectangle && ((Rectangle) furthestFigure1).getNodes().size() == 1) {
+                    parent.addNode(furthestFigure1);
                 }
+                else {
+                    Rectangle newBranch1 = new Rectangle(furthestFigure1.getCenter());
+                    newBranch1.addNode(furthestFigure1);
+                    parent.addNode(newBranch1);
+                }
+
+                if (furthestFigure2 instanceof Rectangle && ((Rectangle) furthestFigure2).getNodes().size() == 1) {
+                    parent.addNode(furthestFigure2);
+                }
+                else {
+                    Rectangle newBranch2 = new Rectangle(furthestFigure2.getCenter());
+                    newBranch2.addNode(furthestFigure2);
+                    parent.addNode(newBranch2);
+                }
+
+                nodes.remove(furthestFigure1);
+                nodes.remove(furthestFigure2);
 
                 for (Figura node : nodes) {
                     insert(parent,node);
                 }
             }
             else {
+                Rectangle grandParent = parent.getParent();
 
+                if (furthestFigure1 instanceof Rectangle && ((Rectangle) furthestFigure1).getNodes().size() == 1) {
+                    grandParent.addNode(furthestFigure1);
+                }
+                else {
+                    Rectangle newRectangle = new Rectangle(furthestFigure1.getCenter());
+                    newRectangle.addNode(furthestFigure1);
+                    grandParent.addNode(newRectangle);
+                }
+
+                List<Figura> nodes = new ArrayList<>(parent.getNodes());
+
+                nodes.remove(furthestFigure1);
+                nodes.remove(furthestFigure2);
+
+                parent.getNodes().clear();
+
+                parent.addNode(furthestFigure2);
+
+                for (Figura node : nodes) {
+                    insert(grandParent, node);
+                }
             }
         }
 
-
-
+        parent.updateArea();
         return parent;
     }
 }

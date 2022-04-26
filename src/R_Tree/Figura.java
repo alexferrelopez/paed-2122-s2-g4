@@ -3,6 +3,7 @@ package R_Tree;
 public abstract class Figura {
 
     private Rectangle parent;
+
     public Rectangle getParent() {
         return parent;
     }
@@ -16,4 +17,9 @@ public abstract class Figura {
     public abstract double calcMinX(Double x);
     public abstract double calcMinY(Double y);
     public abstract double[] getCenter();
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
