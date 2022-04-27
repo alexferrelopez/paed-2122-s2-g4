@@ -1,6 +1,7 @@
 package R_Tree;
 
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * Representa una fulla de la nostra estructura de l'arbre R.

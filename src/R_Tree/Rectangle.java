@@ -1,6 +1,7 @@
 package R_Tree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Rectangle extends Figura{
@@ -97,7 +98,7 @@ public class Rectangle extends Figura{
     public int[] calcFurthestFigures() {
         int[] indexes = new int[2];
 
-        double min = Double.MIN_VALUE;
+        double maxDistance = Double.MIN_VALUE;
 
         for (Figura node : nodes) {
             double[] center = node.getCenter();
@@ -105,8 +106,8 @@ public class Rectangle extends Figura{
             for (Figura figura : nodes) {
                 double[] point = figura.getCenter();
                 double distance = distance(point[0], point[1], center[0], center[1]);
-                if (distance > min) {
-                    min = distance;
+                if (distance > maxDistance) {
+                    maxDistance = distance;
                     indexes[0] = getNodes().indexOf(node);
                     indexes[1] = getNodes().indexOf(figura);
                 }
@@ -119,7 +120,7 @@ public class Rectangle extends Figura{
         double x = x1 - x2;
         double y = y1 - y2;
 
-        return x * x + y * y;
+        return Math.sqrt( x * x + y * y);
     }
 
     @Override

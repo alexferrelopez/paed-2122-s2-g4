@@ -6,7 +6,7 @@ import java.util.List;
 public class RTree {
 
     private Rectangle root = new Rectangle(0, 0, 0, 0, new ArrayList<>());
-    private final int listSize = 5;
+    private final int listSize = 3;
 
     public void setRoot(Rectangle root) {
         this.root = root;

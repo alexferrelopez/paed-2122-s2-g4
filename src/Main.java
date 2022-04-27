@@ -56,7 +56,7 @@ public class Main {
             //--------------------------- R_TREE ALGORITHMS ----------------------------------//
 
             RTree rTree                                   = new RTree();
-            rTree.setRoot(new RTreeDAO(rTree).readFile("rtreeXXS.paed"));
+            rTree.setRoot(new RTreeDAO(rTree).readFile("test.paed"));
             UIManagerCanvas uiManagerCanvas               = new UIManagerCanvas();
 
 
